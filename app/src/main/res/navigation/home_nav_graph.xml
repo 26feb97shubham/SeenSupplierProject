@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/after_home_nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.dev.ecomercesupplier.fragment.HomeFragment"
+        android:label="fragment_main_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_mainHomeFragment_to_brandsFragment"
+            app:destination="@id/brandsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_homeMadeSuppliersFragment"
+            app:destination="@id/homeMadeSuppliersFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_bloggersFragment"
+            app:destination="@id/bloggersFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_globalMarketFragment"
+            app:destination="@id/globalMarketFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_galleryFragment"
+            app:destination="@id/galleryFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_notificationsFragment"
+            app:destination="@id/notificationsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_discountFragment"
+            app:destination="@id/revenueFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_contactUSFragment"
+            app:destination="@id/contactUSFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_chooseCategoriesFragment"
+            app:destination="@id/chooseCategoriesFragment" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_myItemsFragment"
+            app:destination="@id/myItemsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_myCouponsFragment"
+            app:destination="@id/myCouponsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_upgradePackagePlanFragment"
+            app:destination="@id/upgradePackagePlanFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_webViewFragment"
+            app:destination="@id/webViewFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_myOrdersFragment"
+            app:destination="@id/myOrdersFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_uploadImageVideoFragment"
+            app:destination="@id/uploadImageVideoFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_playerViewFragment"
+            app:destination="@id/playerViewFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_receivedOrdersFragment"
+            app:destination="@id/receivedOrdersFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_bankDetailsFragment"
+            app:destination="@id/bankDetailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_cmsFragment"
+            app:destination="@id/cmsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_faqFragment"
+            app:destination="@id/faqFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_selectLangFragment"
+            app:destination="@id/selectLangFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/brandsFragment"
+        android:name="com.dev.ecomercesupplier.fragment.BrandsFragment"
+        android:label="fragment_brands"
+        tools:layout="@layout/fragment_brands" />
+    <fragment
+        android:id="@+id/homeMadeSuppliersFragment"
+        android:name="com.dev.ecomercesupplier.fragment.HomeMadeSuppliersFragment"
+        android:label="fragment_home_made_suppliers"
+        tools:layout="@layout/fragment_home_made_suppliers" />
+    <fragment
+        android:id="@+id/bloggersFragment"
+        android:name="com.dev.ecomercesupplier.fragment.BloggersFragment"
+        android:label="BloggersFragment" />
+    <fragment
+        android:id="@+id/globalMarketFragment"
+        android:name="com.dev.ecomercesupplier.fragment.GlobalMarketFragment"
+        android:label="fragment_global_market"
+        tools:layout="@layout/fragment_global_market" >
+        <action
+            android:id="@+id/action_globalMarketFragment_to_globalMarketDetailsFragment"
+            app:destination="@id/globalMarketDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/galleryFragment"
+        android:name="com.dev.ecomercesupplier.fragment.GalleryFragment"
+        android:label="fragment_gallery"
+        tools:layout="@layout/fragment_gallery" >
+        <action
+            android:id="@+id/action_galleryFragment_to_uploadImageVideoFragment"
+            app:destination="@id/uploadImageVideoFragment" />
+        <action
+            android:id="@+id/action_galleryFragment_to_playerViewFragment"
+            app:destination="@id/playerViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/globalMarketDetailsFragment"
+        android:name="com.dev.ecomercesupplier.fragment.GlobalMarketDetailsFragment"
+        android:label="GlobalMarketDetailsFragment" />
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.dev.ecomercesupplier.fragment.NotificationsFragment"
+        android:label="NotificationsFragment"
+        tools:layout="@layout/fragment_notifications"/>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.dev.ecomercesupplier.fragment.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/revenueFragment"
+        android:name="com.dev.ecomercesupplier.fragment.RevenueFragment"
+        android:label="fragment_discount"
+        tools:layout="@layout/fragment_revenue" />
+    <fragment
+        android:id="@+id/contactUSFragment"
+        android:name="com.dev.ecomercesupplier.fragment.ContactUSFragment"
+        android:label="ContactUSFragment" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.dev.ecomercesupplier.fragment.EditProfileFragment"
+        android:label="EditProfileFragment" >
+        <action
+            android:id="@+id/action_editProfileFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.dev.ecomercesupplier.fragment.ChangePasswordFragment"
+        android:label="fragment_change_password"
+        tools:layout="@layout/fragment_change_password" />
+    <fragment
+        android:id="@+id/chooseCategoriesFragment"
+        android:name="com.dev.ecomercesupplier.fragment.ChooseCategoriesFragment"
+        android:label="ChooseCategoriesFragment" />
+    <fragment
+        android:id="@+id/myItemsFragment"
+        android:name="com.dev.ecomercesupplier.fragment.MyItemsFragment"
+        android:label="MyItemsFragment" >
+        <action
+            android:id="@+id/action_myItemsFragment_to_addItemFragment"
+            app:destination="@id/addItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addItemFragment"
+        android:name="com.dev.ecomercesupplier.fragment.AddItemFragment"
+        android:label="fragment_add_item"
+        tools:layout="@layout/fragment_add_item" >
+        <action
+            android:id="@+id/action_addItemFragment_to_viewAttrFragment"
+            app:destination="@id/viewAttrFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewAttrFragment"
+        android:name="com.dev.ecomercesupplier.fragment.ViewAttrFragment"
+        android:label="ViewAttrFragment" />
+    <fragment
+        android:id="@+id/myCouponsFragment"
+        android:name="com.dev.ecomercesupplier.fragment.MyCouponsFragment"
+        android:label="MyCouponsFragment" >
+        <action
+            android:id="@+id/action_myCouponsFragment_to_addCouponFragment"
+            app:destination="@id/addCouponFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addCouponFragment"
+        android:name="com.dev.ecomercesupplier.fragment.AddCouponFragment"
+        android:label="AddCouponFragment" />
+    <fragment
+        android:id="@+id/upgradePackagePlanFragment"
+        android:name="com.dev.ecomercesupplier.fragment.UpgradePackagePlanFragment"
+        android:label="UpgradePackagePlanFragment" >
+        <action
+            android:id="@+id/action_upgradePackagePlanFragment_to_paymentDetailsFragment"
+            app:destination="@id/paymentDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/paymentDetailsFragment"
+        android:name="com.dev.ecomercesupplier.fragment.PaymentDetailsFragment"
+        android:label="PaymentDetailsFragment" />
+    <fragment
+        android:id="@+id/webViewFragment"
+        android:name="com.dev.ecomercesupplier.fragment.WebViewFragment"
+        android:label="WebViewFragment" />
+    <fragment
+        android:id="@+id/myOrdersFragment"
+        android:name="com.dev.ecomercesupplier.fragment.MyOrdersFragment"
+        android:label="fragment_my_orders"
+        tools:layout="@layout/fragment_my_orders" >
+        <action
+            android:id="@+id/action_myOrdersFragment_to_orderDetailsFragment"
+            app:destination="@id/orderDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/uploadImageVideoFragment"
+        android:name="com.dev.ecomercesupplier.fragment.UploadImageVideoFragment"
+        android:label="UploadImageVideoFragment" />
+    <fragment
+        android:id="@+id/playerViewFragment"
+        android:name="com.dev.ecomercesupplier.fragment.PlayerViewFragment"
+        android:label="PlayerViewFragment" />
+    <fragment
+        android:id="@+id/receivedOrdersFragment"
+        android:name="com.dev.ecomercesupplier.fragment.ReceivedOrdersFragment"
+        android:label="ReceivedOrdersFragment" >
+        <action
+            android:id="@+id/action_receivedOrdersFragment_to_orderDetailsFragment"
+            app:destination="@id/orderDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderDetailsFragment"
+        android:name="com.dev.ecomercesupplier.fragment.OrderDetailsFragment"
+        android:label="OrderDetailsFragment" />
+    <fragment
+        android:id="@+id/bankDetailsFragment"
+        android:name="com.dev.ecomercesupplier.fragment.BankDetailsFragment"
+        android:label="fragment_bank_details"
+        tools:layout="@layout/fragment_bank_details" />
+    <fragment
+        android:id="@+id/cmsFragment"
+        android:name="com.dev.ecomercesupplier.fragment.CmsFragment"
+        android:label="CmsFragment" />
+    <fragment
+        android:id="@+id/faqFragment"
+        android:name="com.dev.ecomercesupplier.fragment.FaqFragment"
+        android:label="FaqFragment" />
+    <fragment
+        android:id="@+id/selectLangFragment"
+        android:name="com.dev.ecomercesupplier.fragment.SelectLangFragment"
+        android:label="SelectLangFragment" />
+
+</navigation>

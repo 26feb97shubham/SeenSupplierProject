@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    android:id="@+id/cardView"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/white"
+    android:layout_marginStart="@dimen/_15sdp"
+    android:layout_marginEnd="@dimen/_15sdp"
+    android:layout_marginTop="@dimen/_7sdp"
+    android:layout_marginBottom="@dimen/_7sdp"
+    app:cardElevation="@dimen/_10sdp"
+    app:strokeWidth="1dp"
+    app:strokeColor="#9F9F9F"
+    app:cardCornerRadius="@dimen/_8sdp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/llView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_15sdp">
+        <TextView
+            android:id="@+id/txtDuration"
+            android:layout_width="@dimen/_160sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:fontFamily="@font/expressway_rg"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:text="6 months package"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:textAllCaps="true"
+            android:includeFontPadding="false"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/_10sdp"/>
+        <TextView
+            android:id="@+id/txtPrice"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:fontFamily="@font/expressway_rg"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:gravity="center_vertical"
+            android:text="AED 350"
+            android:textAllCaps="true"
+            android:includeFontPadding="false"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/packDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textDirection="locale"
+            android:text="@string/lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry_lorem_ipsum_has_been_the_industry_s_standard"
+            android:textColor="#9F9F9F"
+            android:textSize="@dimen/_9ssp"
+            android:textStyle="normal"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:textAllCaps="false"
+            app:layout_constraintTop_toBottomOf="@id/txtPrice"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_15sdp"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:fontFamily="@font/expressway_rg"/>
+
+        <TextView
+            android:id="@+id/txtView"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:fontFamily="@font/expressway_rg"
+            android:background="@drawable/package_details_background"
+            android:gravity="center"
+            android:text="@string/view_package"
+            android:textAllCaps="true"
+            android:includeFontPadding="false"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10ssp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_15sdp"
+            android:layout_gravity="center_horizontal"
+            app:layout_constraintTop_toBottomOf="@id/packDesc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/llView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:paddingBottom="@dimen/_10sdp"-->
+<!--        android:orientation="vertical">-->
+<!--&lt;!&ndash;        <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;            android:id="@+id/txtPrice"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_width="@dimen/_150sdp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="@dimen/_30sdp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:fontFamily="@font/expressway_rg"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:textStyle="bold"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:gravity="center"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:text="AED 350"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:textAllCaps="true"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:includeFontPadding="false"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:textColor="@color/gold"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:textSize="@dimen/_15ssp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:background="@drawable/light_white_filled_rect_box"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_marginTop="@dimen/_10sdp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_gravity="center_horizontal" />&ndash;&gt;-->
+<!--&lt;!&ndash;        <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;            android:id="@+id/txtDuration"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_width="@dimen/_200sdp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="@dimen/_25sdp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:fontFamily="@font/expressway_rg"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:textStyle="bold"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:gravity="center"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:text="6 months package"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:textAllCaps="true"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:includeFontPadding="false"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:textColor="@color/black"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:textSize="@dimen/_15ssp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_marginTop="@dimen/_10sdp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_gravity="center_horizontal" />&ndash;&gt;-->
+<!--&lt;!&ndash;        <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;            android:id="@+id/packDesc"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:gravity="center"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:textDirection="locale"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:text="@string/lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry_lorem_ipsum_has_been_the_industry_s_standard"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:textColor="@color/white"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:textSize="@dimen/_9ssp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:textStyle="normal"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:maxLines="2"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:ellipsize="end"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:textAllCaps="false"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_marginStart="@dimen/_15sdp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_marginEnd="@dimen/_15sdp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:fontFamily="@font/expressway_rg"/>&ndash;&gt;-->
+<!--&lt;!&ndash;        <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;            android:id="@+id/txtView"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_width="@dimen/_200sdp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="@dimen/_20sdp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:fontFamily="@font/expressway_rg"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:textStyle="bold"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:gravity="center"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:text="@string/view_package"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:textAllCaps="true"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:includeFontPadding="false"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:textColor="@color/black"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:textSize="@dimen/_13ssp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_marginTop="@dimen/_10sdp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_gravity="center_horizontal" />&ndash;&gt;-->
+<!--        <View-->
+<!--            android:layout_width="@dimen/_90sdp"-->
+<!--            android:layout_height="@dimen/_1sdp"-->
+<!--            android:layout_gravity="center_horizontal"-->
+<!--            android:background="@color/black"/>-->
+
+<!--    </LinearLayout>-->
+
+
+</com.google.android.material.card.MaterialCardView>

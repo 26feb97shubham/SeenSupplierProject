@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:id="@+id/cardView"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/white"
+    app:cardElevation="@dimen/_10sdp"
+    app:cardCornerRadius="@dimen/_10sdp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/_25sdp"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/closeImg"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:src="@drawable/cross"
+            android:layout_gravity="end"
+            android:padding="@dimen/_5sdp"
+            android:layout_margin="@dimen/_5sdp"/>
+        <TextView
+            android:id="@+id/txt"
+            android:layout_width="@dimen/_160sdp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/expressway_rg"
+            android:textStyle="normal"
+            android:gravity="center"
+            android:text="@string/reason_for_rejection"
+            android:textAllCaps="true"
+            android:includeFontPadding="false"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_20ssp"
+            android:layout_gravity="center_horizontal" />
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:background="@color/gray"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp" />
+
+        <TextView
+            android:id="@+id/desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:text="@string/please_state_a_valid_reason_below_for_rejecting_the_order_thank_you"
+            android:textColor="@color/txt_gray"
+            android:textSize="@dimen/_10ssp"
+            android:textStyle="normal"
+            android:ellipsize="end"
+            android:textAllCaps="false"
+            android:maxLength="500"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:fontFamily="@font/expressway_rg"/>
+
+        <EditText
+                    android:textDirection="locale"
+                    android:textAlignment="viewStart"
+            android:id="@+id/edtReason"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_110sdp"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:hint="@string/enter_text"
+            android:gravity="top"
+            android:padding="@dimen/_10sdp"
+            android:textColor="@color/black"
+            android:background="@drawable/gray_rect_box"/>
+
+
+            <TextView
+                android:id="@+id/btnSubmit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:background="@drawable/gold_filled_small_radius_box"
+                android:fontFamily="@font/farsi_simple_bold"
+                android:includeFontPadding="false"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:textSize="@dimen/_18ssp"
+                android:textStyle="bold"
+                android:layout_marginStart="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_30sdp"
+                android:textAllCaps="false"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:text="@string/submit"/>
+
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

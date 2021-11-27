@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_40sdp"
+        android:fontFamily="@font/expressway_rg"
+        android:src="@drawable/ic_launcher_foreground"
+        android:text="@string/my_coupons"
+        android:includeFontPadding="false"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:textColor="@color/gray_color"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="@dimen/_15ssp"
+        android:textAllCaps="true"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/savedCoupons"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="@dimen/_30sdp"-->
+<!--        android:fontFamily="@font/farsi_simple_bold"-->
+<!--        android:src="@drawable/ic_launcher_foreground"-->
+<!--        android:text="@string/saved_coupons"-->
+<!--        android:includeFontPadding="false"-->
+<!--        android:textStyle="bold"-->
+<!--        android:gravity="center"-->
+<!--        android:layout_marginStart="@dimen/_15sdp"-->
+<!--        android:layout_marginTop="@dimen/_20sdp"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/headerView"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="@dimen/_14ssp"-->
+<!--        android:textAllCaps="true"-->
+<!--        />-->
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        app:layout_constraintBottom_toTopOf="@+id/btnAddCoupon"
+        app:layout_constraintTop_toBottomOf="@+id/header">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/_20sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:layoutAnimation="@anim/layout_animation"
+            android:visibility="visible" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+    <TextView
+        android:id="@+id/txtNoCoupons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/_60sdp"
+        android:fontFamily="@font/expressway_rg"
+        android:gravity="center"
+        android:text="@string/no_coupons_found"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12ssp"
+        android:textStyle="normal"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header" />
+    <TextView
+        android:id="@+id/btnAddCoupon"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_45sdp"
+        android:layout_marginBottom="@dimen/_15sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/gold_filled_wide_radius_rect"
+        android:fontFamily="@font/expressway_rg"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="@string/add_coupons"
+        android:textAllCaps="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="@dimen/_15ssp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="@dimen/_5sdp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

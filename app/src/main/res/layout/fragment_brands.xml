@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    tools:context=".fragment.BrandsFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:fontFamily="@font/farsi_simple_bold"
+        android:src="@drawable/ic_launcher_foreground"
+        android:text="@string/brands"
+        android:includeFontPadding="false"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="@color/gold"
+        android:textSize="@dimen/_20ssp"
+        android:textAllCaps="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/nameLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_37sdp"
+                android:gravity="center"
+                android:text="@string/name"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15ssp"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:fontFamily="@font/farsi_simple_bold"/>
+            <View
+                android:id="@+id/nameView"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_3sdp"
+                android:elevation="@dimen/_20sdp"
+                android:background="@drawable/select_unselect_tab_bg"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/categoryLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_37sdp"
+                android:gravity="center"
+                android:text="Categories"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15ssp"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:fontFamily="@font/farsi_simple_bold"/>
+            <View
+                android:id="@+id/categoryView"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_3sdp"
+                android:elevation="@dimen/_20sdp"
+                android:background="@drawable/select_unselect_tab_bg"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

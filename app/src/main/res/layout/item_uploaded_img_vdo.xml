@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="@dimen/_3sdp"
+    android:layout_marginBottom="@dimen/_3sdp"
+    android:orientation="horizontal">
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_60sdp"
+        android:layout_weight="1"
+        android:layout_marginStart="@dimen/_10sdp"
+        app:cardElevation="@dimen/_5sdp"
+        app:cardCornerRadius="@dimen/_5sdp">
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/default_icon"
+            android:scaleType="fitXY"/>
+        <ImageView
+            android:id="@+id/imgPlay"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:src="@drawable/play_btn_1"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            />
+        <ImageView
+            android:id="@+id/imgRemove"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:src="@drawable/cross"
+            android:layout_gravity="end"
+            />
+
+    </androidx.cardview.widget.CardView>
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.5"
+        android:id="@+id/progressBar"
+        android:layout_gravity="center_vertical"
+        android:max="100"
+        android:scaleY="2"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:progress="0"/>
+    <TextView
+        android:id="@+id/txtProgress"
+        android:layout_width="0dp"
+        android:layout_weight="1.2"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/expressway_rg"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_10ssp"
+        android:gravity="center"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_gravity="center_vertical" />
+
+</LinearLayout>

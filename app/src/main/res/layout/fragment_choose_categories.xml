@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/transparent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/header"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_40sdp"
+            android:fontFamily="@font/expressway_rg"
+            android:src="@drawable/ic_launcher_foreground"
+            android:text="@string/choose_your_category"
+            android:includeFontPadding="false"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:textColor="@color/gray_color"
+            android:textSize="@dimen/_15ssp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:textAllCaps="false"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="@dimen/_15sdp" />
+        <TextView
+            android:id="@+id/header1"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_40sdp"
+            android:fontFamily="@font/expressway_rg"
+            android:src="@drawable/ic_launcher_foreground"
+            android:text="Please select all the related categories for your business:"
+            android:includeFontPadding="false"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:textColor="@color/gray_color"
+            android:textSize="@dimen/_10ssp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:textAllCaps="false"
+            android:layout_below="@+id/header"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="@dimen/_15sdp" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            app:cardBackgroundColor="@color/white"
+            app:cardElevation="@dimen/_10sdp"
+            app:cardCornerRadius="@dimen/_7sdp"
+            android:visibility="gone"
+            android:layout_below="@id/header1"
+            android:layout_centerHorizontal="true">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_10sdp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/txt2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:text="@string/choose_the_categories_that_you_provide"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_16ssp"
+                    />
+                <TextView
+                    android:id="@+id/txtSelect"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/_0_categories_selected"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/txt_gray"
+                    android:textSize="@dimen/_13ssp"
+                    />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/_20sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:layoutAnimation="@anim/layout_animation"
+            android:layout_below="@+id/card1"/>
+        <TextView
+            android:id="@+id/btnContinue"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/gold_filled_wide_radius_rect"
+            android:fontFamily="@font/expressway_rg"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="@string/continue_en"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_below="@+id/rvList"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_centerHorizontal="true"
+            android:textSize="@dimen/_15ssp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:elevation="@dimen/_5sdp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
+
+</ScrollView>

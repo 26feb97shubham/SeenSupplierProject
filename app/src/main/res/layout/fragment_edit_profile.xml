@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="@dimen/_110sdp"
+        android:layout_height="@dimen/_22sdp"
+        android:fontFamily="@font/farsi_simple_bold"
+        android:src="@drawable/ic_launcher_foreground"
+        android:text="@string/edit_profile"
+        android:includeFontPadding="false"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:textColor="#515151"
+        android:textSize="@dimen/_15ssp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:textAllCaps="true"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/_30sdp" >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/profileView"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_marginTop="@dimen/_30sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:civ_border_width="@dimen/_4sdp"
+                    app:civ_border_color="@color/gold"
+                    android:src="@drawable/user" />
+
+                <ImageView
+                    android:id="@+id/editProfile"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_marginBottom="@dimen/_7sdp"
+                    android:src="@drawable/pencil"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/viewName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profileView">
+
+                <TextView
+                    android:id="@+id/txtName"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/expressway_rg"
+                    android:text="@string/company"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:textDirection="locale"
+                    android:textAlignment="viewStart"
+                    android:id="@+id/edtName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:minHeight="@dimen/_35sdp"
+                    android:background="@drawable/gray_gold_rect_box"
+                    android:elevation="@dimen/_5sdp"
+                    android:fontFamily="@font/expressway_rg"
+                    android:hint="@string/enter_company_name"
+                    android:includeFontPadding="false"
+                    android:padding="@dimen/_10sdp"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray"
+                    android:textSize="@dimen/_12ssp"
+                    android:maxLength="120"
+                    android:maxLines="3"
+                    android:ellipsize="end"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/txtName"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/viewPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewEmail">
+
+                <TextView
+                    android:id="@+id/txtPhone"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/expressway_rg"
+                    android:text="@string/phone"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_11ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_35sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/txtPhone"
+                    app:layout_constraintTop_toTopOf="parent">
+                    <TextView
+                        android:id="@+id/txtCountryCode"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/expressway_rg"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:includeFontPadding="false"
+                        android:gravity="center"
+                        android:background="@drawable/gray_gold_rect_box"
+                        android:padding="@dimen/_2sdp"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_11ssp"
+
+                        />
+
+                    <!--<Spinner
+                        android:id="@+id/spinner"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:background="@drawable/gray_gold_rect_box" />-->
+
+                    <EditText
+                    android:textDirection="locale"
+                    android:textAlignment="viewStart"
+                        android:id="@+id/edtPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/expressway_rg"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:includeFontPadding="false"
+                        android:inputType="number"
+                        android:hint="@string/enter_phone_number"
+                        android:imeOptions="actionNext"
+                        android:background="@drawable/gray_gold_rect_box"
+                        android:padding="@dimen/_10sdp"
+                        android:textAllCaps="false"
+                        android:maxLength="15"
+                        android:layout_toEndOf="@+id/txtCountryCode"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray"
+                        android:textSize="@dimen/_12ssp"
+
+                        />
+
+                </RelativeLayout>
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/viewEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewName">
+
+                <TextView
+                    android:id="@+id/txtEmail"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/expressway_rg"
+                    android:text="@string/email"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:textDirection="locale"
+                    android:textAlignment="viewStart"
+                    android:id="@+id/edtEmail"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:background="@drawable/gray_gold_rect_box"
+                    android:elevation="@dimen/_5sdp"
+                    android:fontFamily="@font/expressway_rg"
+
+                    android:hint="@string/enter_a_valid_email"
+                    android:includeFontPadding="false"
+                    android:inputType="textEmailAddress"
+                    android:padding="@dimen/_10sdp"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray"
+                    android:textSize="@dimen/_12ssp"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/txtEmail"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/viewBio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewPhone">
+
+                <TextView
+                    android:id="@+id/txtBio"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/expressway_rg"
+                    android:text="@string/bio"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:textDirection="locale"
+                    android:textAlignment="viewStart"
+                    android:id="@+id/edtBio"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:background="@drawable/gray_gold_rect_box"
+                    android:elevation="@dimen/_5sdp"
+                    android:fontFamily="@font/expressway_rg"
+                    android:hint="@string/enter_bio"
+                    android:includeFontPadding="false"
+                    android:padding="@dimen/_10sdp"
+                    android:textAllCaps="false"
+                    android:minHeight="@dimen/_35sdp"
+                    android:maxLines="7"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray"
+                    android:textSize="@dimen/_12ssp"
+                    android:maxLength="500"
+                    android:ellipsize="end"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/txtBio"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/viewCountry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewBio">
+
+                <TextView
+                    android:id="@+id/txtCountry"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/expressway_rg"
+                    android:text="@string/country"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RelativeLayout
+                    android:id="@+id/rlCountry"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:background="@drawable/gray_gold_rect_box"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/txtCountry"
+                    app:layout_constraintTop_toTopOf="parent" >
+                    <Spinner
+                        android:id="@+id/spinnerCountry"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"/>
+                    <ImageView
+                        android:id="@+id/dropDownImg"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:paddingEnd="@dimen/_10sdp"
+                        android:paddingStart="@dimen/_5sdp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/drop_arrow05"/>
+                </RelativeLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/txt1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/expressway_rg"
+                android:text="@string/countries_to_be_served"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10ssp"
+                android:layout_marginTop="@dimen/_25sdp"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewCountry" />
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                app:layout_constraintTop_toBottomOf="@+id/txt1"
+                android:background="@color/gray"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvServedCountries"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                app:layout_constraintTop_toBottomOf="@+id/view1"/>
+            <!--<RadioGroup
+                android:id="@+id/radioGrp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/view1">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/radUAE"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingStart="@dimen/_3sdp"
+                        android:text="@string/united_arab_emirates"
+                        android:fontFamily="@font/expressway_rg"
+                        android:textColor="@color/black"
+                        android:checked="false"
+                        android:button="?android:attr/listChoiceIndicatorSingle"
+                        android:theme="@style/RadioButtonGold"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:textSize="@dimen/_10ssp"/>
+                    <CheckBox
+                        android:id="@+id/radSA"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:paddingStart="@dimen/_3sdp"
+                        android:button="?android:attr/listChoiceIndicatorSingle"
+                        android:theme="@style/RadioButtonGold"
+                        android:text="@string/saudi_arabia"
+                        android:fontFamily="@font/expressway_rg"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_10ssp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/radOman"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingStart="@dimen/_3sdp"
+                        android:text="@string/oman"
+                        android:button="?android:attr/listChoiceIndicatorSingle"
+                        android:theme="@style/RadioButtonGold"
+                        android:fontFamily="@font/expressway_rg"
+                        android:textColor="@color/black"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:textSize="@dimen/_10ssp"/>
+                    <CheckBox
+                        android:id="@+id/radKuwait"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:paddingStart="@dimen/_3sdp"
+                        android:text="@string/kuwait"
+                        android:button="?android:attr/listChoiceIndicatorSingle"
+                        android:theme="@style/RadioButtonGold"
+                        android:fontFamily="@font/expressway_rg"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_10ssp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/radBahrain"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingStart="@dimen/_3sdp"
+                        android:text="@string/bahrain"
+                        android:button="?android:attr/listChoiceIndicatorSingle"
+                        android:theme="@style/RadioButtonGold"
+                        android:fontFamily="@font/expressway_rg"
+                        android:textColor="@color/black"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:textSize="@dimen/_10ssp"/>
+
+                </LinearLayout>
+
+
+
+            </RadioGroup>-->
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                app:layout_constraintTop_toBottomOf="@+id/rvServedCountries"
+                android:background="@color/gray"/>
+
+            <RelativeLayout
+                android:id="@+id/rlUploadLicense"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/_25sdp"
+                app:layout_constraintTop_toBottomOf="@+id/view2">
+                <ImageView
+                    android:id="@+id/imgAttach"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:src="@drawable/attach"/>
+                <TextView
+                    android:id="@+id/txtUpdateLicense"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/expressway_rg"
+                    android:text="@string/update_trade_license"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10ssp"
+                    android:layout_toEndOf="@+id/imgAttach"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_centerInParent="true"/>
+               <!-- <View
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_1sdp"
+                    android:background="@color/black"
+                    android:layout_below="@+id/txtUpdateLicense"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_toEndOf="@+id/imgAttach"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp" />-->
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/btnSubmit"
+                android:layout_width="@dimen/_200sdp"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:layout_marginBottom="@dimen/_25sdp"
+                android:background="@drawable/gold_filled_wide_radius_rect"
+                android:fontFamily="@font/expressway_rg"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/update_profile"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="@dimen/_15ssp"
+                android:textStyle="bold"
+                android:letterSpacing="0.2"
+                app:layout_constraintTop_toBottomOf="@+id/rlUploadLicense" />
+      <!--      <TextView
+                android:id="@+id/txtChangePass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:layout_marginBottom="@dimen/_25sdp"
+                android:fontFamily="@font/expressway_rg"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:includeFontPadding="false"
+                android:text="@string/change_password"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16ssp"
+                app:layout_constraintTop_toBottomOf="@+id/btnSubmit" />-->
+            <TextView
+                android:id="@+id/txtChangePass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/change_password_caps"
+                android:fontFamily="@font/expressway_rg"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_13ssp"
+                android:layout_marginTop="@dimen/_5sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnSubmit"
+                android:textStyle="normal"/>
+            <!--<View
+                android:layout_width="@dimen/_110sdp"
+                android:layout_height="@dimen/_1sdp"
+                android:background="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtChangePass"
+                android:layout_toEndOf="@+id/txtChangePass"
+                />-->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="@dimen/_5sdp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

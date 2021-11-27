@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".activity.ChooseCategoryActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/rl_top_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_20sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_10sdp">
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="match_parent"
+                android:src="@drawable/arrow_left_icons"
+                android:id="@+id/iv_back_signup_1"
+                android:layout_alignParentStart="true"/>
+
+            <TextView
+                android:id="@+id/signup_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:fontFamily="@font/expressway_rg"
+                android:includeFontPadding="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_15ssp"
+                android:layout_centerInParent="true"
+                android:textStyle="bold"
+                android:textAllCaps="false"
+                android:text="@string/signup"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/mainCard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/rl_top_view"
+            android:layout_marginTop="@dimen/_50sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/background_frgt_pass">
+
+            <ScrollView
+                android:id="@+id/scrollView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/background_create_your_account">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/_30sdp" >
+
+                    <TextView
+                        android:id="@+id/tv_select_category"
+                        android:layout_width="@dimen/_266sdp"
+                        android:layout_height="@dimen/_36sdp"
+                        android:fontFamily="@font/expressway_rg"
+                        android:text="@string/select_category"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_18ssp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="center"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_select_your_category_desc"
+                        android:layout_width="@dimen/_240sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:fontFamily="@font/expressway_rg"
+                        android:text="@string/after_registering_please_select_your_categories_so_customers_can_easily_see_you"
+                        android:textColor="#676870"
+                        android:textSize="@dimen/_14ssp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="center"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_select_category" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_select_your_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:clipToPadding="false"
+                        android:paddingBottom="@dimen/_30sdp"
+                        android:paddingTop="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginBottom="@dimen/_15sdp"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:layoutAnimation="@anim/layout_animation"
+                        tools:listitem="@layout/select_category_item_sign_up"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_select_your_category_desc"/>
+
+
+                    <TextView
+                        android:id="@+id/btnSubmit"
+                        android:layout_width="@dimen/_240sdp"
+                        android:layout_height="@dimen/_45sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:background="@drawable/gold_filled_wide_radius_rect"
+                        android:fontFamily="@font/expressway_rg"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:text="@string/submit"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_15ssp"
+                        android:textStyle="normal"
+                        android:layout_marginTop="@dimen/_40sdp"
+                        app:layout_constraintTop_toBottomOf="@+id/rv_select_your_category" />
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </ScrollView>
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
