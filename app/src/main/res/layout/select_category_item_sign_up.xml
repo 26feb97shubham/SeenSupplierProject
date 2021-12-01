@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    android:id="@+id/account_type_card"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/_70sdp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -24,11 +26,10 @@
             app:cardCornerRadius="@dimen/_8sdp"
             android:layout_marginStart="@dimen/_10sdp">
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_category_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="@dimen/_10sdp"
                 android:src="@drawable/brand"/>
         </com.google.android.material.card.MaterialCardView>
 

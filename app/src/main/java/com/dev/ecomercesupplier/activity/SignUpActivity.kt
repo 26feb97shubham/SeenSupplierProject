@@ -291,20 +291,20 @@ class SignUpActivity : AppCompatActivity() {
             .build())
         startActivityForResult(intent, PICK_IMAGE_FROM_GALLERY)
     }*/
-    private fun chooseDoc() {
-        val intent=Intent(this, FilePickerActivity::class.java)
-        intent.putExtra(FilePickerActivity.CONFIGS, Configurations.Builder()
-            .setCheckPermission(true)
-            .setShowFiles(true)
-            .setShowImages(false)
-            .setShowAudios(false)
-            .setShowVideos(false)
-            .setMaxSelection(1)
-            .setSuffixes("txt", "pdf","doc", "docx")
-            .setSkipZeroSizeFiles(true)
-            .build())
-        startActivityForResult(intent, PICK_DOC)
-    }
+        private fun chooseDoc() {
+            val intent=Intent(this, FilePickerActivity::class.java)
+            intent.putExtra(FilePickerActivity.CONFIGS, Configurations.Builder()
+                .setCheckPermission(true)
+                .setShowFiles(true)
+                .setShowImages(false)
+                .setShowAudios(false)
+                .setShowVideos(false)
+                .setMaxSelection(1)
+                .setSuffixes("txt", "pdf","doc", "docx")
+                .setSkipZeroSizeFiles(true)
+                .build())
+            startActivityForResult(intent, PICK_DOC)
+        }
 
     private fun getCountires() {
         window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
@@ -371,7 +371,6 @@ class SignUpActivity : AppCompatActivity() {
                             servedCountriesList.add(s1)
                         }
                         servedCountriesAdapter.notifyDataSetChanged()
-
                     }
                 } catch (e: IOException) {
                     e.printStackTrace()
@@ -689,6 +688,8 @@ class SignUpActivity : AppCompatActivity() {
         }
         return true
     }
+
+
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == PERMISSION_CAMERA_EXTERNAL_STORAGE_CODE) {

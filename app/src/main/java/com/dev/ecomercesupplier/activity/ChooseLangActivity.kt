@@ -59,7 +59,7 @@ class ChooseLangActivity : AppCompatActivity() {
                 if(IntroFragment.isSelected.equals("Login")){
                     startActivity(Intent(this, LoginActivity::class.java))
                 } else if(IntroFragment.isSelected.equals("Create Account")){
-                    startActivity(Intent(this, SignUpActivity::class.java))
+                    startActivity(Intent(this, RegisterActivity_1::class.java))
                 }
                 finishAffinity()
             }

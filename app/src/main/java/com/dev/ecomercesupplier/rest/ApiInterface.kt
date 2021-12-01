@@ -100,4 +100,7 @@ interface ApiInterface {
 
     @POST(ApiUtils.GetFaq)
     fun getFaq(@Body body: RequestBody?): Call<ResponseBody?>?
+
+    @POST(ApiUtils.UpdateCategory)
+    fun updateCategory(@Body body: RequestBody?): Call<ResponseBody?>?
 }

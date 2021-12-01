@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".activity.RegisterActivity_2">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/rl_top_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_20sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_10sdp">
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="match_parent"
+                android:src="@drawable/arrow_left_icons"
+                android:id="@+id/iv_back_register_2"
+                android:layout_alignParentStart="true"/>
+
+            <TextView
+                android:id="@+id/signup_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:fontFamily="@font/expressway_rg"
+                android:includeFontPadding="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_15ssp"
+                android:layout_centerInParent="true"
+                android:textStyle="bold"
+                android:textAllCaps="false"
+                android:text="@string/signup"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/mainCard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/rl_top_view"
+            android:layout_marginTop="@dimen/_50sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/background_frgt_pass">
+
+            <ScrollView
+                android:id="@+id/scrollView_register_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/background_create_your_account">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/_30sdp" >
+
+                    <TextView
+                        android:id="@+id/tv_create_your_account"
+                        android:layout_width="@dimen/_266sdp"
+                        android:layout_height="@dimen/_36sdp"
+                        android:fontFamily="@font/expressway_rg"
+                        android:text="@string/create_your_account"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_18ssp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="center"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_create_your_account_1"
+                        android:layout_width="@dimen/_236sdp"
+                        android:layout_height="@dimen/_36sdp"
+                        android:fontFamily="@font/expressway_rg"
+                        android:text="@string/after_your_registration_is_complete_n_you_can_see_our_opportunity_products"
+                        android:textColor="#676870"
+                        android:textSize="@dimen/_12ssp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="center"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_create_your_account" />
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_sign_up_1_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/tv_create_your_account_1"
+                        android:layout_marginTop="@dimen/_30sdp"
+                        android:layout_marginHorizontal="@dimen/_30sdp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/mtv_country"
+                            android:layout_width="@dimen/_80sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:text="@string/country"
+                            android:fontFamily="@font/expressway_rg"
+                            android:gravity="center_vertical"
+                            android:textColor="#80272833"/>
+
+                        <RelativeLayout
+                            android:id="@+id/rlCountry"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_35sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:background="@drawable/line"
+                            app:layout_constraintTop_toBottomOf="@id/mtv_country">
+                            <Spinner
+                                android:id="@+id/spinnerCountry_register_2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@android:color/transparent"/>
+                            <com.google.android.material.imageview.ShapeableImageView
+                                android:id="@+id/dropDownImg"
+                                android:layout_width="@dimen/_30sdp"
+                                android:layout_height="@dimen/_30sdp"
+                                android:paddingEnd="@dimen/_10sdp"
+                                android:paddingStart="@dimen/_5sdp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/drop_arrow05"/>
+                        </RelativeLayout>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/mtv_countries_to_be_served"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_20sdp"
+                            app:layout_constraintTop_toBottomOf="@id/rlCountry"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:text="@string/countries_to_be_served"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:fontFamily="@font/expressway_rg"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/black"/>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_countries_to_be_served_register_2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clipToPadding="false"
+                            android:layout_marginTop="@dimen/_15sdp"
+                            android:layoutAnimation="@anim/layout_animation"
+                            tools:listitem="@layout/item_category_list"
+                            app:layout_constraintTop_toBottomOf="@+id/mtv_countries_to_be_served" />
+
+                        <View
+                            android:id="@+id/divider_2"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"
+                            app:layout_constraintTop_toBottomOf="@id/rv_countries_to_be_served_register_2"
+                            android:layout_marginTop="@dimen/_30sdp"
+                            android:background="@color/gray"/>
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="@dimen/_240sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            app:layout_constraintTop_toBottomOf="@id/divider_2"
+                            android:layout_marginTop="@dimen/_15sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:id="@+id/mtv_upload_trade_licence"
+                            android:text="@string/upload_trade_license"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/expressway_rg"
+                            android:textSize="@dimen/_15ssp"
+                            android:textStyle="normal"
+                            android:gravity="center"
+                            android:drawableStart="@drawable/plus_3"
+                            android:paddingStart="@dimen/_15ssp"
+                            android:paddingEnd="@dimen/_15ssp"
+                            android:background="@drawable/black_curved_rect_box"/>
+
+                        <RelativeLayout
+                            android:id="@+id/rlUploadLicense_register_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:layout_marginTop="@dimen/_25sdp"
+                            android:visibility="gone"
+                            app:layout_constraintTop_toBottomOf="@+id/mtv_upload_trade_licence">
+                            <com.google.android.material.imageview.ShapeableImageView
+                                android:id="@+id/imgAttach_register_2"
+                                android:layout_width="@dimen/_50sdp"
+                                android:layout_height="@dimen/_50sdp"
+                                android:src="@drawable/attach"/>
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/txt2_register_2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/expressway_rg"
+                                android:text="@string/upload_trade_license"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_10ssp"
+                                android:layout_toEndOf="@+id/imgAttach_register_2"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:layout_marginEnd="@dimen/_10sdp"
+                                android:layout_centerInParent="true"/>
+
+                        </RelativeLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <TextView
+                        android:id="@+id/btnSignUp_register_2"
+                        android:layout_width="@dimen/_240sdp"
+                        android:layout_height="@dimen/_45sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:background="@drawable/gold_filled_wide_radius_rect"
+                        android:fontFamily="@font/expressway_rg"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:text="@string/signup"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_15ssp"
+                        android:textStyle="normal"
+                        android:layout_marginTop="@dimen/_40sdp"
+                        app:layout_constraintTop_toBottomOf="@+id/cl_sign_up_1_view" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </ScrollView>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar_register_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="@dimen/_5sdp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

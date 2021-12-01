@@ -20,11 +20,11 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginHorizontal="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_10sdp">
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="match_parent"
                 android:src="@drawable/arrow_left_icons"
-                android:id="@+id/iv_back_signup_1"
+                android:id="@+id/iv_back_choose_account_type"
                 android:layout_alignParentStart="true"/>
 
             <TextView
@@ -93,7 +93,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/tv_select_category" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_select_your_category"
+                        android:id="@+id/rv_select_your_account_type"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:clipToPadding="false"
@@ -109,7 +109,7 @@
 
 
                     <TextView
-                        android:id="@+id/btnSubmit"
+                        android:id="@+id/btnSubmit_account_type"
                         android:layout_width="@dimen/_240sdp"
                         android:layout_height="@dimen/_45sdp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -124,7 +124,7 @@
                         android:textSize="@dimen/_15ssp"
                         android:textStyle="normal"
                         android:layout_marginTop="@dimen/_40sdp"
-                        app:layout_constraintTop_toBottomOf="@+id/rv_select_your_category" />
+                        app:layout_constraintTop_toBottomOf="@+id/rv_select_your_account_type" />
 
 
 

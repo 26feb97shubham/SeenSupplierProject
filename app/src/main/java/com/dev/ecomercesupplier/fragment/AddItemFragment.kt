@@ -25,6 +25,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -158,76 +159,54 @@ class AddItemFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        mView!!.edtItemPrice.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s.toString().length > 3 && s.toString().contains(".")) {
-                    if (s.toString().length - s.toString().indexOf(".") > 3) {
-                        mView!!.edtItemPrice.setText(s.toString().substring(0, s.toString().length -1))
-                        mView!!.edtItemPrice.setSelection( mView!!.edtItemPrice.text!!.length)
-                    }
-
-                }
-                else  if(s.toString().length>8){
-                    mView!!.edtItemPrice.setText(s.toString().substring(0, s.toString().length -1))
-                    mView!!.edtItemPrice.setSelection( mView!!.edtItemPrice.text!!.length)
-                }
-                else if(s.toString().length==1 && s.toString().contains("0")){
-                    mView!!.edtItemPrice.setText(s.toString().substring(0, s.toString().length -1))
-                    mView!!.edtItemPrice.setSelection( mView!!.edtItemPrice.text!!.length)
-                }
-                else  if(s.toString().length==2 && s.toString().contains(".0")){
+        mView!!.edtItemPrice.doOnTextChanged { s, start, before, count ->
+            if (s.toString().length > 3 && s.toString().contains(".")) {
+                if (s.toString().length - s.toString().indexOf(".") > 3) {
                     mView!!.edtItemPrice.setText(s.toString().substring(0, s.toString().length -1))
                     mView!!.edtItemPrice.setSelection( mView!!.edtItemPrice.text!!.length)
                 }
 
             }
-
-        })
-
-        mView!!.edtDiscPer.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
+            else  if(s.toString().length>8){
+                mView!!.edtItemPrice.setText(s.toString().substring(0, s.toString().length -1))
+                mView!!.edtItemPrice.setSelection( mView!!.edtItemPrice.text!!.length)
             }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
+            else if(s.toString().length==1 && s.toString().contains("0")){
+                mView!!.edtItemPrice.setText(s.toString().substring(0, s.toString().length -1))
+                mView!!.edtItemPrice.setSelection( mView!!.edtItemPrice.text!!.length)
             }
+            else  if(s.toString().length==2 && s.toString().contains(".0")){
+                mView!!.edtItemPrice.setText(s.toString().substring(0, s.toString().length -1))
+                mView!!.edtItemPrice.setSelection( mView!!.edtItemPrice.text!!.length)
+            }
+        }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s.toString().length > 3 && s.toString().contains(".")) {
-                    if (s.toString().length - s.toString().indexOf(".") > 3) {
-                        mView!!.edtDiscPer.setText(s.toString().substring(0, s.toString().length -1))
-                        mView!!.edtDiscPer.setSelection(mView!!.edtDiscPer.text!!.length)
-                    }
-
-                }
-                else  if (s.toString().length > 2 && !s.toString().contains(".")) {
-                    mView!!.edtDiscPer.setText(s.toString().substring(0, s.toString().length -1))
-                    mView!!.edtDiscPer.setSelection(mView!!.edtDiscPer.text!!.length)
-
-                }
-                /*else  if(s.toString().length>5){
-                    mView.perDisc.setText(s.toString().substring(0, s.toString().length -1))
-                    mView.perDisc.setSelection(mView.perDisc.text!!.length)
-                }*/
-                else if(s.toString().length==1 && s.toString().contains("0")){
-                    mView!!.edtDiscPer.setText(s.toString().substring(0, s.toString().length -1))
-                    mView!!.edtDiscPer.setSelection(mView!!.edtDiscPer.text!!.length)
-                }
-                else  if(s.toString().length==2 && s.toString().contains(".0")){
+        mView!!.edtDiscPer.doOnTextChanged { s, start, before, count ->
+            if (s.toString().length > 3 && s.toString().contains(".")) {
+                if (s.toString().length - s.toString().indexOf(".") > 3) {
                     mView!!.edtDiscPer.setText(s.toString().substring(0, s.toString().length -1))
                     mView!!.edtDiscPer.setSelection(mView!!.edtDiscPer.text!!.length)
                 }
 
             }
+            else  if (s.toString().length > 2 && !s.toString().contains(".")) {
+                mView!!.edtDiscPer.setText(s.toString().substring(0, s.toString().length -1))
+                mView!!.edtDiscPer.setSelection(mView!!.edtDiscPer.text!!.length)
 
-        })
+            }
+            /*else  if(s.toString().length>5){
+                mView.perDisc.setText(s.toString().substring(0, s.toString().length -1))
+                mView.perDisc.setSelection(mView.perDisc.text!!.length)
+            }*/
+            else if(s.toString().length==1 && s.toString().contains("0")){
+                mView!!.edtDiscPer.setText(s.toString().substring(0, s.toString().length -1))
+                mView!!.edtDiscPer.setSelection(mView!!.edtDiscPer.text!!.length)
+            }
+            else  if(s.toString().length==2 && s.toString().contains(".0")){
+                mView!!.edtDiscPer.setText(s.toString().substring(0, s.toString().length -1))
+                mView!!.edtDiscPer.setSelection(mView!!.edtDiscPer.text!!.length)
+            }
+        }
 
 
         mView!!.scrollView.setOnTouchListener { v, event ->
@@ -252,6 +231,7 @@ class AddItemFragment : Fragment() {
 
         })
         mView!!.rvImgVdo.adapter=imageVideoAdapter
+        imageVideoAdapter.notifyDataSetChanged()
 
         mView!!.rvList.layoutManager=LinearLayoutManager(requireContext())
         attributesAdapter= AttributesAdapter(requireContext(), attrList, object : ClickInterface.ClickJSonObjInterface{
@@ -331,7 +311,6 @@ class AddItemFragment : Fragment() {
                                 mView!!.edtItemQty.setText("")
                                 attributeObj= JSONObject()
                                 attributesAdapter.notifyDataSetChanged()
-
                             }
                         }
 
@@ -843,45 +822,6 @@ class AddItemFragment : Fragment() {
 
     }
 
-
-
-
-    private fun chooseImageVideo() {
-      /*  val intent=Intent(requireContext(), FilePickerActivity::class.java)*/
-        /*intent.putExtra(FilePickerActivity.CONFIGS, Configurations.Builder()
-                .setCheckPermission(true)
-                .setShowFiles(false)
-                .setShowImages(true)
-                .setShowAudios(false)
-                .setShowVideos(true)
-//                .setMaxSelection(5-pathList.size)
-            .setMaxSelection(5)
-                .enableImageCapture(true)
-                .enableVideoCapture(true)
-                .setSkipZeroSizeFiles(true)
-                .build())
-        startActivityForResult(intent, PICK_DOC)*/
-     /*   intent.putExtra(FilePickerActivity.CONFIGS, Configurations.Builder()
-            .setCheckPermission(true)
-            .setShowFiles(true)
-            .setShowImages(true)
-            .setShowAudios(false)
-            .setShowVideos(true)
-//                .setMaxSelection(5-pathList.size)
-            .setMaxSelection(5-pathList.size)
-            .enableImageCapture(true)
-            .enableVideoCapture(true)
-            .setSkipZeroSizeFiles(true)
-            .build())
-        startActivityForResult(intent, PICK_DOC)*/
-
-        val intent = Intent()
-        intent.type = "image/*"
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_MULTIPLE);
-    }
-
     private fun openCameraDialog() {
         val items = arrayOf<CharSequence>(getString(R.string.camera), getString(R.string.gallery), getString(R.string.cancel))
         val builder = AlertDialog.Builder(requireActivity())
@@ -941,12 +881,22 @@ class AddItemFragment : Fragment() {
 
 
     private fun chooseImage() {
+//        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+//        intent.type = "image/*"
+//        uri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE)
+//        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+//        intent.action = Intent.ACTION_GET_CONTENT
+//        intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+//        intent.addCategory(Intent.CATEGORY_OPENABLE)
+//        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
+//        startActivityForResult(intent, PICK_IMAGE_FROM_GALLERY)
+
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         intent.type = "image/*"
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-        intent.action = Intent.ACTION_GET_CONTENT
+        uri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE)
         intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-        intent.addCategory(Intent.CATEGORY_OPENABLE)
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
         startActivityForResult(intent, PICK_IMAGE_FROM_GALLERY)
     }
 
@@ -979,7 +929,7 @@ class AddItemFragment : Fragment() {
             return
         } else if (requestCode == PICK_DOC && resultCode == Activity.RESULT_OK && data != null) {
             val files: java.util.ArrayList<MediaFile> =
-                data.getParcelableArrayListExtra(FilePickerActivity.MEDIA_FILES)!!
+                    data.getParcelableArrayListExtra(FilePickerActivity.MEDIA_FILES)!!
             if (files.size != 0) {
                 for (i in 0 until files.size) {
                     val filePath = FetchPath.getPath(requireContext(), files[i].uri)
@@ -992,121 +942,19 @@ class AddItemFragment : Fragment() {
                     mView!!.imgAttach.alpha = 1f
                     mView!!.imgAttach.isEnabled = true
                 }
-                mView!!.rvImgVdo.layoutManager=LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-                imageVideoAdapter= ImageVideoAdapter(requireContext(), pathList, object :ClickInterface.ClickPosInterface{
+                mView!!.rvImgVdo.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                imageVideoAdapter = ImageVideoAdapter(requireContext(), pathList, object : ClickInterface.ClickPosInterface {
                     override fun clickPostion(pos: Int) {
                         /*pathList.removeAt(pos)*/
-                       /* imageVideoAdapter.notifyDataSetChanged()*/
-                        mView!!.imgAttach.alpha=1f
-                        mView!!.imgAttach.isEnabled=true
+                        /* imageVideoAdapter.notifyDataSetChanged()*/
+                        mView!!.imgAttach.alpha = 1f
+                        mView!!.imgAttach.isEnabled = true
                     }
 
                 })
-                mView!!.rvImgVdo.adapter=imageVideoAdapter
+                mView!!.rvImgVdo.adapter = imageVideoAdapter
                 imageVideoAdapter.notifyDataSetChanged()
             }
-        } else if (requestCode === PICK_IMAGE_MULTIPLE && resultCode === Activity.RESULT_OK && null != data) {
-                // Get the Image from data
-                pathList.clear()
-              /*  if (data.clipData != null) {
-                    val mClipData: ClipData = data.clipData!!
-                    val cout: Int = data.clipData!!.getItemCount()
-                    for (i in 0 until cout) {
-                        // adding imageuri in array
-                        val imageurl: Uri = data.clipData!!.getItemAt(i).getUri()
-                        mArrayUri!!.add(imageurl)
-                        pathList.add(imageurl.toString())
-                    }
-                    if(pathList.size==5){
-                        mView!!.imgAttach.alpha=0.5f
-                        mView!!.imgAttach.isEnabled=false
-                    }
-                    else{
-                        mView!!.imgAttach.alpha=1f
-                        mView!!.imgAttach.isEnabled=true
-                    }
-                    imageVideoAdapter= ImageVideoAdapter(
-                        requireContext(),
-                        pathList,
-                        object : ClickInterface.ClickPosInterface {
-                            override fun clickPostion(pos: Int) {
-                                *//* if(type=="remove"){
-                                pathList.removeAt(pos)
-                                uploadImageVideoAdapter.notifyDataSetChanged()
-                            }*//*
-
-                                mView!!.imgAttach.alpha=1f
-                                mView!!.imgAttach.isEnabled=true
-                            }
-
-
-                        })
-                    mView!!.rvImgVdo.adapter=imageVideoAdapter
-                    imageVideoAdapter.notifyDataSetChanged()
-                    // setting 1st selected image into image switcher
-
-                } else if (data.data!=null) {
-                    *//*  val imageurl: Uri = (data.clipData as Nothing?)!!
-                      mArrayUri!!.add(imageurl)
-                      pathList.add(imageurl.toString())
-                      if(pathList.size==5){
-                          mView!!.imgAttach.alpha=0.5f
-                          mView!!.imgAttach.isEnabled=false
-                      }
-                      else{
-                          mView!!.imgAttach.alpha=1f
-                          mView!!.imgAttach.isEnabled=true
-                      }
-                      uploadImageVideoAdapter.notifyDataSetChanged()*//*
-
-                    val imagePath = data.data!!.path
-                    pathList.add(imagePath.toString())
-                    if(pathList.size==5){
-                        mView!!.imgAttach.alpha=0.5f
-                        mView!!.imgAttach.isEnabled=false
-                    }
-                    else{
-                        mView!!.imgAttach.alpha=1f
-                        mView!!.imgAttach.isEnabled=true
-                    }
-                    imageVideoAdapter= ImageVideoAdapter(requireContext(), pathList, object :ClickInterface.ClickPosInterface{
-                        override fun clickPostion(pos: Int) {
-                            *//*pathList.removeAt(pos)*//*
-                            *//* imageVideoAdapter.notifyDataSetChanged()*//*
-                            mView!!.imgAttach.alpha=1f
-                            mView!!.imgAttach.isEnabled=true
-                        }
-
-                    })
-                    mView!!.rvImgVdo.adapter=imageVideoAdapter
-                    imageVideoAdapter.notifyDataSetChanged()*/
-            if(pathList.size==5){
-                mView!!.imgAttach.alpha=0.5f
-                mView!!.imgAttach.isEnabled=false
-            }
-            else{
-                mView!!.imgAttach.alpha=1f
-                mView!!.imgAttach.isEnabled=true
-            }
-
-            val selectedImage: Uri = data?.getData()!!
-            if (selectedImage.toString().startsWith("content")) {
-                imagePath = getRealPath(selectedImage)!!
-            } else {
-                imagePath = selectedImage.getPath()!!
-            }
-            pathList.add(imagePath)
-            imageVideoAdapter= ImageVideoAdapter(requireContext(), pathList, object :ClickInterface.ClickPosInterface{
-                override fun clickPostion(pos: Int) {
-                    /*pathList.removeAt(pos)*/
-                    /* imageVideoAdapter.notifyDataSetChanged()*/
-                    mView!!.imgAttach.alpha=1f
-                    mView!!.imgAttach.isEnabled=true
-                }
-
-            })
-            mView!!.rvImgVdo.adapter=imageVideoAdapter
-            imageVideoAdapter.notifyDataSetChanged()
         } else if (requestCode == CAMERA_CAPTURE_IMAGE_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) { //previewCapturedImage();
                 if (uri != null) {
@@ -1128,37 +976,32 @@ class AddItemFragment : Fragment() {
                 if (clipdata != null) {
                     for (i in 0 until clipdata.itemCount) {
                         val uri = clipdata.getItemAt(i).uri
+                        if (uri.toString().startsWith("content")) {
+                            imagePath = getRealPath(uri)!!
+                        } else {
+                            imagePath = uri.getPath()!!
+                        }
                         imagePath = if (uri.toString().startsWith("content")) {
                             FetchPath.getPath(requireActivity(), uri!!)!!
                         } else {
                             uri!!.path!!
                         }
 
-                        galleryPhotos.add(uri.path!!)
-                        setUploadPhotos(galleryPhotos)
-
-                        /*if (galleryPhotos.size>10){
-                            //LogUtils.longToast(requireContext(), getString(R.string.max_ten_image))
-                        }else{
-                            galleryPhotos.add(uri.path!!)
-                            setUploadPhotos(galleryPhotos)
-                        }*/
-                        /*    Glide.with(this).applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.user)).load("file:///$imagePath").into(civ_profile)*/
+//                        galleryPhotos.add(imagePath)
                     }
+                    galleryPhotos.add(imagePath)
+                    setUploadPhotos(galleryPhotos)
                 } else { // handle single photo
-                    val uri = data.data
-                    imagePath = if (uri.toString().startsWith("content")) {
-                        FetchPath.getPath(requireActivity(), uri!!)!!
+                    val uri = data.data!!
+                    if (uri.toString().startsWith("content")) {
+                        imagePath = getRealPath(uri)!!
                     } else {
-                        uri!!.path!!
+                        imagePath = uri.getPath()!!
                     }
-                    galleryPhotos.add(uri.path!!)
+                    galleryPhotos.add(imagePath)
                     setUploadPhotos(galleryPhotos)
                 }
             }
-        }  else {
-            // show this if no image is selected
-            Toast.makeText(requireContext(), "You haven't picked Image", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -1179,21 +1022,11 @@ class AddItemFragment : Fragment() {
     }
 
     private fun setUploadPhotos(galleryPhotos: ArrayList<String>) {
-       /* rv_uploaded_photos.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        addNewPhotosAdapter = AddNewPhotosAdapter(requireContext(), galleryPhotos, object : ClickInterface.OnRecyclerItemClick {
-            override fun OnClickAction(position: Int) {
-                galleryPhotos.removeAt(position)
-                addNewPhotosAdapter.notifyDataSetChanged()
-            }
-
-        })
-        rv_uploaded_photos.adapter = addNewPhotosAdapter
-        addNewPhotosAdapter.notifyDataSetChanged()*/
-
+        mView!!.rvImgVdo.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         imageVideoAdapter= ImageVideoAdapter(requireContext(), galleryPhotos, object :ClickInterface.ClickPosInterface{
             override fun clickPostion(pos: Int) {
-                /*pathList.removeAt(pos)*/
-                /* imageVideoAdapter.notifyDataSetChanged()*/
+                galleryPhotos.removeAt(pos)
+                imageVideoAdapter.notifyDataSetChanged()
                 mView!!.imgAttach.alpha=1f
                 mView!!.imgAttach.isEnabled=true
             }

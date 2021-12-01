@@ -25,8 +25,7 @@ class ChooseLoginSignUpActivity : AppCompatActivity() {
         }
         btnSignUp.setOnClickListener {
             btnSignUp.startAnimation(AlphaAnimation(1f, 0.5f))
-            startActivity(Intent(this, SignUpActivity::class.java))
-
+            startActivity(Intent(this, RegisterActivity_1::class.java))
         }
     }
 

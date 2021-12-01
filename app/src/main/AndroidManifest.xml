@@ -4,8 +4,6 @@
     package="com.dev.ecomercesupplier">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -13,7 +11,6 @@
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
@@ -32,29 +29,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EComerceSupplier"
         android:usesCleartextTraffic="true">
-
+        <activity android:name=".activity.RegisterActivity_2"></activity>
+        <activity android:name=".activity.RegisterActivity_1" />
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.
         -->
         <activity
             android:name=".activity.AgreementActivity"
-            android:label="@string/title_activity_agreement">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:label="@string/title_activity_agreement" />
         <activity
             android:name=".activity.ChooseCategoryActivity"
-            android:label="@string/title_activity_choose_category">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:label="@string/title_activity_choose_category"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity android:name=".activity.TermsAndConditionsActivity" />
         <activity
             android:name=".activity.BankAccountDeatilsActivity"

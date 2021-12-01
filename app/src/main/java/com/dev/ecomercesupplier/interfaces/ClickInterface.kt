@@ -20,6 +20,9 @@ interface ClickInterface {
     interface ClickPosItemViewInterface{
         fun clickPosItemView(pos:Int, itemView: View)
     }
+    interface OnRecyclerItemClick{
+        fun OnClickAction(position: Int)
+    }
 
 
 }

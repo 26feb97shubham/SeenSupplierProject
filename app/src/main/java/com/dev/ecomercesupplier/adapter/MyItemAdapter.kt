@@ -36,8 +36,6 @@ class MyItemAdapter(private val context: Context, private val data: ArrayList<Pr
             holder.itemView.imgEdit.startAnimation(AlphaAnimation(1f, .5f))
             clickInstance.clickPostionType(position, "3")
         }
-
-
     }
 
     override fun getItemCount(): Int {

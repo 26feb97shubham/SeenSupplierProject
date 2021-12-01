@@ -21,6 +21,7 @@ import android.view.animation.AlphaAnimation
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
+import androidx.core.widget.doOnTextChanged
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -159,110 +160,77 @@ class AddCouponFragment : Fragment() {
             validateAndSave()
         }
 
-        mView.perDesc.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-            }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s.toString().length > 3 && s.toString().contains(".")) {
-                    if (s.toString().length - s.toString().indexOf(".") > 3) {
-                        mView.perDesc.setText(s.toString().substring(0, s.toString().length -1))
-                        mView.perDesc.setSelection(mView.perDesc.text!!.length)
-                    }
-
-                }
-                else  if (s.toString().length > 2 && !s.toString().contains(".")) {
-                    mView.perDesc.setText(s.toString().substring(0, s.toString().length -1))
-                    mView.perDesc.setSelection(mView.perDesc.text!!.length)
-
-                }
-                /*else  if(s.toString().length>5){
-                    mView.perDisc.setText(s.toString().substring(0, s.toString().length -1))
-                    mView.perDisc.setSelection(mView.perDisc.text!!.length)
-                }*/
-                else if(s.toString().length==1 && s.toString().contains("0")){
-                    mView.perDesc.setText(s.toString().substring(0, s.toString().length -1))
-                    mView.perDesc.setSelection(mView.perDesc.text!!.length)
-                }
-                else  if(s.toString().length==2 && s.toString().contains(".0")){
+        mView.perDesc.doOnTextChanged { s, start, before, count ->
+            if (s.toString().length > 3 && s.toString().contains(".")) {
+                if (s.toString().length - s.toString().indexOf(".") > 3) {
                     mView.perDesc.setText(s.toString().substring(0, s.toString().length -1))
                     mView.perDesc.setSelection(mView.perDesc.text!!.length)
                 }
 
             }
-
-        })
-
-        mView.minTrans.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            else  if (s.toString().length > 2 && !s.toString().contains(".")) {
+                mView.perDesc.setText(s.toString().substring(0, s.toString().length -1))
+                mView.perDesc.setSelection(mView.perDesc.text!!.length)
 
             }
+            /*else  if(s.toString().length>5){
+                mView.perDisc.setText(s.toString().substring(0, s.toString().length -1))
+                mView.perDisc.setSelection(mView.perDisc.text!!.length)
+            }*/
+            else if(s.toString().length==1 && s.toString().contains("0")){
+                mView.perDesc.setText(s.toString().substring(0, s.toString().length -1))
+                mView.perDesc.setSelection(mView.perDesc.text!!.length)
+            }
+            else  if(s.toString().length==2 && s.toString().contains(".0")){
+                mView.perDesc.setText(s.toString().substring(0, s.toString().length -1))
+                mView.perDesc.setSelection(mView.perDesc.text!!.length)
+            }
+        }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s.toString().length > 3 && s.toString().contains(".")) {
-                    if (s.toString().length - s.toString().indexOf(".") > 3) {
-                        mView.minTrans.setText(s.toString().substring(0, s.toString().length -1))
-                        mView.minTrans.setSelection(mView.minTrans.text!!.length)
-                    }
-
-                }
-                else  if(s.toString().length>8){
-                    mView.minTrans.setText(s.toString().substring(0, s.toString().length -1))
-                    mView.minTrans.setSelection(mView.minTrans.text!!.length)
-                }
-                else if(s.toString().length==1 && s.toString().contains("0")){
-                    mView.minTrans.setText(s.toString().substring(0, s.toString().length -1))
-                    mView.minTrans.setSelection(mView.minTrans.text!!.length)
-                }
-                else  if(s.toString().length==2 && s.toString().contains(".0")){
+        mView.minTrans.doOnTextChanged { s, start, before, count ->
+            if (s.toString().length > 3 && s.toString().contains(".")) {
+                if (s.toString().length - s.toString().indexOf(".") > 3) {
                     mView.minTrans.setText(s.toString().substring(0, s.toString().length -1))
                     mView.minTrans.setSelection(mView.minTrans.text!!.length)
                 }
 
             }
-
-        })
-
-        mView.maxCouponAmt.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
+            else  if(s.toString().length>8){
+                mView.minTrans.setText(s.toString().substring(0, s.toString().length -1))
+                mView.minTrans.setSelection(mView.minTrans.text!!.length)
             }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
+            else if(s.toString().length==1 && s.toString().contains("0")){
+                mView.minTrans.setText(s.toString().substring(0, s.toString().length -1))
+                mView.minTrans.setSelection(mView.minTrans.text!!.length)
             }
+            else  if(s.toString().length==2 && s.toString().contains(".0")){
+                mView.minTrans.setText(s.toString().substring(0, s.toString().length -1))
+                mView.minTrans.setSelection(mView.minTrans.text!!.length)
+            }
+        }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s.toString().length > 3 && s.toString().contains(".")) {
-                    if (s.toString().length - s.toString().indexOf(".") > 3) {
-                        mView.maxCouponAmt.setText(s.toString().substring(0, s.toString().length -1))
-                        mView.maxCouponAmt.setSelection(mView.maxCouponAmt.text!!.length)
-                    }
-
-                }
-                else  if(s.toString().length>8){
-                    mView.maxCouponAmt.setText(s.toString().substring(0, s.toString().length -1))
-                    mView.maxCouponAmt.setSelection(mView.maxCouponAmt.text!!.length)
-                }
-                else if(s.toString().length==1 && s.toString().contains("0")){
-                    mView.maxCouponAmt.setText(s.toString().substring(0, s.toString().length -1))
-                    mView.maxCouponAmt.setSelection(mView.maxCouponAmt.text!!.length)
-                }
-                else  if(s.toString().length==2 && s.toString().contains(".0")){
+        mView.maxCouponAmt.doOnTextChanged { s, start, before, count ->
+            if (s.toString().length > 3 && s.toString().contains(".")) {
+                if (s.toString().length - s.toString().indexOf(".") > 3) {
                     mView.maxCouponAmt.setText(s.toString().substring(0, s.toString().length -1))
                     mView.maxCouponAmt.setSelection(mView.maxCouponAmt.text!!.length)
                 }
 
             }
-
-        })
-
+            else  if(s.toString().length>8){
+                mView.maxCouponAmt.setText(s.toString().substring(0, s.toString().length -1))
+                mView.maxCouponAmt.setSelection(mView.maxCouponAmt.text!!.length)
+            }
+            else if(s.toString().length==1 && s.toString().contains("0")){
+                mView.maxCouponAmt.setText(s.toString().substring(0, s.toString().length -1))
+                mView.maxCouponAmt.setSelection(mView.maxCouponAmt.text!!.length)
+            }
+            else  if(s.toString().length==2 && s.toString().contains(".0")){
+                mView.maxCouponAmt.setText(s.toString().substring(0, s.toString().length -1))
+                mView.maxCouponAmt.setSelection(mView.maxCouponAmt.text!!.length)
+            }
+        }
         mView.scrollView.setOnTouchListener(object : View.OnTouchListener{
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
                 mView.title.clearFocus()

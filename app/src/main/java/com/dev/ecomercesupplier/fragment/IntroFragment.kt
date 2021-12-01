@@ -14,6 +14,7 @@ import android.widget.TextView
 import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.activity.ChooseLangActivity
 import com.dev.ecomercesupplier.activity.LoginActivity
+import com.dev.ecomercesupplier.activity.RegisterActivity_1
 import com.dev.ecomercesupplier.activity.SignUpActivity
 import com.dev.ecomercesupplier.utils.SharedPreferenceUtility
 import com.google.android.material.tabs.TabLayoutMediator
@@ -139,7 +140,7 @@ class IntroFragment(val position: Int) : Fragment() {
                         sharedPreferences!!.save("isFirstTime", isFirstTime)
                         sharedPreferences!!.save("isLangSelected", isLangSelected)
                         btnLogin!!.startAnimation(AlphaAnimation(1f, 0.5f))
-                        startActivity(Intent(requireActivity(), SignUpActivity::class.java))
+                        startActivity(Intent(requireActivity(), RegisterActivity_1::class.java))
                     }else{
                         sharedPreferences!!.save("isFirstTime", isFirstTime)
                         sharedPreferences!!.save("isLangSelected", isLangSelected)
@@ -150,7 +151,7 @@ class IntroFragment(val position: Int) : Fragment() {
                     sharedPreferences!!.save("isFirstTime", isFirstTime)
                     sharedPreferences!!.save("isLangSelected", isLangSelected)
                     btnLogin!!.startAnimation(AlphaAnimation(1f, 0.5f))
-                    startActivity(Intent(requireActivity(), SignUpActivity::class.java))
+                    startActivity(Intent(requireActivity(), RegisterActivity_1::class.java))
                 }
 
             }

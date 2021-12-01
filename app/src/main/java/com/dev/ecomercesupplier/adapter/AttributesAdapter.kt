@@ -75,7 +75,7 @@ class AttributesAdapter(private val context: Context, private val data: ArrayLis
                                 if(obj.length()!=0){
                                     if(data[position].id==obj.getInt("id")){
                                         val obj1=JSONObject()
-                                         obj1.put("id", data[position].id)
+                                        obj1.put("id", data[position].id)
                                         obj1.put("name", data[position].name)
                                         obj1.put("type", data[position].type)
                                         obj1.put("value", primaryAttr)

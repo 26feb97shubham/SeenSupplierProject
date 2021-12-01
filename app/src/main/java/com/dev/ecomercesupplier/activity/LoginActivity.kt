@@ -111,7 +111,7 @@ class LoginActivity : AppCompatActivity() {
 
         tv_signup.setOnClickListener{
             tv_signup.startAnimation(AlphaAnimation(1f, 0.5f))
-            startActivity(Intent(this, SignUpActivity::class.java))
+            startActivity(Intent(this, RegisterActivity_1::class.java))
         }
     }
 

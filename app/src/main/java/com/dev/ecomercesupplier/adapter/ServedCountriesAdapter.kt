@@ -51,10 +51,7 @@ class ServedCountriesAdapter(private val context: Context, private val data: Arr
                 }
 
             }
-
         })
-
-
     }
 
     override fun getItemCount(): Int {

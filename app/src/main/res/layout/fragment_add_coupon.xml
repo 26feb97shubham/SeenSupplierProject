@@ -283,7 +283,7 @@
                         android:gravity="start|center_vertical"
                         android:text="@string/discount_perc"
                         android:textAllCaps="false"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/llFromTo"/>
                     <EditText
@@ -293,7 +293,7 @@
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_35sdp"
                         android:fontFamily="@font/expressway_rg"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:textColorHint="@color/txt_gray"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12ssp"
@@ -308,7 +308,7 @@
                         android:inputType="numberDecimal"
                         android:imeOptions="actionNext"
                         android:layout_marginEnd="@dimen/_15sdp"
-                        android:background="@drawable/gray_rect_box"
+                        android:background="@drawable/gray_border_transparent"
                         app:layout_constraintStart_toEndOf="@+id/txtPerDisc"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/llFromTo"/>
@@ -318,7 +318,7 @@
                         android:layout_height="@dimen/_35sdp"
                         android:fontFamily="@font/expressway_rg"
                         android:textColor="@color/black"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:textSize="@dimen/_11ssp"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:layout_marginStart="@dimen/_15sdp"
@@ -327,7 +327,7 @@
                         android:text="@string/min_txn_aed"
                         android:textAllCaps="false"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/txtPerDisc"/>
+                        app:layout_constraintTop_toBottomOf="@+id/perDesc"/>
                     <EditText
                         android:textDirection="locale"
                         android:textAlignment="viewStart"
@@ -338,7 +338,7 @@
                         android:textColorHint="@color/txt_gray"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12ssp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:textStyle="normal"
@@ -350,7 +350,7 @@
                         android:inputType="numberDecimal"
                         android:imeOptions="actionNext"
                         android:layout_marginEnd="@dimen/_15sdp"
-                        android:background="@drawable/gray_rect_box"
+                        android:background="@drawable/gray_border_transparent"
                         app:layout_constraintStart_toEndOf="@+id/txtMinTrans"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/txtPerDisc"/>
@@ -366,7 +366,7 @@
                         android:textStyle="normal"
                         android:gravity="start|center_vertical"
                         android:text="@string/max_coupon_amt"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:textAllCaps="false"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/txtMinTrans"/>
@@ -377,7 +377,7 @@
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_35sdp"
                         android:fontFamily="@font/expressway_rg"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:textColorHint="@color/txt_gray"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12ssp"
@@ -392,7 +392,7 @@
                         android:inputType="numberDecimal"
                         android:imeOptions="actionNext"
                         android:layout_marginEnd="@dimen/_15sdp"
-                        android:background="@drawable/gray_rect_box"
+                        android:background="@drawable/gray_border_transparent"
                         app:layout_constraintStart_toEndOf="@+id/txtMaxCouponAmt"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/txtMinTrans"/>

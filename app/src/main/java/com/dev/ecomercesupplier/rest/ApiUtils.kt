@@ -35,5 +35,6 @@ class ApiUtils {
         const val GetPrivacyPolicy:String = "getPrivacyPolicy"
         const val GetAboutUs:String = "getAboutUs"
         const val GetFaq:String = "getFaq"
+        const val UpdateCategory:String = "updateCategory"
     }
 }

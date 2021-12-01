@@ -130,6 +130,7 @@ class MyItemsFragment : Fragment() {
 
         })
         mView.rvList.adapter=myItemAdapter
+        myItemAdapter.notifyDataSetChanged()
 
         mView.btnAddMore.setOnClickListener {
             mView.btnAddMore.startAnimation(AlphaAnimation(1f, 0.5f))
