@@ -21,8 +21,8 @@ class ColorsAdapter(private val context: Context, private val data: ArrayList<St
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-
-        holder.itemView.colorName.setBackgroundColor(Color.parseColor(data[position]))
+        val color_string = ("#"+data[position]).replace("##", "#")
+        holder.itemView.colorName.setBackgroundColor(Color.parseColor(color_string))
         if(selectPos==position){
             holder.itemView.viewBorder.visibility=View.VISIBLE
         }

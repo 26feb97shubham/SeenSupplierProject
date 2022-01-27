@@ -109,6 +109,7 @@ class EditProfileFragment : Fragment() {
     var cCodeList= arrayListOf<String>()
     var registered_number=""
     var registered_country_code=""
+    var is_back = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -126,10 +127,12 @@ class EditProfileFragment : Fragment() {
         return mView
     }
     private fun setUpViews() {
+        is_back = false
         requireActivity().other_frag_backImg.visibility = View.VISIBLE
         requireActivity().other_frag_backImg.setOnClickListener {
              requireActivity().other_frag_backImg.startAnimation(AlphaAnimation(1f, 0.5f))
             SharedPreferenceUtility.getInstance().hideSoftKeyBoard(requireContext(), requireActivity().other_frag_backImg)
+            is_back = true
             findNavController().popBackStack()
         }
 
@@ -180,13 +183,17 @@ class EditProfileFragment : Fragment() {
 
         }
         mView.rvServedCountries.layoutManager= GridLayoutManager(requireContext(), 2)
-        servedCountriesAdapter= ServedCountriesAdapter(requireContext(), servedCountriesList, object : ClickInterface.ClickArrayInterface{
-            override fun clickArray(array: JSONArray) {
-                servedCountries=array
-                Log.e("servedCountries", servedCountries.toString())
-            }
+        servedCountriesAdapter= ServedCountriesAdapter(
+            requireContext(),
+            servedCountriesList,
+            is_back,
+            object : ClickInterface.ClickArrayInterface{
+                override fun clickArray(array: JSONArray) {
+                    servedCountries=array
+                    Log.e("servedCountries", servedCountries.toString())
+                }
 
-        })
+            })
         mView.rvServedCountries.adapter=servedCountriesAdapter
 
        /* mView.radUAE.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener{

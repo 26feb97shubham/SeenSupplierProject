@@ -44,12 +44,12 @@ class FaqFragment : Fragment() {
     lateinit var mView: View
     lateinit var faqAdapter: FaqAdapter
     var list=ArrayList<Faq>()
+    var title:String=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            title = it.getString("title", "")
         }
     }
 
@@ -69,12 +69,6 @@ class FaqFragment : Fragment() {
             SharedPreferenceUtility.getInstance().hideSoftKeyBoard(requireContext(), requireActivity().other_frag_backImg)
             findNavController().popBackStack()
         }
-
-        mView.rvList.layoutManager= LinearLayoutManager(requireContext())
-        faqAdapter= FaqAdapter(requireContext(), list)
-        mView.rvList.adapter=faqAdapter
-
-
     }
     private fun getFaq() {
         requireActivity().window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
@@ -94,6 +88,8 @@ class FaqFragment : Fragment() {
                     if (response.body() != null) {
                         val jsonObject = JSONObject(response.body()!!.string())
                         if (jsonObject.getInt("response") == 1){
+                            mView.txtNoDataFound.visibility = View.GONE
+                            mView.rvList.visibility = View.VISIBLE
                             val data = jsonObject.getJSONArray("data")
                             list.clear()
                             for(i in 0 until data.length()){
@@ -101,16 +97,24 @@ class FaqFragment : Fragment() {
                                 val f = Faq()
                                 f.id = obj.getInt("id")
                                 f.question = obj.getString("question")
+                                f.question_arabic = obj.getString("question_arabic")
                                 f.answer = obj.getString("answer")
+                                f.answer_arabic = obj.getString("answer_arabic")
                                 list.add(f)
                             }
 
+                            mView.rvList.layoutManager= LinearLayoutManager(requireContext())
+                            faqAdapter= FaqAdapter(requireContext(), list)
+                            mView.rvList.adapter=faqAdapter
+
                         }
                         else {
+                            mView.txtNoDataFound.visibility = View.VISIBLE
+                            mView.rvList.visibility = View.GONE
                             LogUtils.shortToast(requireContext(), jsonObject.getString("message"))
                         }
 
-                        if(list.size==0){
+                      /*  if(list.size==0){
                             mView.txtNoDataFound.visibility = View.VISIBLE
                             mView.rvList.visibility = View.GONE
                         }
@@ -118,7 +122,7 @@ class FaqFragment : Fragment() {
                             mView.txtNoDataFound.visibility = View.GONE
                             mView.rvList.visibility = View.VISIBLE
                         }
-                        faqAdapter.notifyDataSetChanged()
+                        faqAdapter.notifyDataSetChanged()*/
                     }
                 } catch (e: IOException) {
                     e.printStackTrace()

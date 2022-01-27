@@ -252,5 +252,10 @@
         android:id="@+id/selectLangFragment"
         android:name="com.dev.ecomercesupplier.fragment.SelectLangFragment"
         android:label="SelectLangFragment" />
+    <fragment
+        android:id="@+id/viewItemFragment"
+        android:name="com.dev.ecomercesupplier.ViewItemFragment"
+        android:label="fragment_view_item"
+        tools:layout="@layout/fragment_view_item" />
 
 </navigation>

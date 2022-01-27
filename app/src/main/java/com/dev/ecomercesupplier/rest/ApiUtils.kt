@@ -36,5 +36,6 @@ class ApiUtils {
         const val GetAboutUs:String = "getAboutUs"
         const val GetFaq:String = "getFaq"
         const val UpdateCategory:String = "updateCategory"
+        const val revenues:String = "revenues"
     }
 }

@@ -121,7 +121,7 @@
         android:textSize="@dimen/_9ssp"
         android:textStyle="normal"
         android:maxLines="1"
-        android:text="@string/size_colom"
+        android:text=""
         android:textDirection="locale"
         android:textAlignment="viewStart"
         android:ellipsize="end"

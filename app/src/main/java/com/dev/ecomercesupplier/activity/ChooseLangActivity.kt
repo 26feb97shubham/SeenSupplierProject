@@ -36,16 +36,22 @@ class ChooseLangActivity : AppCompatActivity() {
         }
 
         arabicView.setOnClickListener {
-            if (selectLang != "ar") {
+            /*if (selectLang != "ar") {
                 arabicView.startAnimation(AlphaAnimation(1f, 0.5f))
                 selectArabic()
-            }
+            }*/
+
+            arabicView.startAnimation(AlphaAnimation(1f, 0.5f))
+            selectArabic()
         }
         englishView.setOnClickListener {
-            if (selectLang != "en") {
+          /*  if (selectLang != "en") {
                 englishView.startAnimation(AlphaAnimation(1f, 0.5f))
                 selectEnglish()
-            }
+            }*/
+
+            englishView.startAnimation(AlphaAnimation(1f, 0.5f))
+            selectEnglish()
         }
 
         btnNext.setOnClickListener {
@@ -55,13 +61,16 @@ class ChooseLangActivity : AppCompatActivity() {
             } else {
                 Utility.changeLanguage(this, selectLang)
                 SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.SelectedLang, selectLang)
+                SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.isLangSelected, true)
 
-                if(IntroFragment.isSelected.equals("Login")){
+                if(SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.isSelectedKey, "").equals("Login")){
                     startActivity(Intent(this, LoginActivity::class.java))
-                } else if(IntroFragment.isSelected.equals("Create Account")){
+                } else if(SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.isSelectedKey, "").equals("Create Account")){
                     startActivity(Intent(this, RegisterActivity_1::class.java))
+                }else{
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    finish()
                 }
-                finishAffinity()
             }
         }
 
@@ -90,25 +99,22 @@ class ChooseLangActivity : AppCompatActivity() {
     override fun onBackPressed() {
         exitApp()
     }
-
     private fun exitApp() {
         val toast = Toast.makeText(
-                this,
-                getString(R.string.please_click_back_again_to_exist),
-                Toast.LENGTH_SHORT
+            this,
+            getString(R.string.please_click_back_again_to_exist),
+            Toast.LENGTH_SHORT
         )
 
-
-        if (doubleClick) {
+        if(doubleClick){
             finishAffinity()
-            doubleClick = false
-        } else {
-
-            doubleClick = true
+            doubleClick=false
+        } else{
+            doubleClick=true
             Handler(Looper.getMainLooper()).postDelayed(Runnable {
                 toast.show()
-                doubleClick = false
-            }, 500)
+                doubleClick=false
+            }, 300)
         }
     }
 }

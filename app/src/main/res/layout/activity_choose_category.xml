@@ -20,12 +20,14 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginHorizontal="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_10sdp">
+
             <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_back_choose_account_type"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="match_parent"
-                android:src="@drawable/arrow_left_icons"
-                android:id="@+id/iv_back_choose_account_type"
-                android:layout_alignParentStart="true"/>
+                android:layout_alignParentStart="true"
+                android:visibility="gone"
+                android:src="@drawable/arrow_left_icons" />
 
             <TextView
                 android:id="@+id/signup_tv"

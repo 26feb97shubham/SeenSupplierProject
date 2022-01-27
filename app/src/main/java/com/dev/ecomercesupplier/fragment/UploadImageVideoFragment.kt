@@ -14,6 +14,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -37,11 +38,13 @@ import com.dev.ecomercesupplier.BuildConfig
 import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.adapter.UploadImageVideoAdapter
 import com.dev.ecomercesupplier.custom.FetchPath
+import com.dev.ecomercesupplier.custom.Utility.Companion.IMAGE_DIRECTORY_NAME
 import com.dev.ecomercesupplier.interfaces.ClickInterface
 import com.dev.ecomercesupplier.rest.ApiClient
 import com.dev.ecomercesupplier.utils.LogUtils
 import com.dev.ecomercesupplier.utils.SharedPreferenceUtility
 import com.jaiselrahman.filepicker.activity.FilePickerActivity
+import com.jaiselrahman.filepicker.config.Configurations
 import com.jaiselrahman.filepicker.model.MediaFile
 import droidninja.filepicker.FilePickerConst
 import kotlinx.android.synthetic.main.activity_home.*
@@ -74,16 +77,13 @@ class UploadImageVideoFragment : Fragment() {
     val MEDIA_TYPE_IMAGE = 1
     val PICK_IMAGE_FROM_GALLERY = 10
     private val CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 100
-    private val IMAGE_DIRECTORY_NAME = "Seen"
     private var imagePath = ""
     private val galleryPhotos = ArrayList<String>()
     var pathList=ArrayList<String>()
     private val PERMISSION_CAMERA_EXTERNAL_STORAGE_CODE = 301
     private val PERMISSIONS = arrayOf(
         Manifest.permission.CAMERA,
-        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-        Manifest.permission.READ_EXTERNAL_STORAGE,
-        Manifest.permission.MANAGE_EXTERNAL_STORAGE
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
     )
     val PICK_DOC = 234
     lateinit var uploadImageVideoAdapter: UploadImageVideoAdapter
@@ -168,13 +168,13 @@ class UploadImageVideoFragment : Fragment() {
     }
 
     fun requestToUploadProfilePhoto() {
-       /* if (!hasPermissions(requireContext(), *PERMISSIONS)) {
+        if (!hasPermissions(requireContext(), *PERMISSIONS)) {
             requestPermissions(PERMISSIONS, PERMISSION_CAMERA_EXTERNAL_STORAGE_CODE)
         } else if (hasPermissions(requireContext(), *PERMISSIONS)) {
-            chooseImageVideo()
-        }*/
+            openCameraDialog()
+        }
 
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+/*        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
             if(ContextCompat.checkSelfPermission(
                     requireContext(),
                     FilePickerConst.PERMISSIONS_FILE_PICKER
@@ -184,7 +184,7 @@ class UploadImageVideoFragment : Fragment() {
 //                chooseImageVideo()
                 openCameraDialog()
             }
-        }
+        }*/
 
 
     }
@@ -249,12 +249,20 @@ class UploadImageVideoFragment : Fragment() {
 
 
     private fun chooseImage() {
+//        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+//        intent.type = "image/*"
+//        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+//        intent.action = Intent.ACTION_GET_CONTENT
+//        intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+//        intent.addCategory(Intent.CATEGORY_OPENABLE)
+//        startActivityForResult(intent, PICK_IMAGE_FROM_GALLERY)
+
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         intent.type = "image/*"
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-        intent.action = Intent.ACTION_GET_CONTENT
         intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-        intent.addCategory(Intent.CATEGORY_OPENABLE)
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+        uri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE)
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
         startActivityForResult(intent, PICK_IMAGE_FROM_GALLERY)
     }
 
@@ -262,7 +270,7 @@ class UploadImageVideoFragment : Fragment() {
 
 
     private fun chooseImageVideo() {
-        /*if (PICK_DOC == FilePickerConst.REQUEST_CODE_DOC){
+        if (PICK_DOC == FilePickerConst.REQUEST_CODE_DOC){
             val intent= Intent(requireContext(), FilePickerActivity::class.java)
             intent.putExtra(
                 FilePickerActivity.CONFIGS, Configurations.Builder()
@@ -281,13 +289,13 @@ class UploadImageVideoFragment : Fragment() {
         }else{
             val intent= Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
             startActivityForResult(intent, PICK_DOC)
-        }*/
+        }
 
-        val intent = Intent()
-        intent.type = "image/*"
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_MULTIPLE);
+//        val intent = Intent()
+//        intent.type = "image/*"
+//        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+//        intent.setAction(Intent.ACTION_GET_CONTENT);
+//        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_MULTIPLE);
 
 
     }
@@ -313,7 +321,6 @@ class UploadImageVideoFragment : Fragment() {
                 .build()
                 .setUploadProgressListener(object : UploadProgressListener {
                     override fun onProgress(bytesUploaded: Long, totalBytes: Long) {
-
                         itemView.progressBar.progress = (bytesUploaded * 100 / totalBytes).toInt()
                         itemView.txtProgress.text =
                             (bytesUploaded * 100 / totalBytes).toString() + " % " + getString(
@@ -323,6 +330,7 @@ class UploadImageVideoFragment : Fragment() {
                 })
                 .getAsString(object : StringRequestListener {
                     override fun onResponse(response: String?) {
+                        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                         uploadCount += 1
                         if (uploadCount == pathList.size) {
                             requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
@@ -354,10 +362,10 @@ class UploadImageVideoFragment : Fragment() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == PERMISSION_CAMERA_EXTERNAL_STORAGE_CODE) {
+        if (requestCode == PICK_DOC) {
             if (grantResults.size > 0) { /*  if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {*/
                 if (hasAllPermissionsGranted(grantResults)) {
-//                    chooseImageVideo()
+                   //chooseImageVideo()
                     openCameraDialog()
                 } else {
                     LogUtils.shortToast(
@@ -418,92 +426,8 @@ class UploadImageVideoFragment : Fragment() {
                 uploadImageVideoAdapter.notifyDataSetChanged()
             }
         }
-/*        if (requestCode === PICK_IMAGE_MULTIPLE && resultCode === RESULT_OK && null != data) {
-            // Get the Image from data
-            mView!!.cardView.visibility=View.VISIBLE
-            pathList.clear()
-            uploadCount=0
-            if (data.clipData != null) {
-                val mClipData: ClipData = data.clipData!!
-                val cout: Int = data.clipData!!.getItemCount()
-                for (i in 0 until cout) {
-                    // adding imageuri in array
-                    val imageurl: Uri = data.clipData!!.getItemAt(i).getUri()
-                    mArrayUri!!.add(imageurl)
-                    pathList.add(imageurl.toString())
-                }
-                if(pathList.size==5){
-                    mView!!.imgAttach.alpha=0.5f
-                    mView!!.imgAttach.isEnabled=false
-                }
-                else{
-                    mView!!.imgAttach.alpha=1f
-                    mView!!.imgAttach.isEnabled=true
-                }
-                uploadImageVideoAdapter= UploadImageVideoAdapter(
-                    requireContext(),
-                    pathList,
-                    object : ClickInterface.ClickPosItemViewInterface {
-                        override fun clickPosItemView(pos: Int, itemView: View) {
-                            *//* if(type=="remove"){
-                            pathList.removeAt(pos)
-                            uploadImageVideoAdapter.notifyDataSetChanged()
-                        }*//*
-
-                            uploadFile(pathList[pos], itemView)
-                        }
-
-
-                    })
-                mView!!.rvList.adapter=uploadImageVideoAdapter
-                uploadImageVideoAdapter.notifyDataSetChanged()
-                // setting 1st selected image into image switcher
-
-            } else if (data.data!=null) {
-              *//*  val imageurl: Uri = (data.clipData as Nothing?)!!
-                mArrayUri!!.add(imageurl)
-                pathList.add(imageurl.toString())
-                if(pathList.size==5){
-                    mView!!.imgAttach.alpha=0.5f
-                    mView!!.imgAttach.isEnabled=false
-                }
-                else{
-                    mView!!.imgAttach.alpha=1f
-                    mView!!.imgAttach.isEnabled=true
-                }
-                uploadImageVideoAdapter.notifyDataSetChanged()*//*
-
-                val imagePath = data.data!!.path
-                pathList.add(imagePath.toString())
-                if(pathList.size==5){
-                    mView!!.imgAttach.alpha=0.5f
-                    mView!!.imgAttach.isEnabled=false
-                }
-                else{
-                    mView!!.imgAttach.alpha=1f
-                    mView!!.imgAttach.isEnabled=true
-                }
-                uploadImageVideoAdapter= UploadImageVideoAdapter(
-                    requireContext(),
-                    pathList,
-                    object : ClickInterface.ClickPosItemViewInterface {
-                        override fun clickPosItemView(pos: Int, itemView: View) {
-                            *//* if(type=="remove"){
-                            pathList.removeAt(pos)
-                            uploadImageVideoAdapter.notifyDataSetChanged()
-                        }*//*
-
-                            uploadFile(pathList[pos], itemView)
-                        }
-
-
-                    })
-                mView!!.rvList.adapter=uploadImageVideoAdapter
-                uploadImageVideoAdapter.notifyDataSetChanged()
-            }
-        }*/
         else if (requestCode == CAMERA_CAPTURE_IMAGE_REQUEST_CODE) {
-            if (resultCode == Activity.RESULT_OK) { //previewCapturedImage();
+            if (resultCode == RESULT_OK) { //previewCapturedImage();
                 if (uri != null) {
                     imagePath = ""
                     Log.e("uri", uri.toString())
@@ -514,10 +438,10 @@ class UploadImageVideoFragment : Fragment() {
                     LogUtils.shortToast(requireActivity(), "something went wrong! please try again")
                 }
             }
-        } else if (requestCode == PICK_IMAGE_FROM_GALLERY && resultCode == Activity.RESULT_OK && data != null) {
+        } else if (requestCode == PICK_IMAGE_FROM_GALLERY && resultCode == RESULT_OK && data != null) {
 //            pathList.clear()
             imagePath = ""
-            if (data.data != null) {
+           /* if (data != null) {
                 val clipdata = data.clipData
                 if (clipdata != null) {
                     for (i in 0 until clipdata.itemCount) {
@@ -532,10 +456,10 @@ class UploadImageVideoFragment : Fragment() {
                            // LogUtils.longToast(requireContext(), getString(R.string.max_ten_image))
                         }else{
                             galleryPhotos.add(uri.path!!)
-                            setUploadPhotos(galleryPhotos)
                         }
-                        /*    Glide.with(this).applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.user)).load("file:///$imagePath").into(civ_profile)*/
+                        *//*    Glide.with(this).applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.user)).load("file:///$imagePath").into(civ_profile)*//*
                     }
+                    setUploadPhotos(galleryPhotos)
                 } else { // handle single photo
                     val uri = data.data
                     imagePath = if (uri.toString().startsWith("content")) {
@@ -546,101 +470,35 @@ class UploadImageVideoFragment : Fragment() {
                     galleryPhotos.add(uri.path!!)
                     setUploadPhotos(galleryPhotos)
                 }
-            }
-        }else if(requestCode === PICK_IMAGE_MULTIPLE && resultCode === Activity.RESULT_OK && null != data){
-            // Get the Image from data
-/*            if (data.clipData != null) {
-                val mClipData: ClipData = data.clipData!!
-                val cout: Int = data.clipData!!.getItemCount()
-                for (i in 0 until cout) {
-                    // adding imageuri in array
-                    val imageurl: Uri = data.clipData!!.getItemAt(i).getUri()
-                    mArrayUri!!.add(imageurl)
-                    pathList.add(imageurl.toString())
-                }
-                if(pathList.size==5){
-                    iv_upload_photo.alpha=0.5f
-                    iv_upload_photo.isEnabled=false
-                }
-                else{
-                    iv_upload_photo.alpha=1f
-                    iv_upload_photo.isEnabled=true
-                }
-                rv_uploaded_photos.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-                addNewPhotosAdapter = AddNewPhotosAdapter(requireContext(), pathList, object : ClickInterface.OnRecyclerItemClick{
-                    override fun OnClickAction(position: Int) {
-                        pathList.removeAt(position)
-                        addNewPhotosAdapter.notifyDataSetChanged()
-                        iv_upload_photo.alpha=1f
-                        iv_upload_photo.isEnabled=true
-                    }
-
-                })
-                rv_uploaded_photos.adapter=addNewPhotosAdapter
-                addNewPhotosAdapter.notifyDataSetChanged()
-                // setting 1st selected image into image switcher
-
-            } else if (data.data!=null) {
-                val imagePath = data.data!!.path
-                pathList.add(imagePath.toString())
-                if(pathList.size==5){
-                    iv_upload_photo.alpha=0.5f
-                    iv_upload_photo.isEnabled=false
-                }
-                else{
-                    iv_upload_photo.alpha=1f
-                    iv_upload_photo.isEnabled=true
-                }
-                rv_uploaded_photos.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-                addNewPhotosAdapter = AddNewPhotosAdapter(requireContext(), pathList, object : ClickInterface.OnRecyclerItemClick{
-                    override fun OnClickAction(position: Int) {
-                        pathList.removeAt(position)
-                        addNewPhotosAdapter.notifyDataSetChanged()
-                        iv_upload_photo.alpha=1f
-                        iv_upload_photo.isEnabled=true
-                    }
-
-                })
-                rv_uploaded_photos.adapter=addNewPhotosAdapter
-                addNewPhotosAdapter.notifyDataSetChanged()
             }*/
+            val clipdata = data.clipData
+            if (clipdata != null) {
+                for (i in 0 until clipdata.itemCount) {
+                    val uri = clipdata.getItemAt(i).uri
+                    imagePath = if (uri.toString().startsWith("content")) {
+                        getRealPath(uri)!!
+                    } else {
+                        uri!!.path!!
+                    }
 
-            if(pathList.size==5){
-                mView!!.imgAttach.alpha=0.5f
-                mView!!.imgAttach.isEnabled=false
+                    if (galleryPhotos.size>10){
+                        // LogUtils.longToast(requireContext(), getString(R.string.max_ten_image))
+                    }else{
+                        galleryPhotos.add(imagePath)
+                    }
+                    /*    Glide.with(this).applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.user)).load("file:///$imagePath").into(civ_profile)*/
+                }
+                setUploadPhotos(galleryPhotos)
+            } else { // handle single photo
+                val uri = data.data
+                imagePath = if (uri.toString().startsWith("content")) {
+                    getRealPath(uri)!!
+                } else {
+                    uri!!.path!!
+                }
+                galleryPhotos.add(imagePath)
+                setUploadPhotos(galleryPhotos)
             }
-            else{
-                mView!!.imgAttach.alpha=1f
-                mView!!.imgAttach.isEnabled=true
-            }
-
-            val selectedImage: Uri = data?.getData()!!
-            if (selectedImage.toString().startsWith("content")) {
-                imagePath = getRealPath(selectedImage)!!
-            } else {
-                imagePath = selectedImage.getPath()!!
-            }
-            pathList.add(imagePath)
-
-            mView!!.rvList.layoutManager=LinearLayoutManager(requireContext())
-            uploadImageVideoAdapter= UploadImageVideoAdapter(
-                    requireContext(),
-                    pathList,
-                    object : ClickInterface.ClickPosItemViewInterface {
-                        override fun clickPosItemView(pos: Int, itemView: View) {
-                            /* if(type=="remove"){
-                            pathList.removeAt(pos)
-                            uploadImageVideoAdapter.notifyDataSetChanged()
-                        }*/
-
-                            uploadFile(pathList[pos], itemView)
-                        }
-
-
-                    })
-            mView!!.rvList.adapter=uploadImageVideoAdapter
-            uploadImageVideoAdapter.notifyDataSetChanged()
-
         } else {
             // show this if no image is selected
             Toast.makeText(requireContext(), "You haven't picked Image", Toast.LENGTH_LONG).show()

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.interfaces.ClickInterface
 import com.dev.ecomercesupplier.model.Attributes
+import com.dev.ecomercesupplier.utils.LogUtils
 import kotlinx.android.synthetic.main.item_view_attr.view.*
 import org.json.JSONArray
 
@@ -23,6 +24,13 @@ class ViewAttrAdapter(private val context: Context, private val attributeArray:J
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        if (LogUtils.my_reference.equals("view")){
+            holder.itemView.imgDelete.visibility = View.GONE
+        }else{
+            holder.itemView.imgDelete.visibility = View.VISIBLE
+        }
+
+
         if(count != 3){
             holder.itemView.txtThird.visibility=View.GONE
             holder.itemView.txtThirdValue.visibility=View.GONE
@@ -34,7 +42,7 @@ class ViewAttrAdapter(private val context: Context, private val attributeArray:J
             holder.itemView.txtSecondaryValue.visibility=View.GONE
         }
         val obj= attributeArray.getJSONObject(position)
-        holder.itemView.edtItemPrice.text=obj.getString("price")
+        holder.itemView.edtItemPrice.text="AED "+obj.getString("price")
         holder.itemView.edtItemQty.text=obj.getString("quantity")
 
         val data=obj.getJSONArray("data")

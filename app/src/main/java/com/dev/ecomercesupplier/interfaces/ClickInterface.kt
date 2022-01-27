@@ -23,6 +23,4 @@ interface ClickInterface {
     interface OnRecyclerItemClick{
         fun OnClickAction(position: Int)
     }
-
-
 }

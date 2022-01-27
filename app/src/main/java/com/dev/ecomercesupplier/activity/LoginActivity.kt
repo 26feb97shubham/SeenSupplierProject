@@ -8,11 +8,16 @@ import android.os.Looper
 import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.UnderlineSpan
+import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
 import android.view.animation.AlphaAnimation
 import android.widget.Toast
 import com.dev.ecomercesupplier.R
+import com.dev.ecomercesupplier.custom.Utility
+import com.dev.ecomercesupplier.model.ModelForAccountType
+import com.dev.ecomercesupplier.model.ModelForSpinner
+import com.dev.ecomercesupplier.model.ServeCountries
 import com.dev.ecomercesupplier.rest.ApiClient
 import com.dev.ecomercesupplier.rest.ApiInterface
 import com.dev.ecomercesupplier.rest.ApiUtils
@@ -21,6 +26,7 @@ import com.dev.ecomercesupplier.utils.SharedPreferenceUtility
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.edtPhone
 import kotlinx.android.synthetic.main.activity_login.progressBar
+import kotlinx.android.synthetic.main.activity_register_1.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
 import okhttp3.ResponseBody
@@ -30,6 +36,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.IOException
+import java.util.ArrayList
 
 class LoginActivity : AppCompatActivity() {
     var remembered:Boolean=false
@@ -37,23 +44,129 @@ class LoginActivity : AppCompatActivity() {
     var password: String = ""
     var doubleClick:Boolean=false
     var spannableString : SpannableString?= null
+    private var country_code= ArrayList<String>()
+    private var countryList= ArrayList<ModelForSpinner>()
+    private var countryCodeList= ArrayList<ModelForSpinner>()
+    var cCodeList= arrayListOf<String>()
+    var servedCountriesList= ArrayList<ServeCountries>()
+    private var accountList= ArrayList<ModelForAccountType>()
+    var user_id: String=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        spannableString = SpannableString("SIGNUP")
+        spannableString = SpannableString(getString(R.string.signup))
         spannableString!!.setSpan(UnderlineSpan(), 0, spannableString!!.length, 0)
         tv_signup.setText(spannableString)
         setUpViews()
+        getCountires()
+    }
+    private fun getCountires() {
+        window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        progressBar.visibility= View.VISIBLE
+
+        val builder = ApiClient.createBuilder(arrayOf("lang"),
+                arrayOf(SharedPreferenceUtility.getInstance()[SharedPreferenceUtility.SelectedLang, ""]))
+
+        val call = Utility.apiInterface.getCountries(builder.build())
+        call!!.enqueue(object : Callback<ResponseBody?> {
+            override fun onResponse(call: Call<ResponseBody?>, response: Response<ResponseBody?>) {
+                progressBar.visibility = View.GONE
+                window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                try {
+                    if (response.body() != null) {
+                        val jsonObject = JSONObject(response.body()!!.string())
+                        val countries = jsonObject.getJSONArray("countries")
+                        country_code.clear()
+                        countryList.clear()
+                        val s= ModelForSpinner()
+                        s.id=0
+                        s.name=getString(R.string.select_country)
+                        countryList.add(s)
+
+                        cCodeList.clear()
+                        for (i in 0 until countries.length()) {
+                            val jsonObj = countries.getJSONObject(i)
+                            country_code.add(jsonObj.getString("country_code"))
+
+                            val s1= ModelForSpinner()
+                            s1.id=jsonObj.getInt("id")
+                            s1.name=jsonObj.getString("country_name")
+                            countryList.add(s1)
+                            countryCodeList.add(s1)
+                            cCodeList.add(jsonObj.getString("country_name") + " ("+jsonObj.getString("country_code")+")")
+                        }
+
+                        val countries_to_be_served = jsonObject.getJSONArray("countries_to_be_served")
+                        servedCountriesList.clear()
+                        for (i in 0 until countries_to_be_served.length()) {
+                            val jsonObj = countries_to_be_served.getJSONObject(i)
+                            val s1= ServeCountries()
+                            s1.id=jsonObj.getInt("id")
+                            s1.country_name=jsonObj.getString("country_name")
+                            s1.country_code=jsonObj.getString("country_name")
+                            servedCountriesList.add(s1)
+                        }
+
+                        val account_types = jsonObject.getJSONArray("account_types")
+                        accountList.clear()
+                        for (i in 0 until account_types.length()) {
+                            val jsonObj = account_types.getJSONObject(i)
+                            val m1 = ModelForAccountType()
+                            m1.id=jsonObj.getInt("id")
+                            m1.name=jsonObj.getString("name")
+                            m1.url =jsonObj.getString("url")
+                            accountList.add(m1)
+                        }
+                    }
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody?>, throwable: Throwable) {
+                LogUtils.e("msg", throwable.message)
+                LogUtils.shortToast(this@LoginActivity, getString(R.string.check_internet))
+                progressBar.visibility = View.GONE
+                window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+            }
+        })
     }
     private fun setUpViews() {
+
+        if(SharedPreferenceUtility.getInstance()[SharedPreferenceUtility.SelectedLang, ""]=="en"){
+            edtPass.gravity = Gravity.LEFT
+        }else if (SharedPreferenceUtility.getInstance()[SharedPreferenceUtility.SelectedLang, ""]=="ar"){
+            edtPass.gravity = Gravity.RIGHT
+        }
+
         if(SharedPreferenceUtility.getInstance()[SharedPreferenceUtility.IsRemembered, false]){
             remembered=true
-            chkRememberMe.setCompoundDrawablesWithIntrinsicBounds(R.drawable.checked_small, 0, 0, 0)
-//            chkRememberMe.isChecked=true
+            if(SharedPreferenceUtility.getInstance()[SharedPreferenceUtility.SelectedLang, ""]=="en") {
+                chkRememberMe.setCompoundDrawablesWithIntrinsicBounds(R.drawable.check, 0, 0, 0)
+            }
+            else{
+                chkRememberMe.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.check, 0)
+            }
             phone=SharedPreferenceUtility.getInstance()[SharedPreferenceUtility.Phone, ""]
             password=SharedPreferenceUtility.getInstance()[SharedPreferenceUtility.Password, ""]
+            user_id = SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.UserId, 0).toString()
             edtPhone.setText(phone)
             edtPass.setText(password)
+        }else{
+            remembered = false
+            if(SharedPreferenceUtility.getInstance()[SharedPreferenceUtility.SelectedLang, ""]=="en") {
+                chkRememberMe.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ellipse, 0, 0, 0)
+            }
+            else{
+                chkRememberMe.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ellipse, 0)
+            }
+            user_id = SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.UserId, 0).toString()
+            edtPhone.setText("")
+            edtPass.setText("")
         }
 
         /*chkRememberMe.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener{
@@ -77,10 +190,10 @@ class LoginActivity : AppCompatActivity() {
             else{
                 remembered=true
                 if(SharedPreferenceUtility.getInstance()[SharedPreferenceUtility.SelectedLang, ""]=="en") {
-                   chkRememberMe.setCompoundDrawablesWithIntrinsicBounds(R.drawable.checked_small, 0, 0, 0)
+                   chkRememberMe.setCompoundDrawablesWithIntrinsicBounds(R.drawable.check, 0, 0, 0)
                 }
                 else{
-                   chkRememberMe.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.checked_small, 0)
+                   chkRememberMe.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.check, 0)
                 }
             }
         }
@@ -179,7 +292,7 @@ class LoginActivity : AppCompatActivity() {
                     if (response.body() != null) {
                         val jsonObject = JSONObject(response.body()!!.string())
                         if (jsonObject.getInt("response") == 1){
-                            val data = jsonObject.getJSONObject("data")
+                            /*val data = jsonObject.getJSONObject("data")
                             val account_type = data.getInt("account_type")
                             val package_id = data.getInt("package_id")
                             val category_array = data.getString("category_array")
@@ -188,12 +301,12 @@ class LoginActivity : AppCompatActivity() {
                                     startActivity(Intent(this@LoginActivity, ChooseCategoriesActivity::class.java).putExtra("user_id", data.getInt("user_id").toString()))
                                 }
                                 else{
+                                    SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.UserId, data.getInt("user_id"))
                                     SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.IsLogin, true)
                                     startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
                                 }
 
-                            }
-                            else{
+                            }else {
                                 if(package_id==0){
                                     startActivity(Intent(this@LoginActivity, PackagePlanActivity::class.java).putExtra("user_id", data.getInt("user_id").toString()))
                                 }
@@ -207,7 +320,12 @@ class LoginActivity : AppCompatActivity() {
                                         startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
                                     }
                                 }
-                            }
+                            }*/
+
+                            val data = jsonObject.getJSONObject("data")
+                            SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.UserId, data.getInt("user_id"))
+                            SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.IsLogin, true)
+                            startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
 
                       /*      SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.IsLogin, true)
                             startActivity(Intent(this@LoginActivity, HomeActivity::class.java))*/
@@ -222,10 +340,16 @@ class LoginActivity : AppCompatActivity() {
 
   //                            SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.UserId, data.getInt("user_id"))
                               findNavController().navigate(R.id.action_loginFragment_to_otpVerificationFragment, bundle)*/
+                            val bundle = Bundle()
+                            bundle.putSerializable("accountList", accountList)
                             startActivity(
-                                Intent(this@LoginActivity, OtpVerificationActivity::class.java).putExtra("ref", "2")
-                                .putExtra("user_id", data.getInt("user_id").toString()))
+                                Intent(this@LoginActivity, ChooseCategoryActivity::class.java).putExtras(bundle))
 
+                        }else if (jsonObject.getInt("response") == 3){
+                            val data = jsonObject.getJSONObject("data")
+                            user_id = data.getInt("user_id").toString()
+                            startActivity(Intent(this@LoginActivity, PackagePlanActivity::class.java)
+                                    .putExtra("user_id", user_id))
                         }
                         else {
                             LogUtils.longToast(this@LoginActivity, jsonObject.getString("message"))

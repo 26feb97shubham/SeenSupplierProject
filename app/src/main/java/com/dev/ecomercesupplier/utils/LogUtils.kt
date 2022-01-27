@@ -38,5 +38,10 @@ class LogUtils {
             }
         }
 
+
+        var att_count_1:Int=0
+
+        var my_reference = ""
+
     }
 }

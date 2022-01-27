@@ -8,7 +8,6 @@ import android.content.pm.PackageManager
 import android.database.Cursor
 import android.net.Uri
 import android.os.*
-import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextUtils
@@ -21,7 +20,6 @@ import android.view.WindowManager
 import android.view.animation.AlphaAnimation
 import android.widget.AdapterView
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -190,14 +188,14 @@ class SignUpActivity : AppCompatActivity() {
 
         rvServedCountries.layoutManager=GridLayoutManager(this, 2)
 
-        servedCountriesAdapter= ServedCountriesAdapter(this, servedCountriesList, object : ClickInterface.ClickArrayInterface{
+        /*servedCountriesAdapter= ServedCountriesAdapter(this, servedCountriesList, is_back, object : ClickInterface.ClickArrayInterface{
             override fun clickArray(array: JSONArray) {
                 servedCountries=array
                 Log.e("servedCountries", servedCountries.toString())
             }
 
         })
-        rvServedCountries.adapter=servedCountriesAdapter
+        rvServedCountries.adapter=servedCountriesAdapter*/
 
         txtTermsConditions.setOnClickListener {
             txtTermsConditions.startAnimation(AlphaAnimation(1f, 0.5f))

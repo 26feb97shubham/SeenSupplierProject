@@ -2,6 +2,7 @@ package com.dev.ecomercesupplier.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -42,7 +43,7 @@ class IntroFragment(val position: Int) : Fragment() {
     private var btnLogin: TextView?= null
     private var btnSignUp: TextView?= null
     private var selectLangFragment : SelectLangFragment?= null
-    private var isFirstTime : Boolean = true
+    private var isFirstTime : Boolean = false
     private var isLangSelected : Boolean = false
     lateinit var mView: View
     private var sharedPreferences: SharedPreferenceUtility?= null
@@ -91,14 +92,25 @@ class IntroFragment(val position: Int) : Fragment() {
         }
         if(position==2){
 //            mView.img.setImageResource(R.drawable.welcome_slider_3)
+            SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.IsWelcomeShow, true)
             mainView!!.setBackgroundResource(R.drawable.welcome_slider_3)
             mainView2!!.visibility = View.VISIBLE
             selectLangFragment = SelectLangFragment()
 
             btnLogin!!.setOnClickListener {
+              /*  isSelected = "Login"
+                isFirstTime = true*/
                 isSelected = "Login"
-                if(isFirstTime && !isLangSelected){
-                    isFirstTime = false
+                SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.isSelectedKey, isSelected)
+                if (SharedPreferenceUtility.getInstance()[SharedPreferenceUtility.isLangSelected, false]){
+                    btnLogin!!.startAnimation(AlphaAnimation(1f, 0.5f))
+                    startActivity(Intent(requireActivity(), LoginActivity::class.java))
+                }else{
+                    btnLogin!!.startAnimation(AlphaAnimation(1f, 0.5f))
+                    startActivity(Intent(requireActivity(), ChooseLangActivity::class.java))
+                }
+                /*if(SharedPreferenceUtility.getInstance()[SharedPreferenceUtility.isFirstTime, false] && !SharedPreferenceUtility.getInstance()[SharedPreferenceUtility.isLangSelected, false]){
+                    //isFirstTime = false
                     sharedPreferences!!.save("isFirstTime", isFirstTime)
                     sharedPreferences!!.save("isLangSelected", isLangSelected)
                     btnLogin!!.startAnimation(AlphaAnimation(1f, 0.5f))
@@ -120,7 +132,7 @@ class IntroFragment(val position: Int) : Fragment() {
                     sharedPreferences!!.save("isLangSelected", isLangSelected)
                     btnLogin!!.startAnimation(AlphaAnimation(1f, 0.5f))
                     startActivity(Intent(requireActivity(), LoginActivity::class.java))
-                }
+                }*/
 
 //                btnLogin!!.startAnimation(AlphaAnimation(1f, 0.5f))
 //                startActivity(Intent(requireActivity(), LoginActivity::class.java))
@@ -128,6 +140,7 @@ class IntroFragment(val position: Int) : Fragment() {
             btnSignUp!!.setOnClickListener {
 //                btnSignUp!!.startAnimation(AlphaAnimation(1f, 0.5f))
 //                startActivity(Intent(requireActivity(), SignUpActivity::class.java))
+               /* SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.isFirstTime, false)
                 isSelected = "Create Account"
                 if(isFirstTime && !isLangSelected){
                     isFirstTime = false
@@ -152,6 +165,16 @@ class IntroFragment(val position: Int) : Fragment() {
                     sharedPreferences!!.save("isLangSelected", isLangSelected)
                     btnLogin!!.startAnimation(AlphaAnimation(1f, 0.5f))
                     startActivity(Intent(requireActivity(), RegisterActivity_1::class.java))
+                }*/
+
+                isSelected = "Create Account"
+                SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.isSelectedKey, isSelected)
+                if (SharedPreferenceUtility.getInstance()[SharedPreferenceUtility.isLangSelected, false]){
+                    btnLogin!!.startAnimation(AlphaAnimation(1f, 0.5f))
+                    startActivity(Intent(requireActivity(), RegisterActivity_1::class.java))
+                }else{
+                    btnLogin!!.startAnimation(AlphaAnimation(1f, 0.5f))
+                    startActivity(Intent(requireActivity(), ChooseLangActivity::class.java))
                 }
 
             }

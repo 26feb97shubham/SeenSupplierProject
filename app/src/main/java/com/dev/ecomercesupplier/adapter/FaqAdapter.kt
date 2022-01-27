@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.model.Faq
+import com.dev.ecomercesupplier.utils.SharedPreferenceUtility
 import kotlinx.android.synthetic.main.item_faq.view.*
 
 class FaqAdapter(private val context: Context, private val data:ArrayList<Faq>): RecyclerView.Adapter<FaqAdapter.MyViewHolder>() {
@@ -18,8 +19,14 @@ class FaqAdapter(private val context: Context, private val data:ArrayList<Faq>):
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.itemView.title.text = data[position].question
-        holder.itemView.desc.text = data[position].answer
+        if (SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, "").equals("ar")){
+            holder.itemView.title.text = data[position].question_arabic
+            holder.itemView.desc.text = data[position].answer_arabic
+        }else{
+            holder.itemView.title.text = data[position].question
+            holder.itemView.desc.text = data[position].answer
+        }
+
         if(position==selectedId){
             holder.itemView.imgDown.visibility= View.VISIBLE
             holder.itemView.imgRight.visibility= View.GONE

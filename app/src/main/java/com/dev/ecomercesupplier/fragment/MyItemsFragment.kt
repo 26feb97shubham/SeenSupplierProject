@@ -2,15 +2,13 @@ package com.dev.ecomercesupplier.fragment
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.text.Editable
 import android.text.TextUtils
-import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.animation.AlphaAnimation
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dev.ecomercesupplier.R
@@ -20,13 +18,11 @@ import com.dev.ecomercesupplier.model.Products
 import com.dev.ecomercesupplier.rest.ApiClient
 import com.dev.ecomercesupplier.rest.ApiInterface
 import com.dev.ecomercesupplier.utils.LogUtils
+import com.dev.ecomercesupplier.utils.LogUtils.Companion.my_reference
 import com.dev.ecomercesupplier.utils.SharedPreferenceUtility
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.fragment_my_coupons.view.*
 import kotlinx.android.synthetic.main.fragment_my_items.view.*
-import kotlinx.android.synthetic.main.fragment_my_items.view.progressBar
-import kotlinx.android.synthetic.main.fragment_my_items.view.rvList
-import kotlinx.android.synthetic.main.fragment_my_items.view.swipeRefresh
 import okhttp3.ResponseBody
 import org.json.JSONException
 import org.json.JSONObject
@@ -34,6 +30,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.IOException
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -64,11 +61,12 @@ class MyItemsFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_my_items, container, false)
+        //getItem(false)
         setUpViews()
         getItem(false)
         return mView
@@ -104,16 +102,20 @@ class MyItemsFragment : Fragment() {
 //
 //        })
 
-        mView.rvList.layoutManager=LinearLayoutManager(requireContext())
-        myItemAdapter= MyItemAdapter(requireContext(), productList, object: ClickInterface.ClickPosTypeInterface{
+/*        mView.rvList.layoutManager=LinearLayoutManager(requireContext())
+        myItemAdapter= MyItemAdapter(requireContext(), productList, object : ClickInterface.ClickPosTypeInterface {
             override fun clickPostionType(pos: Int, type: String) {
-                if(type=="2") {
+                if (type =="1"){
+                    val bundle = Bundle()
+                    bundle.putInt("pos", pos)
+                    bundle.putString("responseBody", responseBody)
+                    findNavController().navigate(R.id.viewItemFragment, bundle)
+                }else if (type == "2") {
                     val bundle = Bundle()
                     bundle.putInt("pos", pos)
                     bundle.putString("responseBody", responseBody)
                     findNavController().navigate(R.id.action_myItemsFragment_to_addItemFragment, bundle)
-                }
-                else{
+                } else {
                     val builder = AlertDialog.Builder(requireContext())
                     builder.setTitle(getString(R.string.delete))
                     builder.setMessage(getString(R.string.are_you_sure_you_want_to_delete_this_product))
@@ -130,10 +132,11 @@ class MyItemsFragment : Fragment() {
 
         })
         mView.rvList.adapter=myItemAdapter
-        myItemAdapter.notifyDataSetChanged()
+        myItemAdapter.notifyDataSetChanged()*/
 
         mView.btnAddMore.setOnClickListener {
             mView.btnAddMore.startAnimation(AlphaAnimation(1f, 0.5f))
+            my_reference = "add_edit"
             findNavController().navigate(R.id.action_myItemsFragment_to_addItemFragment)
         }
     }
@@ -171,51 +174,91 @@ class MyItemsFragment : Fragment() {
         val call = apiInterface.getItem(builder.build())
         call!!.enqueue(object : Callback<ResponseBody?> {
             override fun onResponse(call: Call<ResponseBody?>, response: Response<ResponseBody?>) {
-                if(mView.swipeRefresh.isRefreshing){
-                    mView.swipeRefresh.isRefreshing=false
+                if (mView.swipeRefresh.isRefreshing) {
+                    mView.swipeRefresh.isRefreshing = false
                 }
                 mView.progressBar.visibility = View.GONE
                 requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                 try {
                     if (response.body() != null) {
-                        responseBody=response.body()!!.string()
-                        val jsonObject = JSONObject(response.body()!!.string())
-                       /* val jsonObject = JSONObject(responseBody)*/
-                        if(jsonObject.getInt("response")==1){
-                            val products= jsonObject.getJSONArray("products")
+                        responseBody = response.body()!!.string()
+//                        val jsonObject = JSONObject(response.body()!!.string())
+                         val jsonObject = JSONObject(responseBody)
+                        if (jsonObject.getInt("response") == 1) {
+                            val products = jsonObject.getJSONArray("products")
                             productList.clear()
 
-                            for(i in 0 until products.length()){
-                                    val obj = products.getJSONObject(i)
-                               /* val files_path=obj.getString("files_path")
+                            for (i in 0 until products.length()) {
+                                val obj = products.getJSONObject(i)
+                                /* val files_path=obj.getString("files_path")
                                 var filekey=""
                                 val files= obj.getJSONArray("files")
                                if(files.length()!=0){
                                    filekey= files[0].toString()
                                }*/
-                                    val p = Products()
-                                    p.id = obj.getInt("id")
-                                    p.name = obj.getString("name")
-                                    p.files = obj.getString("files")
-                                    p.price = obj.getString("price")
-                                    p.quantity = obj.getString("quantity")
-                                    p.category = obj.getString("category_name")
-                                    productList.add(p)
+                                val p = Products()
+                                p.id = obj.getInt("id")
+                                p.name = obj.getString("name")
+                                p.files = obj.getString("files")
+                                p.price = obj.getString("price")
+                                p.quantity = obj.getString("quantity")
+                                p.category = obj.getString("category_name")
+                                productList.add(p)
                             }
+
+
+                            mView.rvList.layoutManager=LinearLayoutManager(requireContext())
+                            myItemAdapter= MyItemAdapter(requireContext(), productList, object : ClickInterface.ClickPosTypeInterface {
+                                override fun clickPostionType(pos: Int, type: String) {
+                                    if (type =="1"){
+                                        val bundle = Bundle()
+                                        bundle.putInt("pos", pos)
+                                        val response_body = JSONObject()
+                                        response_body.put("response", 1)
+                                        response_body.put("message", "Data found.")
+                                        response_body.put("products", products[pos])
+                                        bundle.putString("responseBody", response_body.toString())
+                                        my_reference = "view"
+                                        findNavController().navigate(R.id.viewItemFragment, bundle)
+                                    }else if (type == "2") {
+                                        val bundle = Bundle()
+                                        bundle.putInt("pos", pos)
+                                        bundle.putString("responseBody", responseBody)
+                                        my_reference = "add_edit"
+                                        findNavController().navigate(R.id.action_myItemsFragment_to_addItemFragment, bundle)
+                                    } else {
+                                        val builder = AlertDialog.Builder(requireContext())
+                                        builder.setTitle(getString(R.string.delete))
+                                        builder.setMessage(getString(R.string.are_you_sure_you_want_to_delete_this_product))
+                                        builder.setPositiveButton(getString(R.string.ok)) { dialog, which ->
+                                            deleteItem(pos)
+                                        }
+                                        builder.setNegativeButton(getString(R.string.cancel), null)
+
+                                        val dialog = builder.create()
+                                        dialog.show()
+
+                                    }
+                                }
+
+                            })
+                            mView.rvList.adapter=myItemAdapter
+                            myItemAdapter.notifyDataSetChanged()
 
 
                         }
                         allItemList.clear()
                         allItemList.addAll(productList)
-                        if(productList.size==0){
-                            mView.txtNoItems.visibility=View.VISIBLE
-                            mView.rvList.visibility=View.GONE
+                        if (productList.size == 0) {
+                            mView.txtNoItems.visibility = View.VISIBLE
+                            mView.rvList.visibility = View.GONE
+                        } else {
+                            mView.txtNoItems.visibility = View.GONE
+                            mView.rvList.visibility = View.VISIBLE
                         }
-                        else{
-                            mView.txtNoItems.visibility=View.GONE
-                            mView.rvList.visibility=View.VISIBLE
-                        }
-                        myItemAdapter.notifyDataSetChanged()
+
+
+                       /* myItemAdapter.notifyDataSetChanged()*/
 
                     }
                 } catch (e: IOException) {
@@ -232,8 +275,8 @@ class MyItemsFragment : Fragment() {
                 LogUtils.shortToast(requireContext(), getString(R.string.check_internet))
                 mView.progressBar.visibility = View.GONE
                 requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-                if(mView.swipeRefresh.isRefreshing){
-                    mView.swipeRefresh.isRefreshing=false
+                if (mView.swipeRefresh.isRefreshing) {
+                    mView.swipeRefresh.isRefreshing = false
                 }
             }
         })
@@ -257,21 +300,19 @@ class MyItemsFragment : Fragment() {
                     if (response.body() != null) {
                         val jsonObject = JSONObject(response.body()!!.string())
 
-                        if(jsonObject.getInt("response")==1){
+                        if (jsonObject.getInt("response") == 1) {
                             myItemAdapter.notifyItemRemoved(pos)
                             productList.removeAt(pos)
                             myItemAdapter.notifyDataSetChanged()
-                            if(productList.size==0){
-                                mView.txtNoItems.visibility=View.VISIBLE
-                                mView.rvList.visibility=View.GONE
-                            }
-                            else{
-                                mView.txtNoItems.visibility=View.GONE
-                                mView.rvList.visibility=View.VISIBLE
+                            if (productList.size == 0) {
+                                mView.txtNoItems.visibility = View.VISIBLE
+                                mView.rvList.visibility = View.GONE
+                            } else {
+                                mView.txtNoItems.visibility = View.GONE
+                                mView.rvList.visibility = View.VISIBLE
                             }
 
-                        }
-                        else{
+                        } else {
                             LogUtils.shortToast(requireContext(), jsonObject.getString("message"))
                         }
 

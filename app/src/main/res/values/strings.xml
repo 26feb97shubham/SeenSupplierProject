@@ -10,7 +10,7 @@
     <string name="forgot_password">Forgot password ?</string>
     <string name="phone_number">Phone number</string>
     <string name="confirm_password">Confirm password</string>
-    <string name="log_in">LOG IN</string>
+    <string name="log_in">Log In</string>
     <string name="dont_have_an_account_yet">Do not have an account yet ?</string>
     <string name="enter_full_name">Enter full name</string>
     <string name="phone">Phone</string>
@@ -371,16 +371,33 @@
     <string name="from_to">From/To:</string>
     <string name="revenues">Revenues</string>
     <string name="from">From:</string>
-    <string name="strong_password_2021">Strong_password_2021</string>
+    <string name="strong_password_2021" translatable="false">Strong_password_2021</string>
     <string name="title_activity_choose_category">ChooseCategoryActivity</string>
     <!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.
     -->
-    <string name="hello_world">Hello Square World!</string>
+    <string name="hello_world" translatable="false">Hello Square World!</string>
     <string name="after_registering_please_select_your_categories_so_customers_can_easily_see_you">After registering, please select your categories so customers can easily see you</string>
     <string name="title_activity_agreement">AgreementActivity</string>
     <string name="decline">Decline</string>
     <string name="agreement_desc" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
     <string name="new_items">New items</string>
+    <string name="no_received_orders">No Received Orders</string>
+    <string name="total">Total</string>
+    <string name="order">order</string>
+    <string name="already_a_user">Already a user?</string>
+    <string name="please_select_your_country">Please select your country</string>
+    <string name="please_click_on_new_items">Recently there are no items present in your listing, kindly add the items first</string>
+    <string name="delete_message">Are you sure you want to delete image?</string>
+    <string name="place_item">Place Item</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="view_item">View Item</string>
+    <string name="nike">Nike</string>
+    <string name="item_available">Item Available</string>
+    <string name="only_five_items_can_be_selected">Only 5 images can be selected</string>
+    <string name="something_went_wrong">something went wrong! please try again</string>
+    <string name="please_grant_both_camera_and_storage_permissions">Please grant both Camera and Storage permissions</string>
+    <string name="plan">PLAN</string>
+    <string name="seen" translatable="false">SEEN</string>
 </resources>

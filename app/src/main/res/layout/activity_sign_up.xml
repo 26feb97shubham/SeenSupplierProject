@@ -437,7 +437,6 @@
                         android:textColor="@color/black"
                         android:textColorHint="@color/gray"
                         android:textSize="@dimen/_12ssp"
-
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/txtPassword"
                         app:layout_constraintTop_toTopOf="parent" />

@@ -76,8 +76,15 @@ class UpgradePackagePlanFragment : Fragment() {
         packagePlanAdapter= PackagePlanAdapter(requireContext(), packList, object : ClickInterface.ClickPosInterface{
             override fun clickPostion(pos: Int) {
                 val amt=packList[pos].country_currency+ " " +packList[pos].amount
-                val packPlan=packList[pos].number.toString()+ " " +packList[pos].month_year_type+ " " +packList[pos].string + " PLAN"
-                val detail=packList[pos].detail
+                var packPlan = ""
+                var detail = ""
+                if (SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, "").equals("ar")){
+                    packPlan=packList[pos].number.toString()+ " " +packList[pos].month_year_type_ar+ " " +packList[pos].string_ar + " "+requireContext().getString(R.string.plan)
+                    detail=packList[pos].detail_ar
+                }else{
+                    packPlan=packList[pos].number.toString()+ " " +packList[pos].month_year_type+ " " +packList[pos].string + " "+requireContext().getString(R.string.plan)
+                    detail=packList[pos].detail
+                }
                 val pack_id=packList[pos].id
 
                 val packagePlanDialog = PackagePlanDialog(amt, packPlan, detail)
@@ -136,8 +143,11 @@ class UpgradePackagePlanFragment : Fragment() {
                             pack.amount=jsonObj.getString("amount")
                             pack.country_currency=jsonObj.getString("country_currency")
                             pack.detail=jsonObj.getString("detail")
+                            pack.detail_ar=jsonObj.getString("detail_ar")
                             pack.string=jsonObj.getString("string")
+                            pack.string_ar=jsonObj.getString("string_ar")
                             pack.month_year_type=jsonObj.getString("month_year_type")
+                            pack.month_year_type_ar=jsonObj.getString("month_year_type_ar")
                             pack.color_code=jsonObj.getString("color_code")
                             pack.checkPackagePlan=jsonObj.getBoolean("checkPackagePlan")
                             packList.add(pack)

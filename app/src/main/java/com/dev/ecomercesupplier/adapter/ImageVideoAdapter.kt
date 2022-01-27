@@ -9,9 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.interfaces.ClickInterface
+import com.dev.ecomercesupplier.model.PhotoData
 import kotlinx.android.synthetic.main.item_image_video.view.*
 
-class ImageVideoAdapter(private val context: Context, private val data: ArrayList<String>, private val clickInstance:ClickInterface.ClickPosInterface): RecyclerView.Adapter<ImageVideoAdapter.MyViewHolder>() {
+class ImageVideoAdapter(private val context: Context, private val data: ArrayList<PhotoData>, private val clickInstance:ClickInterface.ClickPosInterface): RecyclerView.Adapter<ImageVideoAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
@@ -21,8 +22,8 @@ class ImageVideoAdapter(private val context: Context, private val data: ArrayLis
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        Glide.with(context).load(data[position]).placeholder(R.drawable.default_icon).into(holder.itemView.img)
-        if(data[position].contains(".mp4")){
+        Glide.with(context).load(data[position].path).placeholder(R.drawable.default_icon).into(holder.itemView.img)
+        if(data[position].path.contains(".mp4")){
             holder.itemView.imgPlay.visibility=View.VISIBLE
         }
         else{

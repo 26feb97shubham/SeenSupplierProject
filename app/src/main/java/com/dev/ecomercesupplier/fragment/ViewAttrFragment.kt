@@ -33,7 +33,7 @@ class ViewAttrFragment : Fragment() {
     lateinit var mView: View
     lateinit var viewAttrAdapter: ViewAttrAdapter
     var header:String=""
-    var att_count:Int=0
+
   /*  var attributeArray=JSONArray()*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -121,6 +121,9 @@ class ViewAttrFragment : Fragment() {
          * @return A new instance of fragment ViewAttrFragment.
          */
         // TODO: Rename and change types and number of parameters
+
+        var att_count:Int=0
+
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
                 ViewAttrFragment().apply {

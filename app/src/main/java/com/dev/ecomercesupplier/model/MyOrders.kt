@@ -1,6 +1,7 @@
 package com.dev.ecomercesupplier.model
 
 import org.json.JSONArray
+import org.json.JSONObject
 
 class MyOrders {
     var id:Int=0

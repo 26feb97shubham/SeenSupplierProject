@@ -2,7 +2,10 @@ package com.dev.ecomercesupplier.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.animation.AlphaAnimation
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dev.ecomercesupplier.R
@@ -19,6 +22,7 @@ import java.util.ArrayList
 class ChooseCategoryActivity : AppCompatActivity() {
     private var accountList= ArrayList<ModelForAccountType>()
     private var accountTypeAdapter : AccountTypeAdapter?=null
+    var doubleClick:Boolean=false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choose_category)
@@ -45,6 +49,31 @@ class ChooseCategoryActivity : AppCompatActivity() {
             val bundle = Bundle()
             bundle.putSerializable("accountList", accountList)
             startActivity(Intent(this, AgreementActivity::class.java).putExtras(bundle))
+        }
+    }
+
+    override fun onBackPressed() {
+        exitApp()
+    }
+    private fun exitApp() {
+        val toast = Toast.makeText(
+            this,
+            getString(R.string.please_click_back_again_to_exist),
+            Toast.LENGTH_SHORT
+        )
+
+
+        if(doubleClick){
+            finishAffinity()
+            doubleClick=false
+        }
+        else{
+
+            doubleClick=true
+            Handler(Looper.getMainLooper()).postDelayed(Runnable {
+                toast.show()
+                doubleClick=false
+            }, 500)
         }
     }
 }

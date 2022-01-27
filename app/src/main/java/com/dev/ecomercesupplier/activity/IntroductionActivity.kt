@@ -28,39 +28,13 @@ class IntroductionActivity : AppCompatActivity() {
 
 
     private fun setUpViews() {
-        SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.IsWelcomeShow, true)
+        SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.isFirstTime, true)
         val pagerAdapter = ScreenSlidePagerAdapter(this)
 
         viewPager2.adapter = pagerAdapter
-
-        /* mView.viewPager2.setPageTransformer(ZoomOutPageTransformer())*/
-
         TabLayoutMediator(tabLayout, viewPager2){ tab, position ->
 
         }.attach()
-
-//        next.setOnClickListener {
-//            next.startAnimation(AlphaAnimation(1f, 0.5f))
-//            if (viewPager2.currentItem == 2) {
-//                startActivity(Intent(this, ChooseLangActivity::class.java))
-//                finishAffinity()
-//            } else {
-//                viewPager2.setCurrentItem(viewPager2.currentItem + 1, true)
-//            }
-//        }
-//        skip.setOnClickListener {
-//            skip.startAnimation(AlphaAnimation(1f, 0.5f))
-//            startActivity(Intent(this, ChooseLangActivity::class.java))
-//            finishAffinity()
-//
-//        }
-
-        /*if (viewPager2.currentItem == 2) {
-            startActivity(Intent(this, ChooseLangActivity::class.java))
-            finishAffinity()
-        } else {
-            viewPager2.setCurrentItem(viewPager2.currentItem, true)
-        }*/
 
     }
 

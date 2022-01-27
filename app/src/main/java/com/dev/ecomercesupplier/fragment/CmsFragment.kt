@@ -1,5 +1,6 @@
 package com.dev.ecomercesupplier.fragment
 
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -8,17 +9,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.animation.AlphaAnimation
+import android.webkit.WebResourceRequest
 import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.dev.ecomercesupplier.MyWebViewClient
 import com.dev.ecomercesupplier.R
+import com.dev.ecomercesupplier.custom.Utility
 import com.dev.ecomercesupplier.rest.ApiClient
 import com.dev.ecomercesupplier.rest.ApiInterface
 import com.dev.ecomercesupplier.utils.LogUtils
 import com.dev.ecomercesupplier.utils.SharedPreferenceUtility
+import kotlinx.android.synthetic.main.about_us_more_info_frag_toolbar.view.*
+import kotlinx.android.synthetic.main.activity_agreement.*
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_home.view.*
+import kotlinx.android.synthetic.main.fragment_cms.*
 import kotlinx.android.synthetic.main.fragment_cms.view.*
 import okhttp3.ResponseBody
 import org.json.JSONException
@@ -62,7 +70,32 @@ class CmsFragment : Fragment() {
     }
 
     private fun setUpViews() {
-        requireActivity().other_frag_backImg.visibility= View.VISIBLE
+        requireActivity().other_frag_toolbar.visibility= View.GONE
+        requireActivity().other_frag_toolbar.other_frag_backImg.visibility = View.VISIBLE
+        when(title){
+            getString(R.string.terms_amp_conditions) -> {
+                requireActivity().main_View.setBackgroundResource(R.drawable.terms_background)
+                requireActivity().other_frag_toolbar.visibility= View.VISIBLE
+                requireActivity().about_us_fragment_toolbar.visibility=View.GONE
+                mView.webView.visibility = View.VISIBLE
+                mView.rvList.visibility = View.GONE
+            }
+            getString(R.string.privacy_and_policy) -> {
+                requireActivity().main_View.setBackgroundResource(R.drawable.data_policy_bg)
+                requireActivity().other_frag_toolbar.visibility= View.VISIBLE
+                requireActivity().about_us_fragment_toolbar.visibility=View.GONE
+                mView.webView.visibility = View.VISIBLE
+                mView.rvList.visibility = View.GONE
+            }
+            else -> {
+                requireActivity().main_View.setBackgroundResource(R.drawable.about_us_bg)
+                requireActivity().other_frag_toolbar.visibility= View.GONE
+                requireActivity().about_us_fragment_toolbar.visibility=View.VISIBLE
+                mView.webView.visibility = View.GONE
+                mView.rvList.visibility = View.VISIBLE
+            }
+        }
+
         requireActivity().other_frag_backImg.setOnClickListener {
             requireActivity().other_frag_backImg.startAnimation(AlphaAnimation(1f, 0.5f))
             SharedPreferenceUtility.getInstance().hideSoftKeyBoard(requireContext(), requireActivity().other_frag_backImg)
@@ -71,7 +104,33 @@ class CmsFragment : Fragment() {
 //        mView.header.text=title
 
 
-        mView.webView.webViewClient = MyWebViewClient()
+        requireActivity().about_us_fragment_toolbar.frag_about_us_backImg.setOnClickListener {
+            requireActivity().about_us_fragment_toolbar.frag_about_us_backImg.startAnimation(AlphaAnimation(1f, 0.5f))
+            SharedPreferenceUtility.getInstance().hideSoftKeyBoard(requireContext(), requireActivity().about_us_fragment_toolbar.frag_about_us_backImg)
+            findNavController().popBackStack()
+        }
+
+        requireActivity().about_us_fragment_toolbar.frag_about_us_notificationImg.setOnClickListener {
+            requireActivity().about_us_fragment_toolbar.frag_about_us_notificationImg.startAnimation(AlphaAnimation(1f, 0.5f))
+            findNavController().navigate(R.id.notificationsFragment)
+        }
+
+        mView.webView.webViewClient = object : WebViewClient() {
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                mView.progressBar_cms.visibility= View.GONE
+            }
+
+            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                super.onPageStarted(view, url, favicon)
+                mView.progressBar_cms.visibility= View.VISIBLE
+            }
+
+            override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+                return super.shouldOverrideUrlLoading(view, url)
+                view!!.loadUrl(url!!)
+            }
+        }
         mView.webView.settings.javaScriptEnabled = true
         mView.webView.settings.setSupportZoom(true)
         mView.webView.getSettings().setBuiltInZoomControls(true)
@@ -83,7 +142,7 @@ class CmsFragment : Fragment() {
     }
     private fun getCmsContent() {
         requireActivity().window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-        mView.progressBar.visibility= View.VISIBLE
+        mView.progressBar_cms.visibility= View.VISIBLE
 
         val apiInterface = ApiClient.UsergetClient()!!.create(ApiInterface::class.java)
         val builder = ApiClient.createBuilder(arrayOf("lang"),
@@ -100,27 +159,27 @@ class CmsFragment : Fragment() {
         val call: Call<ResponseBody?>? = when(title){
             getString(R.string.terms_amp_conditions) -> {
                 requireActivity().main_View.setBackgroundResource(R.drawable.terms_background)
-                requireActivity().about_us_fragment_toolbar.visibility=View.GONE
                 mView.webView.visibility = View.VISIBLE
+                mView!!.rvList.visibility = View.GONE
                 apiInterface.getTermsConditions(builder.build())
             }
             getString(R.string.privacy_and_policy) -> {
                 requireActivity().main_View.setBackgroundResource(R.drawable.data_policy_bg)
-                requireActivity().about_us_fragment_toolbar.visibility=View.GONE
                 mView.webView.visibility = View.VISIBLE
+                mView!!.rvList.visibility = View.GONE
                 apiInterface.getPrivacyPolicy(builder.build())
             }
             else -> {
                 requireActivity().main_View.setBackgroundResource(R.drawable.about_us_bg)
-                requireActivity().about_us_fragment_toolbar.visibility=View.VISIBLE
                 mView.webView.visibility = View.GONE
-                apiInterface.getAboutUs(builder.build())
+                mView!!.rvList.visibility = View.VISIBLE
+                apiInterface.getAboutUs(builder!!.build())
             }
         }
 
         call!!.enqueue(object : Callback<ResponseBody?> {
             override fun onResponse(call: Call<ResponseBody?>, response: Response<ResponseBody?>) {
-                mView.progressBar.visibility= View.GONE
+                mView.progressBar_cms.visibility= View.GONE
                 requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                 try {
                     if (response.body() != null) {
@@ -129,7 +188,7 @@ class CmsFragment : Fragment() {
                             val data = jsonObject.getJSONObject("data")
                             Log.e("url", data.getString("url"))
                             mView.webView.loadUrl(data.getString("url"))
-                            //mView.txt.text = HtmlCompat.fromHtml(data.getString("content"), 0)
+                            mView.txt.text = HtmlCompat.fromHtml(data.getString("content"), 0)
                         } else {
                             LogUtils.shortToast(requireContext(), jsonObject.getString("message"))
                         }
@@ -146,21 +205,31 @@ class CmsFragment : Fragment() {
             override fun onFailure(call: Call<ResponseBody?>, throwable: Throwable) {
                 LogUtils.e("msg", throwable.message)
                 LogUtils.shortToast(requireContext(), getString(R.string.check_internet))
-                mView.progressBar.visibility= View.GONE
+                mView.progressBar_cms.visibility= View.GONE
                 requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
             }
         })
 
     }
 
+
     override fun onDestroy() {
         super.onDestroy()
+        requireActivity().about_us_fragment_toolbar.visibility = View.GONE
         requireActivity().main_View.setBackgroundColor(Color.WHITE)
     }
 
     override fun onStop() {
         super.onStop()
+        requireActivity().about_us_fragment_toolbar.visibility = View.GONE
         requireActivity().main_View.setBackgroundColor(Color.WHITE)
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+
+        Utility.changeLanguage(requireContext(),SharedPreferenceUtility.getInstance()[SharedPreferenceUtility.SelectedLang, ""])
     }
 
     companion object {

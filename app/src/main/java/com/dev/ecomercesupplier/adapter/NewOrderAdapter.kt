@@ -1,5 +1,6 @@
 package com.dev.ecomercesupplier.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +22,7 @@ class NewOrderAdapter(private val context: Context, private val data:ArrayList<M
         return MyViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, @SuppressLint("RecyclerView") position: Int) {
 
          holder.itemView.orderNum.text = context.getString(R.string.order_hess)+data[position].order_id
 //         holder.itemView.deliveredDate.text = context.getString(R.string.delivery_date)+"  "+data[position].delivery_date

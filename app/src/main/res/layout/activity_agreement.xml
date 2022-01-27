@@ -5,21 +5,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@drawable/terms_and_conditions_activity_background"
     tools:context=".activity.AgreementActivity">
 
-    <WebView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+          <WebView
         android:id="@+id/web_view_agreement"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+              android:layout_weight="0.9"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
-        android:layout_marginBottom="@dimen/_15ssp"
+        android:layout_marginVertical="@dimen/_15ssp"
         android:orientation="horizontal"
         android:weightSum="2"
         android:gravity="center"
-        android:layout_alignParentBottom="true"
         android:paddingHorizontal="@dimen/_10sdp">
 
         <com.google.android.material.textview.MaterialTextView
@@ -51,11 +56,14 @@
             android:gravity="center" />
     </LinearLayout>
 
+
+
+    </LinearLayout>
+
     <ProgressBar
         android:id="@+id/progressBar_accept_agreement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
         android:elevation="@dimen/_5sdp"
         android:visibility="gone"
         android:layout_centerInParent="true"/>

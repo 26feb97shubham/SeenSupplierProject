@@ -93,7 +93,6 @@ class OrderDetailsFragment : Fragment() {
             phone_number = it.getString("phone_number").toString()
             total_discount = it.getString("total_discount").toString()
             coupon_name = it.getString("coupon_name").toString()
-            coupon_name = it.getString("coupon_name").toString()
             id_order = it.getInt("id", 0)
             accept_reject = it.getInt("accept_reject", 0)
             status = it.getInt("status", 0)

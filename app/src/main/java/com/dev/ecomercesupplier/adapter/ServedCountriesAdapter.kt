@@ -1,5 +1,6 @@
 package com.dev.ecomercesupplier.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,12 @@ import com.dev.ecomercesupplier.model.ServeCountries
 import kotlinx.android.synthetic.main.item_served_countries.view.*
 import org.json.JSONArray
 
-class ServedCountriesAdapter(private val context: Context, private val data: ArrayList<ServeCountries>, private val clickInstance: ClickInterface.ClickArrayInterface): RecyclerView.Adapter<ServedCountriesAdapter.MyViewHolder>() {
+class ServedCountriesAdapter(
+    private val context: Context,
+    private val data: ArrayList<ServeCountries>,
+    private val is_back: Boolean,
+    private val clickInstance: ClickInterface.ClickArrayInterface
+): RecyclerView.Adapter<ServedCountriesAdapter.MyViewHolder>() {
 
     companion object{
         var servedCountries=JSONArray()
@@ -25,13 +31,18 @@ class ServedCountriesAdapter(private val context: Context, private val data: Arr
 
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, @SuppressLint("RecyclerView") position: Int) {
+        if (is_back){
+            servedCountries = JSONArray()
+            holder.itemView.chkCountry.isChecked = false
+        }
+
+
         for(i in 0 until servedCountries.length()){
-            if(data[position].id.toString()==servedCountries[i]){
-                holder.itemView.chkCountry.isChecked=true
+            if(data[position].id.toString()==servedCountries[i]) {
+                holder.itemView.chkCountry.isChecked = true
                 break
             }
-
         }
         holder.itemView.chkCountry.text=data[position].country_name
         holder.itemView.chkCountry.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener{

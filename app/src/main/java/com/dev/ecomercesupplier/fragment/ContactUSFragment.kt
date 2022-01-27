@@ -59,7 +59,6 @@ class ContactUSFragment : Fragment() {
     private fun setUpViews() {
         requireActivity().other_frag_backImg.visibility= View.VISIBLE
 
-
         requireActivity().other_frag_backImg.setOnClickListener {
              requireActivity().other_frag_backImg.startAnimation(AlphaAnimation(1f, 0.5f))
             SharedPreferenceUtility.getInstance().hideSoftKeyBoard(requireContext(), requireActivity().other_frag_backImg)
@@ -70,16 +69,6 @@ class ContactUSFragment : Fragment() {
             mView.btnSend.startAnimation(AlphaAnimation(1f, 0.5f))
             validateAndContactUS()
         }
-
-        mView.scrollView.setOnTouchListener(object : View.OnTouchListener{
-            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                mView.edtName.clearFocus()
-                mView.edtEmail.clearFocus()
-                mView.edtMessage.clearFocus()
-               return false
-            }
-
-        })
     }
     private fun validateAndContactUS() {
         name = mView.edtName.text.toString()
@@ -137,7 +126,7 @@ class ContactUSFragment : Fragment() {
                         val jsonObject = JSONObject(response.body()!!.string())
                         if (jsonObject.getInt("response") == 1){
                             LogUtils.shortToast(requireContext(), jsonObject.getString("message"))
-                            findNavController().popBackStack()
+                            findNavController().navigate(R.id.homeFragment)
                         }
                         else {
                             LogUtils.shortToast(requireContext(), jsonObject.getString("message"))

@@ -103,4 +103,7 @@ interface ApiInterface {
 
     @POST(ApiUtils.UpdateCategory)
     fun updateCategory(@Body body: RequestBody?): Call<ResponseBody?>?
+
+    @POST(ApiUtils.revenues)
+    fun revenues(@Body body: RequestBody?) : Call<ResponseBody?>?
 }

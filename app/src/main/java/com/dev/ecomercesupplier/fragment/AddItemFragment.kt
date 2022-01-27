@@ -3,7 +3,6 @@ package com.dev.ecomercesupplier.fragment
 import android.Manifest
 import android.app.Activity
 import android.app.DatePickerDialog
-import android.content.ClipData
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -13,17 +12,13 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.text.Editable
 import android.text.TextUtils
-import android.text.TextWatcher
 import android.util.Log
 import android.view.*
 import android.view.animation.AlphaAnimation
 import android.widget.AdapterView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -34,27 +29,25 @@ import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.adapter.AttributesAdapter
 import com.dev.ecomercesupplier.adapter.CustomSpinnerAdapter
 import com.dev.ecomercesupplier.adapter.ImageVideoAdapter
-import com.dev.ecomercesupplier.adapter.UploadImageVideoAdapter
+import com.dev.ecomercesupplier.adapter.NewImageVideoAdapter
 import com.dev.ecomercesupplier.custom.FetchPath
 import com.dev.ecomercesupplier.interfaces.ClickInterface
 import com.dev.ecomercesupplier.model.Attributes
 import com.dev.ecomercesupplier.model.CategoryName
 import com.dev.ecomercesupplier.model.ModelForSpinner
+import com.dev.ecomercesupplier.model.PhotoData
 import com.dev.ecomercesupplier.rest.ApiClient
 import com.dev.ecomercesupplier.rest.ApiInterface
 import com.dev.ecomercesupplier.utils.LogUtils
+import com.dev.ecomercesupplier.utils.LogUtils.Companion.att_count_1
 import com.dev.ecomercesupplier.utils.SharedPreferenceUtility
-import com.google.gson.JsonArray
 import com.jaiselrahman.filepicker.activity.FilePickerActivity
-import com.jaiselrahman.filepicker.config.Configurations
 import com.jaiselrahman.filepicker.model.MediaFile
-import droidninja.filepicker.FilePickerConst
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_add_item.view.*
 import kotlinx.android.synthetic.main.fragment_add_item.view.header
 import kotlinx.android.synthetic.main.fragment_add_item.view.imgAttach
 import kotlinx.android.synthetic.main.fragment_add_item.view.rvList
-import kotlinx.android.synthetic.main.fragment_upload_image_video.view.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -104,7 +97,7 @@ class AddItemFragment : Fragment() {
     var allow_coupans :Int = 0
     var add_offer  :Int = 0
     private var imagePath = ""
-    private val galleryPhotos = ArrayList<String>()
+    private val galleryPhotos = ArrayList<PhotoData>()
     var name:String=""
     var description :String=""
     var discount :String=""
@@ -116,9 +109,13 @@ class AddItemFragment : Fragment() {
     var product_id:Int=0
     var type:Int=1
     var remainingImages=JSONArray()
+    var galleryfiles=JSONArray()
+    /*var galleryPhoto = ArrayList<String>()*/
+    var new_upload_photos_count = 0
     private var uri: Uri? = null
     private val CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 100
     private val IMAGE_DIRECTORY_NAME = "Seen"
+    private var galleryItemListSize : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -138,12 +135,14 @@ class AddItemFragment : Fragment() {
             mView = inflater.inflate(R.layout.fragment_add_item, container, false)
             setUpViews()
             if(pos==-1){
+                mView!!.btnUploadItem.text = requireContext().getString(R.string.place_item)
                 getCategories()
             }
             else{
+//                getCategories()
                 setEditData()
             }
-
+//            getCategories()
         }
         return mView
     }
@@ -220,10 +219,11 @@ class AddItemFragment : Fragment() {
             mView!!.btnUploadItem.startAnimation(AlphaAnimation(1f, 0.5f))
             validateAndUpload()
         }
-        mView!!.rvImgVdo.layoutManager=LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        imageVideoAdapter= ImageVideoAdapter(requireContext(), pathList, object :ClickInterface.ClickPosInterface{
+        setUploadPhotos()
+       /* mView!!.rvImgVdo.layoutManager=LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        imageVideoAdapter= ImageVideoAdapter(requireContext(), galleryPhotos, object :ClickInterface.ClickPosInterface{
             override fun clickPostion(pos: Int) {
-                /*pathList.removeAt(pos)*/
+                *//*pathList.removeAt(pos)*//*
                 imageVideoAdapter.notifyDataSetChanged()
                 mView!!.imgAttach.alpha=1f
                 mView!!.imgAttach.isEnabled=true
@@ -231,7 +231,7 @@ class AddItemFragment : Fragment() {
 
         })
         mView!!.rvImgVdo.adapter=imageVideoAdapter
-        imageVideoAdapter.notifyDataSetChanged()
+        imageVideoAdapter.notifyDataSetChanged()*/
 
         mView!!.rvList.layoutManager=LinearLayoutManager(requireContext())
         attributesAdapter= AttributesAdapter(requireContext(), attrList, object : ClickInterface.ClickJSonObjInterface{
@@ -305,6 +305,7 @@ class AddItemFragment : Fragment() {
                                 attributeObj.put("price", mView!!.edtItemPrice.text.toString())
                                 attributeObj.put("quantity", mView!!.edtItemQty.text.toString())
                                 attributeObj.put("id", attributeArray.length())
+//                                attributeObj.put("sold_out", "0")
                                 attributeArray.put(attributeObj)
                                 LogUtils.e("attributeArray", attributeArray.toString())
                                 mView!!.edtItemPrice.setText("")
@@ -356,6 +357,7 @@ class AddItemFragment : Fragment() {
                 LogUtils.shortToast(requireContext(), "Please first save attributes")
             }
             else{
+                att_count_1 = attrList.size
                 val args=Bundle()
                 args.putString("header", mView!!.edtName.text.toString())
                 args.putInt("att_count", attrList.size)
@@ -376,6 +378,9 @@ class AddItemFragment : Fragment() {
                 mView!!.offerView.visibility=View.VISIBLE
             } else{
                 add_offer=0
+                mView!!.edtDiscPer.setText("")
+                mView!!.fromTime.text = ""
+                mView!!.toTime.text = ""
                 mView!!.offerView.visibility=View.GONE
             }
         }
@@ -600,7 +605,7 @@ class AddItemFragment : Fragment() {
             LogUtils.shortToast(requireContext(), getString(R.string.please_select_at_least_an_image_or_video))
         }
         else{
-            addItem()
+           addItem()
         }
        /* for (k in 0 until catNameList.size) {
             if (catNameList[k].id == selectCatID.toInt()) {
@@ -614,6 +619,22 @@ class AddItemFragment : Fragment() {
                     attrList.add(a)
                 }
 
+            }
+        }*/
+    }
+
+    private fun addGalleryItem() {
+        Log.e("size", ""+galleryPhotos.size)
+      /*  if(TextUtils.isEmpty(discount)){
+            discount="0"
+        }
+        requireActivity().window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        mView!!.progressBar.visibility= View.VISIBLE*/
+
+        /*for(i in 0 until galleryPhotos.size){
+            val file = File(galleryPhotos[i])
+            if(file.exists()){
+                galleryfiles.put(galleryPhotos[i].substring(galleryPhotos[i].lastIndexOf('/') + 1))
             }
         }*/
     }
@@ -638,7 +659,7 @@ class AddItemFragment : Fragment() {
                         catSpinner.clear()
                         val m = ModelForSpinner()
                         m.id=0
-                        m.name="Select Category"
+                        m.name=requireContext().getString(R.string.select_category)
                         catSpinner.add(m)
 
                         catNameList.clear()
@@ -658,6 +679,11 @@ class AddItemFragment : Fragment() {
                             }
                         }
                         adp_categories.notifyDataSetChanged()
+
+
+                        if(pos!=-1){
+                            setEditData()
+                        }
 
                     }
                 } catch (e: IOException) {
@@ -683,12 +709,13 @@ class AddItemFragment : Fragment() {
     private fun setEditData() {
         type=2
         mView!!.header.text = getString(R.string.update_item)
-        mView!!.btnUploadItem.text = getString(R.string.update_item)
+        mView!!.btnUploadItem.text = requireContext().getString(R.string.save_changes)
+        Log.e("response_edit", responseBody)
         if(!TextUtils.isEmpty(responseBody)) {
             val jsonObject = JSONObject(responseBody)
             if (jsonObject.getInt("response") == 1) {
                 val products = jsonObject.getJSONArray("products")
-
+                galleryPhotos.clear()
                 for (i in 0 until products.length()) {
                     if (i == pos) {
                         val obj = products.getJSONObject(i)
@@ -698,6 +725,58 @@ class AddItemFragment : Fragment() {
                         val m1 = ModelForSpinner()
                         m1.id = obj.getInt("category_id")
                         m1.name = obj.getString("category_name")
+                        for(i in 0 until catSpinner.size){
+                            if(catSpinner[i].name.equals(obj.getString("category_name"))){
+                                mView!!.spinnerCategory.setSelection(i)
+                                break
+                            }
+                        }
+
+                        mView!!.spinnerCategory.onItemSelectedListener= object : AdapterView.OnItemSelectedListener{
+                            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                                attributeObj= JSONObject()
+                                if(p2 != 0) {
+                                    mView!!.llViewSave.visibility=View.VISIBLE
+                                    mView!!.llPriceQty.visibility=View.VISIBLE
+                                    selectCatID = catSpinner[p2].id.toString()
+                                    for (k in 0 until catNameList.size) {
+                                        if (catNameList[k].id == catSpinner[p2].id) {
+                                            val attributes = catNameList[k].attributes
+                                            attrList.clear()
+                                            for (m in 0 until attributes.length()) {
+                                                val obj = attributes.getJSONObject(m)
+                                                val a = Attributes()
+                                                a.id=obj.getInt("id")
+                                                a.name = obj.getString("name")
+                                                a.type = obj.getString("type")
+                                                a.value = obj.getJSONArray("value")
+                                                attrList.add(a)
+                                            }
+                                            attributesAdapter.notifyDataSetChanged()
+                                        }
+                                    }
+                                }
+                                else{
+                                    mView!!.llViewSave.visibility=View.GONE
+                                    mView!!.llPriceQty.visibility=View.GONE
+                                    selectCatID=catSpinner[p2].id.toString()
+                                    attrList.clear()
+                                    attributesAdapter.notifyDataSetChanged()
+                                }
+                            }
+
+                            override fun onNothingSelected(p0: AdapterView<*>?) {
+                                attributeObj=JSONObject()
+                                mView!!.llViewSave.visibility=View.GONE
+                                mView!!.llPriceQty.visibility=View.GONE
+                                selectCatID="0"
+                                attrList.clear()
+                                attributesAdapter.notifyDataSetChanged()
+                            }
+
+
+                        }
+
                         catSpinner.add(m1)
                         adp_categories.notifyDataSetChanged()
 
@@ -717,14 +796,28 @@ class AddItemFragment : Fragment() {
                         }
                         val all_files=obj.getJSONArray("all_files")
                         for(m in 0 until all_files.length()){
-                            pathList.add(all_files[m].toString())
+                            var photo_Data = PhotoData()
+                            photo_Data.status = "old"
+                            photo_Data.path = all_files.getString(m)
+                            galleryPhotos.add(photo_Data)
+//                            galleryPhotos.add(all_files[m].toString())
+//                            galleryPhotos.add(all_files[m].toString())
+//                            remainingImages.put(galleryPhotos[m].substring(galleryPhotos[i].lastIndexOf('/') + 1))
                         }
-                        imageVideoAdapter.notifyDataSetChanged()
 
+
+                        mView!!.edtItemPrice.setText(obj.getString("price"))
+                        if (obj.getInt("quantity")==1){
+                            mView!!.edtItemQty.setText(obj.getInt("quantity").toString())
+                        }else{
+                            mView!!.edtItemQty.setText(obj.getInt("quantity").toString())
+                        }
+
+                        setUploadPhotos()
+                        galleryItemListSize =galleryPhotos.size
+                        imageVideoAdapter.notifyDataSetChanged()
                     }
                 }
-
-
             }
         }
     }
@@ -738,33 +831,55 @@ class AddItemFragment : Fragment() {
         requireActivity().window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         mView!!.progressBar.visibility= View.VISIBLE
 
+
+        remainingImages = JSONArray()
+
         for(i in 0 until galleryPhotos.size){
+            remainingImages.put(galleryPhotos[i].path.substring(galleryPhotos[i].path.lastIndexOf('/') + 1))
+            /*val file = File(galleryPhoto[i])
+            if(file.exists()){
+                remainingImages.put(galleryPhoto[i].substring(galleryPhoto[i].lastIndexOf('/') + 1))
+            }*/
+        }
+
+        /*for(i in 0 until galleryPhotos.size){
             val file = File(galleryPhotos[i])
             if(file.exists()){
-                remainingImages.put(galleryPhotos[i].substring(galleryPhotos[i].lastIndexOf('/') + 1))
+                galleryfiles.put(galleryPhotos[i].substring(galleryPhotos[i].lastIndexOf('/') + 1))
             }
-        }
+        }*/
+
 
         val apiInterface = ApiClient.getClient()!!.create(ApiInterface::class.java)
         val builder = ApiClient.createMultipartBodyBuilder(arrayOf("user_id", "name", "category_id", "description"
                 , "allow_coupans", "add_offer", "discount", "from_date", "to_date", "attributes", "product_id", "type", "remaining_images","lang"),
                 arrayOf(SharedPreferenceUtility.getInstance()[SharedPreferenceUtility.UserId, 0].toString(), name, selectCatID
                         , description, allow_coupans.toString(), add_offer.toString(), discount, from_date, to_date
-                        , attributeArray.toString(), product_id.toString(), type.toString(),remainingImages.toString(), SharedPreferenceUtility.getInstance()[SharedPreferenceUtility.SelectedLang, ""]))
+                        , attributeArray.toString(), product_id.toString(), type.toString(),
+                        remainingImages.toString(),
+                        SharedPreferenceUtility.getInstance()[SharedPreferenceUtility.SelectedLang, ""]))
 
-   /*  for(i in 0 until galleryPhotos.size){
-         val file = File(galleryPhotos[i])
+     /*for(i in 0 until galleryPhotos.size){
+         val file = File(galleryPhoto[i])
          if(file.exists()){
              val requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
              builder!!.addFormDataPart("remaining_images", file.name, requestBody)
          }
-     }
-*/
-      /*  if (pathList[i] != "") {
-            val file = File(pathList[i])
-            val requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
-            builder!!.addFormDataPart("files[]", file.name, requestBody)
+     }*/
+        var count = 0
+        for (i in 0 until galleryPhotos.size){
+                if (galleryPhotos[i].status == "new"){
+                    count+=1
+                    val file = File(galleryPhotos[i].path)
+                    val requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                    builder!!.addFormDataPart("files[]", file.name, requestBody)
+                }
+
+        }
+      /*  if(count==0){
+            builder!!.addFormDataPart("files[]", "")
         }*/
+
 
 
         val call = apiInterface.addItem(builder!!.build())
@@ -891,12 +1006,13 @@ class AddItemFragment : Fragment() {
 //        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
 //        startActivityForResult(intent, PICK_IMAGE_FROM_GALLERY)
 
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
         intent.type = "image/*"
-        uri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE)
-        intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+//        uri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE)
+//        intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+        intent.addCategory(Intent.CATEGORY_OPENABLE)
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
+//        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
         startActivityForResult(intent, PICK_IMAGE_FROM_GALLERY)
     }
 
@@ -915,11 +1031,11 @@ class AddItemFragment : Fragment() {
                 if (hasAllPermissionsGranted(grantResults)) {
                   openCameraDialog()
                 } else {
-                    LogUtils.shortToast(requireContext(), "Please grant both Camera and Storage permissions")
+                    LogUtils.shortToast(requireContext(), requireContext().getString(R.string.please_grant_both_camera_and_storage_permissions))
 
                 }
             } else if (!hasAllPermissionsGranted(grantResults)) {
-                LogUtils.shortToast(requireContext(), "Please grant both Camera and Storage permissions")
+                LogUtils.shortToast(requireContext(), requireContext().getString(R.string.please_grant_both_camera_and_storage_permissions))
             }
         }
     }
@@ -934,6 +1050,10 @@ class AddItemFragment : Fragment() {
                 for (i in 0 until files.size) {
                     val filePath = FetchPath.getPath(requireContext(), files[i].uri)
                     pathList.add(filePath.toString())
+                    val photoData = PhotoData()
+                    photoData.status = "new"
+                    photoData.path = filePath.toString()
+                    galleryPhotos.add(photoData)
                 }
                 if (pathList.size == 5) {
                     mView!!.imgAttach.alpha = 0.5f
@@ -943,10 +1063,11 @@ class AddItemFragment : Fragment() {
                     mView!!.imgAttach.isEnabled = true
                 }
                 mView!!.rvImgVdo.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-                imageVideoAdapter = ImageVideoAdapter(requireContext(), pathList, object : ClickInterface.ClickPosInterface {
+                imageVideoAdapter = ImageVideoAdapter(requireContext(), galleryPhotos, object : ClickInterface.ClickPosInterface {
                     override fun clickPostion(pos: Int) {
-                        /*pathList.removeAt(pos)*/
-                        /* imageVideoAdapter.notifyDataSetChanged()*/
+                        pathList.removeAt(pos)
+                        imageVideoAdapter.notifyDataSetChanged()
+                        galleryItemListSize=galleryItemListSize-1
                         mView!!.imgAttach.alpha = 1f
                         mView!!.imgAttach.isEnabled = true
                     }
@@ -956,51 +1077,90 @@ class AddItemFragment : Fragment() {
                 imageVideoAdapter.notifyDataSetChanged()
             }
         } else if (requestCode == CAMERA_CAPTURE_IMAGE_REQUEST_CODE) {
-            if (resultCode == Activity.RESULT_OK) { //previewCapturedImage();
-                if (uri != null) {
-                    imagePath = ""
-                    Log.e("uri", uri.toString())
-                    imagePath = uri!!.path!!
-                    galleryPhotos.add(uri!!.path!!)
-                    setUploadPhotos(galleryPhotos)
-                } else {
-                    LogUtils.shortToast(requireActivity(), "something went wrong! please try again")
-                }
-
+            if (resultCode == Activity.RESULT_OK) { //
+                // previewCapturedImage();
+                    if (galleryPhotos.size<5){
+                        if (uri != null) {
+                            imagePath = ""
+                            Log.e("uri", uri.toString())
+                            imagePath = uri!!.path!!
+                            val photoData = PhotoData()
+                            photoData.status = "new"
+                            photoData.path = uri!!.path!!
+                            galleryPhotos.add(photoData)
+                            setUploadPhotos()
+                        }
+                    }else if(galleryPhotos.size==5){
+                        LogUtils.shortToast(requireActivity(), requireContext().getString(R.string.something_went_wrong))
+                    } else {
+                        LogUtils.shortToast(requireActivity(), requireContext().getString(R.string.something_went_wrong))
+                    }
             }
         } else if (requestCode == PICK_IMAGE_FROM_GALLERY && resultCode == Activity.RESULT_OK && data != null) {
 //            pathList.clear()
+
             imagePath = ""
-            if (data.data != null) {
-                val clipdata = data.clipData
-                if (clipdata != null) {
+            val clipdata = data.clipData
+            if (clipdata != null) {
+                val count: Int = data.clipData!!.itemCount
+                if (count+galleryPhotos.size<=5){
                     for (i in 0 until clipdata.itemCount) {
                         val uri = clipdata.getItemAt(i).uri
-                        if (uri.toString().startsWith("content")) {
-                            imagePath = getRealPath(uri)!!
-                        } else {
-                            imagePath = uri.getPath()!!
-                        }
+                        /* if (uri.toString().startsWith("content")) {
+                             imagePath = getRealPath(uri)!!
+                         } else {
+                             imagePath = uri.getPath()!!
+                         }*/
                         imagePath = if (uri.toString().startsWith("content")) {
                             FetchPath.getPath(requireActivity(), uri!!)!!
                         } else {
                             uri!!.path!!
                         }
-
-//                        galleryPhotos.add(imagePath)
+                        val photoData = PhotoData()
+                        photoData.status = "new"
+                        photoData.path = imagePath
+                        galleryPhotos.add(photoData)
                     }
-                    galleryPhotos.add(imagePath)
-                    setUploadPhotos(galleryPhotos)
-                } else { // handle single photo
-                    val uri = data.data!!
-                    if (uri.toString().startsWith("content")) {
-                        imagePath = getRealPath(uri)!!
-                    } else {
-                        imagePath = uri.getPath()!!
-                    }
-                    galleryPhotos.add(imagePath)
-                    setUploadPhotos(galleryPhotos)
+                    setUploadPhotos()
+                }else{
+                    LogUtils.shortToast(requireContext(), requireContext().getString(R.string.only_five_items_can_be_selected))
                 }
+
+            } else { // handle single photo
+                if (galleryPhotos.size<5){
+                    val imageURI = data.data!!
+     /*               imagePath = FetchPath.getPath(requireActivity(), uri)!!
+                    *//*imagePath = if (uri.toString().startsWith("content")) {
+                        FetchPath.getPath(requireActivity(), uri!!)!!
+                    } else {
+                        uri!!.path!!
+                    }*/
+                    try {
+                        if (imageURI.toString().startsWith("content")) {
+                            imagePath = imageURI?.let { it1 ->
+                                FetchPath.getPath(requireContext(),
+                                    it1
+                                )
+                            }!!
+                        } else {
+                            imagePath = imageURI!!.getPath()!!
+                        }
+
+                    }catch (e: Exception){
+                        Log.e("exception", e.message.toString())
+                    }
+//                    imagePath = uri!!.path!!
+                    val photoData = PhotoData()
+                    photoData.status = "new"
+                    photoData.path = imagePath
+                    galleryPhotos.add(photoData)
+                    setUploadPhotos()
+                }else if (galleryPhotos.size==5){
+                    LogUtils.shortToast(requireContext(), requireContext().getString(R.string.only_five_items_can_be_selected))
+                }else{
+                    LogUtils.shortToast(requireContext(), requireContext().getString(R.string.only_five_items_can_be_selected))
+                }
+
             }
         }
     }
@@ -1021,16 +1181,43 @@ class AddItemFragment : Fragment() {
         return realpath
     }
 
-    private fun setUploadPhotos(galleryPhotos: ArrayList<String>) {
+    private fun setUploadPhotos() {
         mView!!.rvImgVdo.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         imageVideoAdapter= ImageVideoAdapter(requireContext(), galleryPhotos, object :ClickInterface.ClickPosInterface{
-            override fun clickPostion(pos: Int) {
-                galleryPhotos.removeAt(pos)
-                imageVideoAdapter.notifyDataSetChanged()
+            override fun clickPostion(position: Int) {
+                /*galleryPhotos.removeAt(pos)
                 mView!!.imgAttach.alpha=1f
-                mView!!.imgAttach.isEnabled=true
+                mView!!.imgAttach.isEnabled=(galleryPhotos.size<5)
+                mView!!.rvImgVdo.adapter = imageVideoAdapter
+                imageVideoAdapter.notifyDataSetChanged()*/
+                if(galleryPhotos[position].status.equals("old")) {
+                    val alert = android.app.AlertDialog.Builder(requireContext())
+                    alert.setMessage(requireContext().getString(R.string.delete_message))
+                    alert.setCancelable(false)
+                    alert.setPositiveButton(getString(R.string.yes)) { dialog, i ->
+                        dialog.cancel()
+                        galleryPhotos.removeAt(position)
+                        mView!!.imgAttach.alpha=1f
+                        mView!!.imgAttach.isEnabled=(galleryPhotos.size<5)
+                        mView!!.rvImgVdo.adapter = imageVideoAdapter
+                        imageVideoAdapter.notifyDataSetChanged()
+                    }
+                    alert.setNegativeButton(getString(R.string.no)) { dialog, i ->
+                        dialog.cancel()
+                    }
+                    alert.show()
+                }
+                else {
+                    Log.e("check", "" + position)
+                    galleryPhotos.removeAt(position)
+                    mView!!.imgAttach.alpha=1f
+                    mView!!.imgAttach.isEnabled=(galleryPhotos.size<5)
+                    mView!!.rvImgVdo.adapter = imageVideoAdapter
+                    imageVideoAdapter.notifyDataSetChanged()
+                }
+                mView!!.imgAttach.alpha=1f
+                mView!!.imgAttach.isEnabled = true
             }
-
         })
         mView!!.rvImgVdo.adapter=imageVideoAdapter
         imageVideoAdapter.notifyDataSetChanged()

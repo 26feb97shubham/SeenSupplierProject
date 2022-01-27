@@ -268,4 +268,19 @@ class NotificationsFragment : Fragment() {
                     }
                 }
     }
+
+    override fun onResume() {
+        super.onResume()
+        requireActivity().other_frag_notificationImg.visibility = View.GONE
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        requireActivity().other_frag_notificationImg.visibility = View.VISIBLE
+    }
+
+    override fun onStop() {
+        super.onStop()
+        requireActivity().other_frag_notificationImg.visibility = View.VISIBLE
+    }
 }

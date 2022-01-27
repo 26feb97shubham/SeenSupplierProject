@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/_8sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mtv_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/expressway_rg"
+        android:text="username"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_7ssp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="wrap_content"
+        android:id="@+id/mtv_order_id"
+        android:text="@string/order"
+        app:layout_constraintTop_toBottomOf="@id/mtv_user_name"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textAllCaps="true"
+        android:fontFamily="@font/expressway_rg"
+        android:textSize="@dimen/_8ssp"
+        android:textColor="@color/black"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/mtv_category_name"
+        android:text="@string/fashion"
+        app:layout_constraintTop_toBottomOf="@id/mtv_user_name"
+        app:layout_constraintStart_toEndOf="@id/mtv_order_id"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:textAllCaps="true"
+        android:fontFamily="@font/expressway_rg"
+        android:textSize="@dimen/_7ssp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/mtv_delivered_date"
+        android:text="@string/fashion"
+        app:layout_constraintTop_toBottomOf="@id/mtv_user_name"
+        app:layout_constraintStart_toEndOf="@id/mtv_category_name"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:textAllCaps="true"
+        android:fontFamily="@font/expressway_rg"
+        android:textSize="@dimen/_7ssp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/mtv_total_price"
+        android:text="@string/fashion"
+        app:layout_constraintTop_toBottomOf="@id/mtv_user_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:textAllCaps="true"
+        android:fontFamily="@font/expressway_rg"
+        android:textSize="@dimen/_7ssp"
+        android:textColor="@color/gold"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="#DBDBDB"
+        app:layout_constraintTop_toBottomOf="@id/mtv_order_id"
+        android:layout_marginTop="@dimen/_6sdp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

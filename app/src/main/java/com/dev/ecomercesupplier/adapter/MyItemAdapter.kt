@@ -1,6 +1,7 @@
 package com.dev.ecomercesupplier.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +28,13 @@ class MyItemAdapter(private val context: Context, private val data: ArrayList<Pr
 //        holder.itemView.category.text=data[position].category
         holder.itemView.price.text=context.getString(R.string.aed)+" "+data[position].price
         holder.itemView.stockCount.text=data[position].quantity+" "+context.getString(R.string.pcs_in_stock)
+
+        holder.itemView.setOnClickListener {
+            Log.e("data", data[position].toString())
+
+            holder.itemView.startAnimation(AlphaAnimation(1f, .5f))
+            clickInstance.clickPostionType(position, "1")
+        }
 
         holder.itemView.imgEdit.setOnClickListener {
             holder.itemView.imgEdit.startAnimation(AlphaAnimation(1f, .5f))

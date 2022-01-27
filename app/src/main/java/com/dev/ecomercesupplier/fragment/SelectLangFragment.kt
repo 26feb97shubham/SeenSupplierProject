@@ -76,18 +76,30 @@ class SelectLangFragment : Fragment() {
 //        }
 
         mView.arabicView.setOnClickListener {
-            if(selectLang != "ar") {
+           /* if(selectLang != "ar") {
                 mView.arabicView.startAnimation(AlphaAnimation(1f, 0.5f))
                 selectArabic()
                 SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.SelectedLang, selectLang)
-            }
+            }else{
+                mView.arabicView.startAnimation(AlphaAnimation(1f, 0.5f))
+                selectArabic()
+                SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.SelectedLang, selectLang)
+            }*/
+
+            mView.arabicView.startAnimation(AlphaAnimation(1f, 0.5f))
+            selectArabic()
+            SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.SelectedLang, selectLang)
         }
         mView.englishView.setOnClickListener {
-            if(selectLang != "en") {
+           /* if(selectLang != "en") {
                 mView.englishView.startAnimation(AlphaAnimation(1f, 0.5f))
                 selectEnglish()
                 SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.SelectedLang, selectLang)
-            }
+            }*/
+
+            mView.englishView.startAnimation(AlphaAnimation(1f, 0.5f))
+            selectEnglish()
+            SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.SelectedLang, selectLang)
         }
 
         mView.btnNext.setOnClickListener {

@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/_70sdp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardBackgroundColor="@color/gold"
     app:strokeWidth="@dimen/_1sdp"
     app:strokeColor="@color/gray"
     android:layout_marginBottom="@dimen/_10sdp"

@@ -20,12 +20,14 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginHorizontal="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_10sdp">
+
             <ImageView
+                android:visibility="gone"
+                android:id="@+id/iv_back_register_1"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="match_parent"
-                android:src="@drawable/arrow_left_icons"
-                android:id="@+id/iv_back_register_1"
-                android:layout_alignParentStart="true"/>
+                android:layout_alignParentStart="true"
+                android:src="@drawable/arrow_left_icons" />
 
             <TextView
                 android:id="@+id/signup_tv"
@@ -145,16 +147,20 @@
                             android:id="@+id/til_business_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/enter_text_here"
-                            app:hintTextColor="@color/black"
-                            android:textColorHint="@color/black"
                             android:clipChildren="false"
+                            app:hintAnimationEnabled="false"
+                            app:hintEnabled="false"
                             app:layout_constraintTop_toBottomOf="@id/mtv_business_name"
                             app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color">
                             <com.google.android.material.textfield.TextInputEditText
+                                android:textDirection="locale"
+                                android:textAlignment="viewStart"
                                 android:id="@+id/et_business_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:hint="@string/enter_text_here"
+                                app:hintTextColor="@color/black"
+                                android:textColorHint="@color/black"
                                 android:inputType="text"
                                 android:maxLength="30"
                                 android:textColor="@color/black"
@@ -177,17 +183,21 @@
                             android:id="@+id/til_email"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/enter_text_here"
-                            app:hintTextColor="@color/black"
-                            android:textColorHint="@color/black"
                             android:clipChildren="false"
+                            app:hintAnimationEnabled="false"
+                            app:hintEnabled="false"
                             app:layout_constraintTop_toBottomOf="@id/mtv_email"
                             app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color">
                             <com.google.android.material.textfield.TextInputEditText
+                                android:textDirection="locale"
+                                android:textAlignment="viewStart"
                                 android:id="@+id/et_business_email"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="textEmailAddress"
+                                android:hint="@string/enter_text_here"
+                                app:hintTextColor="@color/black"
+                                android:textColorHint="@color/black"
                                 android:maxLength="30"
                                 android:textColor="@color/black"
                                 android:background="@android:color/transparent"/>
@@ -217,20 +227,36 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:fontFamily="@font/expressway_rg"
-                                android:includeFontPadding="false"
                                 android:gravity="center_vertical"
+                                android:includeFontPadding="false"
                                 android:padding="@dimen/_2sdp"
                                 android:text="+971"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_11ssp"/>
+                                android:textSize="@dimen/_11ssp" />
 
-                            <com.google.android.material.textfield.TextInputLayout
+                            <EditText
+                                android:id="@+id/et_business_phone"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_40sdp"
+                                android:layout_toEndOf="@+id/txtCountryCode_register"
+                                android:fontFamily="@font/expressway_rg"
+                                android:gravity="center_vertical"
+                                android:inputType="phone"
+                                android:maxLength="15"
+                                android:textDirection="locale"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12ssp" />
+
+                          <!--  <com.google.android.material.textfield.TextInputLayout
                                 android:id="@+id/til_phone"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 app:hintTextColor="@color/black"
                                 android:textColorHint="@color/black"
                                 android:clipChildren="false"
+                                app:hintAnimationEnabled="false"
+                                app:hintEnabled="false"
                                 android:layout_toEndOf="@+id/txtCountryCode_register"
                                 app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color">
                                 <com.google.android.material.textfield.TextInputEditText
@@ -242,7 +268,7 @@
                                     android:textColor="@color/black"
                                     android:fontFamily="@font/expressway_rg"
                                     android:background="@android:color/transparent"/>
-                            </com.google.android.material.textfield.TextInputLayout>
+                            </com.google.android.material.textfield.TextInputLayout>-->
 
                         </RelativeLayout>
 
@@ -263,20 +289,24 @@
                             android:id="@+id/til_password"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/strong_password_2021"
-                            app:hintTextColor="@color/black"
-                            android:textColorHint="@color/black"
                             android:clipChildren="false"
+                            app:hintAnimationEnabled="false"
+                            app:hintEnabled="false"
                             app:layout_constraintTop_toBottomOf="@id/mtv_password"
                             app:passwordToggleEnabled="true"
                             app:passwordToggleTint="@color/gold"
                             app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color">
                             <com.google.android.material.textfield.TextInputEditText
+                                android:textDirection="locale"
+                                android:textAlignment="viewStart"
                                 android:id="@+id/et_password"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:inputType="textEmailAddress"
+                                android:inputType="textPassword"
                                 android:maxLength="30"
+                                android:hint="@string/password"
+                                app:hintTextColor="@color/black"
+                                android:textColorHint="@color/black"
                                 android:textColor="@color/black"
                                 android:background="@android:color/transparent"/>
                         </com.google.android.material.textfield.TextInputLayout>
@@ -297,19 +327,23 @@
                             android:id="@+id/til_verify_password"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/enter_text_here"
-                            app:hintTextColor="@color/black"
-                            android:textColorHint="@color/black"
                             android:clipChildren="false"
+                            app:hintAnimationEnabled="false"
+                            app:hintEnabled="false"
                             app:passwordToggleEnabled="true"
                             app:passwordToggleTint="@color/gold"
                             app:layout_constraintTop_toBottomOf="@id/mtv_verify_password"
                             app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color">
                             <com.google.android.material.textfield.TextInputEditText
+                                android:textDirection="locale"
+                                android:textAlignment="viewStart"
                                 android:id="@+id/et_verify_password"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:inputType="textEmailAddress"
+                                android:inputType="textPassword"
+                                android:hint="@string/verify_password"
+                                app:hintTextColor="@color/black"
+                                android:textColorHint="@color/black"
                                 android:maxLength="30"
                                 android:textColor="@color/black"
                                 android:background="@android:color/transparent"/>
@@ -335,6 +369,43 @@
                         android:textStyle="normal"
                         android:layout_marginTop="@dimen/_40sdp"
                         app:layout_constraintTop_toBottomOf="@+id/cl_sign_up_1_view" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        app:layout_constraintTop_toBottomOf="@id/btnNext_register_1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginTop="@dimen/_8sdp">
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/mtv_already_a_user"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@id/btnNext"
+                            app:layout_constraintStart_toStartOf="@id/btnNext"
+                            android:fontFamily="@font/farsi_simple_bold"
+                            android:textColor="@color/black"
+                            android:textAllCaps="false"
+                            android:gravity="center"
+                            android:textSize="@dimen/_12ssp"
+                            android:text="@string/already_a_user"/>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/mtv_log_in"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@id/btnNext"
+                            app:layout_constraintStart_toEndOf="@id/mtv_already_a_user"
+                            android:fontFamily="@font/farsi_simple_bold"
+                            android:textColor="@color/black"
+                            android:layout_marginHorizontal="@dimen/_8sdp"
+                            android:textAllCaps="false"
+                            android:gravity="center"
+                            android:textSize="@dimen/_12ssp"
+                            android:text="@string/log_in"/>
+                    </LinearLayout>
 
 
 

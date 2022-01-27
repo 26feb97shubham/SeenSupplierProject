@@ -99,6 +99,7 @@
                 android:layout_gravity="center"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_weight="1"
+                android:visibility="visible"
                 android:background="@drawable/subscribe_button_background"
                 android:fontFamily="@font/farsi_simple_bold"
                 android:includeFontPadding="false"

@@ -164,7 +164,7 @@ class ResetPasswordActivity : AppCompatActivity() {
 
     }
 
-    override fun onBackPressed() {
+   /* override fun onBackPressed() {
         exitApp()
     }
     private fun exitApp() {
@@ -187,5 +187,5 @@ class ResetPasswordActivity : AppCompatActivity() {
                 doubleClick=false
             }, 300)
         }
-    }
+    }*/
 }

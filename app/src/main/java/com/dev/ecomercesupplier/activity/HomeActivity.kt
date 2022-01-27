@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.fragment.UploadImageVideoFragment
 import com.dev.ecomercesupplier.utils.SharedPreferenceUtility
+import kotlinx.android.synthetic.main.about_us_more_info_frag_toolbar.view.*
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
@@ -42,6 +43,10 @@ class HomeActivity : AppCompatActivity() {
         frag_profile_menu.setOnClickListener {
             opencloseDrawer()
         }
+
+        about_us_fragment_toolbar.frag_about_us_menu.setOnClickListener {
+            opencloseDrawer()
+        }
     }
 
     private fun opencloseDrawer() {
@@ -61,12 +66,12 @@ class HomeActivity : AppCompatActivity() {
         when(findNavController(R.id.nav_home_host_fragment).currentDestination?.id){
             R.id.homeFragment -> exitApp()
             R.id.revenueFragment -> {
-                itemHome.setImageResource(R.drawable.home_active_2)
+                itemHome1.setImageResource(R.drawable.selected_home)
                 findNavController(R.id.nav_home_host_fragment).navigate(R.id.homeFragment)
             }
 
             R.id.profileFragment -> {
-                itemHome.setImageResource(R.drawable.home_active_2)
+                itemHome1.setImageResource(R.drawable.selected_home)
                 findNavController(R.id.nav_home_host_fragment).navigate(R.id.homeFragment)
             }
             /*R.id.uploadImageVideoFragment -> {

@@ -1,18 +1,25 @@
 package com.dev.ecomercesupplier.activity
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.webkit.WebResourceRequest
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.dev.ecomercesupplier.MyWebViewClient
 import com.dev.ecomercesupplier.R
-import com.dev.ecomercesupplier.custom.Utility.Companion.apiInterface
 import com.dev.ecomercesupplier.custom.Utility.Companion.checkedPosition
 import com.dev.ecomercesupplier.model.ModelForAccountType
-import com.dev.ecomercesupplier.model.ModelForSpinner
-import com.dev.ecomercesupplier.model.ServeCountries
 import com.dev.ecomercesupplier.rest.ApiClient
+import com.dev.ecomercesupplier.rest.ApiInterface
 import com.dev.ecomercesupplier.utils.LogUtils
 import com.dev.ecomercesupplier.utils.SharedPreferenceUtility
 import kotlinx.android.synthetic.main.activity_agreement.*
@@ -29,7 +36,10 @@ import java.util.ArrayList
 class AgreementActivity : AppCompatActivity() {
     private var url : String ?= null
     private var acc_type_id : String ?= null
+    private var userId : String ?= null
+    private var lang : String ?= null
     private var accountList= ArrayList<ModelForAccountType>()
+    var doubleClick:Boolean=false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_agreement)
@@ -45,13 +55,37 @@ class AgreementActivity : AppCompatActivity() {
 
         url = accountList[checkedPosition].url
         acc_type_id = accountList[checkedPosition].id.toString()
+        Log.e("accid", ""+acc_type_id)
 
-        web_view_agreement.webViewClient = MyWebViewClient()
+        userId = SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.UserId, 0).toString()
+        lang = SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, "")
+
+        Log.e("userId", ""+userId)
+        Log.e("lang", ""+lang)
+
+        web_view_agreement.webViewClient = object : WebViewClient() {
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                progressBar_accept_agreement.visibility= View.GONE
+            }
+
+            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                super.onPageStarted(view, url, favicon)
+                progressBar_accept_agreement.visibility= View.VISIBLE
+            }
+
+            override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+                return super.shouldOverrideUrlLoading(view, url)
+                view!!.loadUrl(url!!)
+            }
+        }
         web_view_agreement.settings.javaScriptEnabled = true
         web_view_agreement.settings.setSupportZoom(true)
         web_view_agreement.getSettings().setBuiltInZoomControls(true)
         web_view_agreement.getSettings().setUseWideViewPort(true)
         web_view_agreement.getSettings().setLoadWithOverviewMode(false)
+        web_view_agreement.setBackgroundColor(Color.TRANSPARENT)
+        web_view_agreement.setLayerType(WebView.LAYER_TYPE_SOFTWARE, null)
         web_view_agreement.loadUrl(url!!)
 
         mtv_decline.setOnClickListener {
@@ -68,24 +102,24 @@ class AgreementActivity : AppCompatActivity() {
     private fun acceptAggrement() {
         window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         progressBar_accept_agreement.visibility= View.VISIBLE
+        val apiInterface = ApiClient.getClient()!!.create(ApiInterface::class.java)
 
-        val builder = ApiClient.createBuilder(arrayOf("user_id ", "account_type", "lang"),
-            arrayOf(SharedPreferenceUtility.getInstance()[SharedPreferenceUtility.UserId, ""],
+        val builder = ApiClient.createBuilder(arrayOf("user_id", "account_type", "lang"),
+            arrayOf(userId.toString(),
                 acc_type_id.toString(),
-                SharedPreferenceUtility.getInstance()[SharedPreferenceUtility.SelectedLang, ""]))
+                lang.toString()))
 
         val call = apiInterface.updateCategory(builder.build())
         call!!.enqueue(object : Callback<ResponseBody?> {
             override fun onResponse(call: Call<ResponseBody?>, response: Response<ResponseBody?>) {
-                progressBar_register_1.visibility = View.GONE
+                progressBar_accept_agreement.visibility = View.GONE
                 window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                 try {
                     if (response.body() != null) {
                         val jsonObject = JSONObject(response.body()!!.string())
                         if (jsonObject.getInt("response")==1){
                             startActivity(Intent(this@AgreementActivity, PackagePlanActivity::class.java)
-                                .putExtra("user_id", SharedPreferenceUtility.getInstance()[SharedPreferenceUtility.UserId, ""]))
-                            finish()
+                                .putExtra("user_id", userId))
                         }else{
                             LogUtils.shortToast(this@AgreementActivity, "No Response")
                         }
@@ -102,9 +136,34 @@ class AgreementActivity : AppCompatActivity() {
             override fun onFailure(call: Call<ResponseBody?>, throwable: Throwable) {
                 LogUtils.e("msg", throwable.message)
                 LogUtils.shortToast(this@AgreementActivity, getString(R.string.check_internet))
-                progressBar_register_1.visibility = View.GONE
+                progressBar_accept_agreement.visibility = View.GONE
                 window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
             }
         })
+    }
+
+    override fun onBackPressed() {
+        exitApp()
+    }
+    private fun exitApp() {
+        val toast = Toast.makeText(
+            this,
+            getString(R.string.please_click_back_again_to_exist),
+            Toast.LENGTH_SHORT
+        )
+
+
+        if(doubleClick){
+            finishAffinity()
+            doubleClick=false
+        }
+        else{
+
+            doubleClick=true
+            Handler(Looper.getMainLooper()).postDelayed(Runnable {
+                toast.show()
+                doubleClick=false
+            }, 500)
+        }
     }
 }

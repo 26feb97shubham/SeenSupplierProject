@@ -30,6 +30,8 @@ class Utility {
         val PERMISSIONS = arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
         val PERMISSION_CAMERA_EXTERNAL_STORAGE_CODE = 301
         var checkedPosition : Int = 0
+        var checkedPackagePosition : Int = 0
+        var isSelectAll = false
         val apiInterface = ApiClient.getClient()!!.create(ApiInterface::class.java)
         fun changeLanguage(context:Context, language:String){
             val locale = Locale(language)

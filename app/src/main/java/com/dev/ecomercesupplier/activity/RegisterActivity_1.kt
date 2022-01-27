@@ -6,10 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
+import android.os.*
 import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.text.TextUtils
 import android.util.DisplayMetrics
@@ -18,6 +16,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
 import android.view.animation.AlphaAnimation
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -78,6 +77,7 @@ class RegisterActivity_1 : AppCompatActivity() {
     var cCodeList= arrayListOf<String>()
     var servedCountriesList=ArrayList<ServeCountries>()
     private var accountList=ArrayList<ModelForAccountType>()
+    var doubleClick:Boolean=false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_1)
@@ -139,7 +139,7 @@ class RegisterActivity_1 : AppCompatActivity() {
                             val m1 = ModelForAccountType()
                             m1.id=jsonObj.getInt("id")
                             m1.name=jsonObj.getString("name")
-                            m1.name=jsonObj.getString("url")
+                            m1.url =jsonObj.getString("url")
                             accountList.add(m1)
                         }
                     }
@@ -195,6 +195,11 @@ class RegisterActivity_1 : AppCompatActivity() {
             btnNext_register_1.startAnimation(AlphaAnimation(1f, 0.5f))
             SharedPreferenceUtility.getInstance().hideSoftKeyBoard(this, btnNext_register_1)
             validateAndNext()
+        }
+
+        mtv_log_in.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
         }
     }
 
@@ -427,6 +432,31 @@ class RegisterActivity_1 : AppCompatActivity() {
                 }
                 Glide.with(this).applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.user)).load("file:///$profilePath").into(img_register_1)
             }
+        }
+    }
+
+    override fun onBackPressed() {
+        exitApp()
+    }
+    private fun exitApp() {
+        val toast = Toast.makeText(
+            this,
+            getString(R.string.please_click_back_again_to_exist),
+            Toast.LENGTH_SHORT
+        )
+
+
+        if(doubleClick){
+            finishAffinity()
+            doubleClick=false
+        }
+        else{
+
+            doubleClick=true
+            Handler(Looper.getMainLooper()).postDelayed(Runnable {
+                toast.show()
+                doubleClick=false
+            }, 500)
         }
     }
 }

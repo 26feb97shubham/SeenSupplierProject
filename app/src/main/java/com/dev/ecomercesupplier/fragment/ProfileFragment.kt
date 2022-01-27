@@ -116,7 +116,7 @@ class ProfileFragment : Fragment() {
 
         }
 
-        mView.countries_rvlist.layoutManager=LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        mView.countries_rvlist.layoutManager=LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, true)
         serveCountriesAdapter= ServeCountriesAdapter(requireContext(), serveCountriesList, object : ClickInterface.ClickPosInterface{
             override fun clickPostion(pos: Int) {
             }

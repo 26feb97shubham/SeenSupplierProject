@@ -10,6 +10,7 @@ import android.view.WindowManager
 import android.view.animation.AlphaAnimation
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.adapter.CategoryListAdapter
 import com.dev.ecomercesupplier.interfaces.ClickInterface
@@ -19,7 +20,10 @@ import com.dev.ecomercesupplier.rest.ApiInterface
 import com.dev.ecomercesupplier.utils.LogUtils
 import com.dev.ecomercesupplier.utils.SharedPreferenceUtility
 import kotlinx.android.synthetic.main.activity_choose_categories.*
+import kotlinx.android.synthetic.main.activity_choose_categories.btnContinue
 import kotlinx.android.synthetic.main.activity_choose_categories.progressBar
+import kotlinx.android.synthetic.main.activity_choose_categories.rvList
+import kotlinx.android.synthetic.main.fragment_choose_categories.*
 import okhttp3.ResponseBody
 import org.json.JSONArray
 import org.json.JSONException
@@ -47,7 +51,8 @@ class ChooseCategoriesActivity : AppCompatActivity() {
         if(intent.extras != null){
             user_id=intent.getStringExtra("user_id").toString()
         }
-        rvList.layoutManager=GridLayoutManager(this, 3)
+//        rvList.layoutManager=GridLayoutManager(this, 3)
+        rvList.layoutManager= LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         categoryListAdapter= CategoryListAdapter(this, catNameList, object:ClickInterface.ClickArrayInterface{
             override fun clickArray(idArray: JSONArray) {
                 catIDArray= JSONArray()

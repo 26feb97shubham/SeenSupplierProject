@@ -73,7 +73,6 @@ class AboutUsFragment : Fragment() {
                         val jsonObject = JSONObject(response.body()!!.string())
                         if (jsonObject.getInt("response") == 1) {
                             val data = jsonObject.getJSONObject("data")
-                            requireActivity().about_us_content_home.text = HtmlCompat.fromHtml(data.getString("content"), 0)
                         } else {
                             LogUtils.shortToast(requireContext(), jsonObject.getString("message"))
                         }
@@ -106,7 +105,7 @@ class AboutUsFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        requireActivity().about_us_fragment_toolbar.frag_profile_notificationImg.setOnClickListener {
+        /*requireActivity().about_us_fragment_toolbar.frag_about_us_menu.setOnClickListener {
             requireActivity().about_us_fragment_toolbar.frag_profile_notificationImg.startAnimation(
                 AlphaAnimation(1f, 0.5f)
             )
@@ -115,7 +114,7 @@ class AboutUsFragment : Fragment() {
                 requireActivity().about_us_fragment_toolbar.frag_profile_notificationImg
             )
             findNavController().navigate(R.id.notificationsFragment)
-        }
+        }*/
     }
 
     override fun onResume() {
@@ -128,9 +127,10 @@ class AboutUsFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        requireActivity().other_frag_toolbar.visibility = View.GONE
+        requireActivity().other_frag_toolbar.visibility = View.VISIBLE
         requireActivity().profile_fragment_toolbar.visibility = View.GONE
         requireActivity().about_us_fragment_toolbar.visibility = View.GONE
+        requireActivity().toolbar.visibility = View.GONE
     }
 
     override fun onStop() {

@@ -4,16 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment.RevenueFragment">
-
-   <ScrollView
-       android:layout_width="match_parent"
-       android:layout_height="match_parent">
-       <androidx.constraintlayout.widget.ConstraintLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:padding="@dimen/_8sdp">
-           <com.google.android.material.textview.MaterialTextView
+    tools:context=".fragment.RevenueFragment"
+    android:paddingHorizontal="@dimen/_8sdp">
+    <com.google.android.material.textview.MaterialTextView
                android:layout_width="@dimen/_80sdp"
                android:layout_height="@dimen/_18sdp"
                android:text="@string/revenues"
@@ -65,6 +58,46 @@
                    android:layout_marginEnd="@dimen/_4sdp"/>
 
            </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/ll_category_filter"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:visibility="gone"
+        android:id="@+id/ll_filter">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_categories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_8sdp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:text="Select All"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:fontFamily="@font/expressway_rg"
+            android:textSize="@dimen/_10ssp"
+            android:textColor="@color/gold"
+            android:id="@+id/mtv_select_all"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:text="Filter"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:fontFamily="@font/expressway_rg"
+            android:textSize="@dimen/_10ssp"
+            android:textColor="@color/gold"
+            android:id="@+id/mtv_filter"/>
+
+    </LinearLayout>
 
            <LinearLayout
                android:id="@+id/llFromTo"
@@ -73,7 +106,7 @@
                android:layout_marginTop="@dimen/_10sdp"
                app:layout_constraintEnd_toEndOf="parent"
                app:layout_constraintStart_toStartOf="parent"
-               app:layout_constraintTop_toBottomOf="@+id/ll_category_filter"
+               app:layout_constraintTop_toBottomOf="@+id/ll_filter"
                android:orientation="horizontal">
                <TextView
                    android:id="@+id/txtFrom"
@@ -160,10 +193,89 @@
 
            </LinearLayout>
 
+    <com.google.android.material.card.MaterialCardView
+        app:layout_constraintTop_toBottomOf="@id/llFromTo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:cardCornerRadius="@dimen/_15sdp"
+        app:strokeColor="#DBDBDB"
+        app:strokeWidth="@dimen/_1sdp">
 
-       </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_filtered_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/_10sdp">
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginStart="@dimen/_8sdp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="From-To"
+                android:gravity="center_vertical"
+                android:fontFamily="@font/expressway_rg"
+                android:textSize="@dimen/_10ssp"
+                android:textColor="@color/gold"
+                android:id="@+id/mtv_from_to"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                app:layout_constraintTop_toBottomOf="@id/mtv_from_to"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:background="#DBDBDB"
+                android:id="@+id/divider_1"
+                android:layout_marginHorizontal="@dimen/_8sdp"/>
 
-   </ScrollView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                app:layout_constraintTop_toBottomOf="@id/divider_1"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:id="@+id/rv_revenues"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_revenues"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:text="@string/total"
+                    android:gravity="center_vertical"
+                    android:fontFamily="@font/expressway_rg"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/gold"
+                    android:id="@+id/mtv_total"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:text="From-To"
+                    android:gravity="center_vertical"
+                    android:fontFamily="@font/expressway_rg"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/gold"
+                    android:id="@+id/mtv_total_revenue"/>
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

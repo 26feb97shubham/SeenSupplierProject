@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
-import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
 import android.view.animation.AlphaAnimation
@@ -20,7 +19,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.dev.ecomercesupplier.BuildConfig
 import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.adapter.CustomSpinnerAdapter
@@ -79,7 +77,10 @@ class RegisterActivity_2 : AppCompatActivity() {
     private var uri: Uri? = null
     var servedCountriesList=ArrayList<ServeCountries>()
     private var selectCountryId = "0"
+    var document_uploaded = ""
     val PICK_IMAGE_FROM_GALLERY = 10
+    var isChecked: Boolean=false
+    var is_back = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_2)
@@ -87,9 +88,11 @@ class RegisterActivity_2 : AppCompatActivity() {
     }
 
     private fun setUpViews() {
+        is_back = false
         iv_back_register_2.setOnClickListener {
-            iv_back_register_1.startAnimation(AlphaAnimation(1f, 0.5f))
-            SharedPreferenceUtility.getInstance().hideSoftKeyBoard(this, iv_back_register_1)
+            iv_back_register_2.startAnimation(AlphaAnimation(1f, 0.5f))
+            SharedPreferenceUtility.getInstance().hideSoftKeyBoard(this, iv_back_register_2)
+            is_back = true
             onBackPressed()
         }
 
@@ -128,7 +131,7 @@ class RegisterActivity_2 : AppCompatActivity() {
         adp_country_name.notifyDataSetChanged()
 
         rv_countries_to_be_served_register_2.layoutManager =LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        servedCountriesAdapter= ServedCountriesAdapter(this, servedCountriesList, object : ClickInterface.ClickArrayInterface{
+        servedCountriesAdapter= ServedCountriesAdapter(this, servedCountriesList,is_back, object : ClickInterface.ClickArrayInterface{
             override fun clickArray(array: JSONArray) {
                 servedCountries=array
                 Log.e("servedCountries", servedCountries.toString())
@@ -141,6 +144,23 @@ class RegisterActivity_2 : AppCompatActivity() {
             mtv_upload_trade_licence.startAnimation(AlphaAnimation(1f, 0.5f))
             requestToUploadDocument()
         }
+
+        imgChkTnC.setOnClickListener {
+            imgChkTnC.startAnimation(AlphaAnimation(1f, 0.5f))
+            if(isChecked){
+                isChecked=false
+                imgChkTnC.setImageResource(R.drawable.un_check)
+            }
+            else{
+                isChecked=true
+                imgChkTnC.setImageResource(R.drawable.check)
+            }
+        }
+        txtTermsConditions_view.setOnClickListener {
+            txtTermsConditions_view.startAnimation(AlphaAnimation(1f, 0.5f))
+            startActivity(Intent(this, TermsAndConditionsActivity::class.java).putExtra("title", getString(R.string.terms_amp_conditions)))
+        }
+        
     }
 
     private fun requestToUploadDocument() {
@@ -269,6 +289,7 @@ class RegisterActivity_2 : AppCompatActivity() {
                 if (uri != null) {
                     docpath = ""
                     docpath = uri!!.path!!
+                    document_uploaded = getString(R.string.document_uploaded)
                     mtv_upload_trade_licence.visibility = View.GONE
                     rlUploadLicense_register_2.visibility = View.VISIBLE
                     txt2_register_2.text = getString(R.string.document_uploaded)
@@ -287,6 +308,7 @@ class RegisterActivity_2 : AppCompatActivity() {
                 } else {
                     uri!!.path!!
                 }
+                document_uploaded = getString(R.string.document_uploaded)
                 mtv_upload_trade_licence.visibility = View.GONE
                 rlUploadLicense_register_2.visibility = View.VISIBLE
                 txt2_register_2.text = getString(R.string.document_uploaded)
@@ -307,6 +329,7 @@ class RegisterActivity_2 : AppCompatActivity() {
                         docpath=filePath
                         mtv_upload_trade_licence.visibility = View.GONE
                         rlUploadLicense_register_2.visibility = View.VISIBLE
+                        document_uploaded = getString(R.string.document_uploaded)
                         txt2_register_2.text = getString(R.string.document_uploaded)
 
                         if(docpath.contains(".pdf")){
@@ -329,11 +352,13 @@ class RegisterActivity_2 : AppCompatActivity() {
 
     private fun validateAndSignUp() {
         if (selectCountryId=="0") {
-            LogUtils.shortToast(this, getString(R.string.please_select_your_country_name))
-        }
-
-        else if(servedCountries.length()==0){
+            LogUtils.shortToast(this, getString(R.string.please_select_your_country))
+        } else if(servedCountries.length()==0){
             LogUtils.shortToast(this, getString(R.string.please_select_the_countries_that_you_will_serve))
+        }else if(!document_uploaded.equals(getString(R.string.document_uploaded))){
+            LogUtils.shortToast(this, getString(R.string.please_upload_your_trade_license))
+        }else if(!isChecked){
+            LogUtils.shortToast(this, getString(R.string.please_accept_terms_conditions))
         }else {
             signUp()
         }
@@ -400,5 +425,10 @@ class RegisterActivity_2 : AppCompatActivity() {
                 window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
             }
         })
+    }
+
+    override fun onBackPressed() {
+        is_back = true
+        super.onBackPressed()
     }
 }

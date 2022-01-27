@@ -52,7 +52,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp"
                 android:maxLines="1"
-                android:textAlignment="viewStart"
+                android:textAlignment="viewEnd"
                 android:textDirection="locale"
                 android:ellipsize="end"
                 android:layout_marginEnd="@dimen/_15sdp"
@@ -84,11 +84,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_18sdp"
                 android:gravity="center"
-                
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp"
                 android:maxLines="1"
                 android:ellipsize="end"
+                android:textAlignment="viewEnd"
                 android:minWidth="@dimen/_18sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -100,7 +100,6 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_18sdp"
                 android:gravity="start"
-                
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp"
                 android:textStyle="bold"
@@ -118,7 +117,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_18sdp"
                 android:gravity="center"
-                
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp"
                 android:maxLines="1"
@@ -163,6 +161,7 @@
                     android:includeFontPadding="false"
                     android:padding="@dimen/_5sdp"
                     android:textColor="@color/black"
+                    android:textAlignment="viewEnd"
                     android:textSize="@dimen/_10ssp"
                     />
                 <TextView
@@ -189,6 +188,7 @@
                     android:padding="@dimen/_5sdp"
                     android:gravity="center"
                     android:textColor="@color/black"
+                    android:textAlignment="viewEnd"
                     android:textSize="@dimen/_10ssp"
                     />
             </LinearLayout>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_6sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+       <com.google.android.material.imageview.ShapeableImageView
+           android:layout_width="match_parent"
+           android:layout_height="@dimen/_120sdp"
+           app:layout_constraintTop_toTopOf="parent"
+           android:src="@drawable/default_img"
+           android:scaleType="centerCrop"
+           android:id="@+id/siv_product_image"/>
+
+        <LinearLayout
+            android:id="@+id/ll_product_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/siv_product_image"
+            android:orientation="vertical"
+            android:background="@drawable/top_left_rigt_radius">
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/mtv_product_name"
+                android:fontFamily="@font/expressway_rg"
+                android:textSize="@dimen/_10ssp"
+                android:text="@string/item_name"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textColor="@color/gray_color"
+                android:layout_marginStart="@dimen/_8sdp"/>
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/mtv_product_price"
+                android:fontFamily="@font/expressway_rg"
+                android:textSize="@dimen/_10ssp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:text="@string/item_price"
+                android:textColor="@color/gray_color"
+                android:layout_marginStart="@dimen/_8sdp"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_2sdp"
+            app:layout_constraintTop_toBottomOf="@id/ll_product_details"
+            android:background="@color/gold"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

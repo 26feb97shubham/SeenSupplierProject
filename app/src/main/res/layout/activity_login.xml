@@ -20,8 +20,7 @@
         android:id="@+id/mainscrolllayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/rlBottom">
+        app:layout_constraintTop_toTopOf="parent">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -81,9 +80,9 @@
                 android:inputType="number"
                 android:imeOptions="actionNext"
                 android:hint="@string/phone_number"/>
-            <EditText
-                    android:textDirection="locale"
-                    android:textAlignment="viewStart"
+            <com.google.android.material.textfield.TextInputEditText
+                android:textDirection="locale"
+                android:textAlignment="viewStart"
                 android:id="@+id/edtPass"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_37sdp"
@@ -170,20 +169,21 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btnLogin"
                 android:layout_marginTop="@dimen/_15sdp">
+
                 <TextView
                     android:id="@+id/tv_dont_have_an_account"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_15sdp"
-                    android:textColor="@color/white"
                     android:layout_alignParentBottom="true"
-                    android:gravity="center"
-                    android:fontFamily="@font/expressway_rg"
-                    android:includeFontPadding="false"
-                    android:textSize="@dimen/_11ssp"
-                    android:textAllCaps="false"
+                    android:layout_marginStart="@dimen/_15sdp"
                     android:elevation="@dimen/_5sdp"
-                    android:text="@string/dont_have_an_account_yet"/>
+                    android:fontFamily="@font/expressway_rg"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="@string/dont_have_an_account_yet"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_11ssp" />
 
                 <TextView
                     android:id="@+id/tv_signup"

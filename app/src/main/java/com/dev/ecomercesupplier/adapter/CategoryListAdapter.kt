@@ -56,9 +56,6 @@ class CategoryListAdapter(private val context: Context, private val data:ArrayLi
                 clickInst.clickArray(catIDList)
             }
         }
-
-
-
     }
 
     override fun getItemCount(): Int {
