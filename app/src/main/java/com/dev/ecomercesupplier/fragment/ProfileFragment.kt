@@ -17,6 +17,7 @@ import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.adapter.CategoriesAdapter
 import com.dev.ecomercesupplier.adapter.ProductAdapter
 import com.dev.ecomercesupplier.adapter.ServeCountriesAdapter
+import com.dev.ecomercesupplier.custom.Utility
 import com.dev.ecomercesupplier.interfaces.ClickInterface
 import com.dev.ecomercesupplier.model.Categories
 import com.dev.ecomercesupplier.model.Products
@@ -67,6 +68,7 @@ class ProfileFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.frag_profile, container, false)
+        Utility.setLanguage(requireContext(), SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
 //        requireActivity().other_frag_toolbar.visibility=View.GONE
 //        requireActivity().toolbar.visibility=View.GONE
         setUpViews()

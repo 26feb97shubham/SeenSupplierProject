@@ -8,6 +8,7 @@ import android.view.animation.AlphaAnimation
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.dev.ecomercesupplier.R
+import com.dev.ecomercesupplier.custom.Utility
 import com.dev.ecomercesupplier.utils.SharedPreferenceUtility
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_global_market.view.*
@@ -42,6 +43,7 @@ class GlobalMarketFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
          mView = inflater.inflate(R.layout.fragment_global_market, container, false)
+        Utility.setLanguage(requireContext(), SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
         setUpViews()
         return mView
     }

@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.adapter.MyItemAdapter
+import com.dev.ecomercesupplier.custom.Utility
 import com.dev.ecomercesupplier.interfaces.ClickInterface
 import com.dev.ecomercesupplier.model.Products
 import com.dev.ecomercesupplier.rest.ApiClient
@@ -66,6 +67,7 @@ class MyItemsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_my_items, container, false)
+        Utility.setLanguage(requireContext(), SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
         //getItem(false)
         setUpViews()
         getItem(false)
@@ -136,8 +138,24 @@ class MyItemsFragment : Fragment() {
 
         mView.btnAddMore.setOnClickListener {
             mView.btnAddMore.startAnimation(AlphaAnimation(1f, 0.5f))
-            my_reference = "add_edit"
-            findNavController().navigate(R.id.action_myItemsFragment_to_addItemFragment)
+
+            if (!SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.isBankAdded, false)){
+                val addBankDialog = androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                addBankDialog.setCancelable(false)
+                addBankDialog.setTitle(requireContext().getString(R.string.bank_details_not_added))
+                addBankDialog.setMessage(requireContext().getString(R.string.please_add_your_bank_details_first))
+                addBankDialog.setPositiveButton(requireContext().getString(R.string.yes)
+                ) { dialog, _ ->
+                    findNavController().navigate(R.id.bankDetailsFragment)
+                    dialog!!.dismiss()
+                }
+                addBankDialog.setNegativeButton(requireContext().getString(R.string.no)
+                ) { dialog, _ -> dialog!!.cancel() }
+                addBankDialog.show()
+            }else{
+                my_reference = "add_edit"
+                findNavController().navigate(R.id.action_myItemsFragment_to_addItemFragment)
+            }
         }
     }
 

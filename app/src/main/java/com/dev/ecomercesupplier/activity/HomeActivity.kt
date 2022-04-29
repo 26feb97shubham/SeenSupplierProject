@@ -12,6 +12,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.dev.ecomercesupplier.R
+import com.dev.ecomercesupplier.custom.Utility
 import com.dev.ecomercesupplier.fragment.UploadImageVideoFragment
 import com.dev.ecomercesupplier.utils.SharedPreferenceUtility
 import kotlinx.android.synthetic.main.about_us_more_info_frag_toolbar.view.*
@@ -22,6 +23,7 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        Utility.setLanguage(this, SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
         setUpViews()
     }
     companion object{

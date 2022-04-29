@@ -3,17 +3,25 @@ package com.dev.ecomercesupplier.activity
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.view.animation.AlphaAnimation
 import android.widget.AdapterView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
@@ -24,6 +32,7 @@ import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.adapter.CustomSpinnerAdapter
 import com.dev.ecomercesupplier.adapter.ServedCountriesAdapter
 import com.dev.ecomercesupplier.custom.FetchPath
+import com.dev.ecomercesupplier.custom.Utility
 import com.dev.ecomercesupplier.custom.Utility.Companion.IMAGE_DIRECTORY_NAME
 import com.dev.ecomercesupplier.custom.Utility.Companion.PERMISSIONS
 import com.dev.ecomercesupplier.custom.Utility.Companion.PERMISSION_CAMERA_EXTERNAL_STORAGE_CODE
@@ -57,6 +66,10 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import com.google.gson.Gson
+
+
+
 
 class RegisterActivity_2 : AppCompatActivity() {
     private var businessName : String ?= null
@@ -84,6 +97,7 @@ class RegisterActivity_2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_2)
+        Utility.setLanguage(this, SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
         setUpViews()
     }
 
@@ -110,13 +124,18 @@ class RegisterActivity_2 : AppCompatActivity() {
             }
         }
 
+        val gson = Gson()
+        val json = gson.toJson(accountList)
+
+        SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.accountList, json)
+
         btnSignUp_register_2.setOnClickListener {
             btnSignUp_register_2.startAnimation(AlphaAnimation(1f, 0.5f))
             SharedPreferenceUtility.getInstance().hideSoftKeyBoard(this, btnSignUp_register_2)
             validateAndSignUp()
         }
 
-        adp_country_name = CustomSpinnerAdapter(this, countryList)
+        adp_country_name = CustomSpinnerAdapter(this, countryList, "countryList")
         spinnerCountry_register_2.adapter = adp_country_name
 
         spinnerCountry_register_2.onItemSelectedListener= object : AdapterView.OnItemSelectedListener{
@@ -132,7 +151,7 @@ class RegisterActivity_2 : AppCompatActivity() {
 
         rv_countries_to_be_served_register_2.layoutManager =LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         servedCountriesAdapter= ServedCountriesAdapter(this, servedCountriesList,is_back, object : ClickInterface.ClickArrayInterface{
-            override fun clickArray(array: JSONArray) {
+            override fun clickArray(array: JSONArray, nameArrayType : JSONArray) {
                 servedCountries=array
                 Log.e("servedCountries", servedCountries.toString())
             }
@@ -156,9 +175,32 @@ class RegisterActivity_2 : AppCompatActivity() {
                 imgChkTnC.setImageResource(R.drawable.check)
             }
         }
-        txtTermsConditions_view.setOnClickListener {
-            txtTermsConditions_view.startAnimation(AlphaAnimation(1f, 0.5f))
-            startActivity(Intent(this, TermsAndConditionsActivity::class.java).putExtra("title", getString(R.string.terms_amp_conditions)))
+
+
+        val word = SpannableString(resources.getString(R.string.i_accept) + " ")
+        word.setSpan(ForegroundColorSpan(Color.GRAY), 0, word.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        txtPlsAccept2!!.text = word
+
+        val termsCondSpan = object : ClickableSpan() {
+            override fun onClick(textView: View) {
+                startActivity(Intent(this@RegisterActivity_2, TermsAndConditionsActivity::class.java).putExtra("title", getString(R.string.terms_amp_conditions)))
+            }
+            @RequiresApi(Build.VERSION_CODES.M)
+            override fun updateDrawState(drawState: TextPaint) {
+                super.updateDrawState(drawState)
+                drawState.isUnderlineText = true
+                drawState.color = getColor(R.color.txt_dark_gray)
+            }
+        }
+
+        val wordTwo = SpannableString(resources.getString(R.string.terms_amp_conditions))
+        wordTwo.setSpan(termsCondSpan, 0, wordTwo.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        txtPlsAccept2!!.append(wordTwo)
+        txtPlsAccept2!!.movementMethod = LinkMovementMethod.getInstance()
+
+        txtPlsAccept2!!.setOnLongClickListener {
+            Log.e("tag", "To stop crash on Long press")
+            true
         }
         
     }
@@ -272,10 +314,10 @@ class RegisterActivity_2 : AppCompatActivity() {
                 if (hasAllPermissionsGranted(grantResults)) {
                     openDocDialog()
                 } else {
-                    LogUtils.shortToast(this, "Please grant both Camera and Storage permissions")
+                    LogUtils.shortToast(this, getString(R.string.please_grant_both_camera_and_storage_permissions))
                 }
             } else if (!hasAllPermissionsGranted(grantResults)) {
-                LogUtils.shortToast(this, "Please grant both Camera and Storage permissions")
+                LogUtils.shortToast(this, getString(R.string.please_grant_both_camera_and_storage_permissions))
             }
         }
     }
@@ -296,7 +338,7 @@ class RegisterActivity_2 : AppCompatActivity() {
                     Glide.with(this).load("file:///$docpath").placeholder(R.drawable.attach).into(imgAttach_register_2)
 
                 } else {
-                    LogUtils.shortToast(this, "something went wrong! please try again")
+                    LogUtils.shortToast(this, getString(R.string.something_went_wrong))
                 }
             }
         } else if (requestCode == PICK_IMAGE_FROM_GALLERY && resultCode == Activity.RESULT_OK && data != null) {
@@ -401,8 +443,11 @@ class RegisterActivity_2 : AppCompatActivity() {
                             val data = jsonObject.getJSONObject("data")
                             val bundle = Bundle()
                             bundle.putSerializable("accountList", accountList)
+                            bundle.putString("ref", "1")
+                            bundle.putString("user_id", data.getInt("user_id").toString())
                             SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.UserId, data.getInt("user_id"))
-                            startActivity(Intent(this@RegisterActivity_2, ChooseCategoryActivity::class.java).putExtras(bundle))
+                            //startActivity(Intent(this@RegisterActivity_2, ChooseCategoryActivity::class.java).putExtras(bundle))
+                            startActivity(Intent(this@RegisterActivity_2, OtpVerificationActivity::class.java).putExtras(bundle))
                             finish()
                         }
                         else {

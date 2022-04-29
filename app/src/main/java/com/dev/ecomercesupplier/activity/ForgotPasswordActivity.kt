@@ -14,11 +14,15 @@ import android.view.animation.AlphaAnimation
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.doOnTextChanged
 import com.dev.ecomercesupplier.R
+import com.dev.ecomercesupplier.custom.Utility
+import com.dev.ecomercesupplier.model.ModelForAccountType
 import com.dev.ecomercesupplier.rest.ApiClient
 import com.dev.ecomercesupplier.rest.ApiInterface
 import com.dev.ecomercesupplier.rest.ApiUtils
 import com.dev.ecomercesupplier.utils.LogUtils
 import com.dev.ecomercesupplier.utils.SharedPreferenceUtility
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_forgot_password.*
 import kotlinx.android.synthetic.main.activity_forgot_password.backImg
 import kotlinx.android.synthetic.main.activity_forgot_password.edtPhone
@@ -31,24 +35,22 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.IOException
+import java.lang.reflect.Type
 
 class ForgotPasswordActivity : AppCompatActivity() {
     lateinit var phone: String
     private var selectCountryCode = ""
     private var countryCodes=ArrayList<String>()
     var cCodeList= arrayListOf<String>()
+    private var accountList= java.util.ArrayList<ModelForAccountType>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forgot_password)
-        getCountires()
+        Utility.setLanguage(this, SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
+//        getCountires()
         setUpViews()
     }
     private fun setUpViews() {
-        txtCountryCode_forgot.setOnClickListener {
-            if(cCodeList.size != 0){
-                showCountryCodeList()
-            }
-        }
         edtPhone.doOnTextChanged { charSeq, start, before, count ->
             if(charSeq!!.length>7){
                 imgTick.visibility= View.VISIBLE
@@ -73,12 +75,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
     }
     private fun validateAndForgot() {
         phone = edtPhone.text.toString()
-        selectCountryCode= txtCountryCode_forgot.text.toString()
-        if (TextUtils.isEmpty(selectCountryCode)){
-            txtCountryCode_forgot.requestFocus()
-            txtCountryCode_forgot.error = getString(R.string.please_select_your_country_code)
-        }
-        else if (TextUtils.isEmpty(phone)) {
+        if (TextUtils.isEmpty(phone)) {
             edtPhone.requestFocus()
             edtPhone.error=getString(R.string.please_enter_your_phone_number)
 
@@ -98,7 +95,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
         val apiInterface = ApiClient.getClient()!!.create(ApiInterface::class.java)
         val builder = ApiClient.createBuilder(arrayOf("mobile", "country_code", "fcm_token", "device_type", "lang"),
-            arrayOf(phone.trim({ it <= ' ' }),  selectCountryCode, SharedPreferenceUtility.getInstance()[SharedPreferenceUtility.FCMTOKEN, ""]
+            arrayOf(phone.trim({ it <= ' ' }),  "+971", SharedPreferenceUtility.getInstance()[SharedPreferenceUtility.FCMTOKEN, ""]
                 , ApiUtils.DeviceType, SharedPreferenceUtility.getInstance()[SharedPreferenceUtility.SelectedLang, ""].toString()))
 
 
@@ -119,9 +116,24 @@ class ForgotPasswordActivity : AppCompatActivity() {
                             bundle.putString("ref", "2")
                             bundle.putString("user_id", data.getInt("user_id").toString())
                             findNavController().navigate(R.id.action_forgotPasswordFragment_to_otpVerificationFragment, bundle)*/
+
+                            val user_id = data.getInt("user_id").toString()
+                            val gson = Gson()
+                            val json = SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.accountList, "")
+                            if (json.isEmpty()){
+                                LogUtils.e("err", "eror")
+                            }else{
+                                val type: Type = object : TypeToken<List<ModelForAccountType?>?>() {}.type
+                                accountList = gson.fromJson(json, type)
+                            }
+                            val bundle = Bundle()
+                            bundle.putSerializable("accountList", accountList)
+                            bundle.putString("ref", "2")
+                            bundle.putString("user_id", user_id)
+
                             startActivity(
-                                Intent(this@ForgotPasswordActivity, ResetPasswordActivity::class.java)
-                                    .putExtra("user_id", data.getInt("user_id").toString()))
+                                Intent(this@ForgotPasswordActivity, OtpVerificationActivity::class.java)
+                                    .putExtras(bundle))
 
                         }
                         else if (jsonObject.getInt("response") == 2){

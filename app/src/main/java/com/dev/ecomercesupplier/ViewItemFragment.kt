@@ -54,7 +54,6 @@ class ViewItemFragment : Fragment() {
     var responseBody:String=""
     var pos:Int=-1
     var attrList=ArrayList<Attributes>()
-    lateinit var attributesAdapter: ViewItemAttrAdapter
     var productFiles=ArrayList<String>()
     var pagerAdapter: ScreenSlidePageAdapter?= null
     lateinit var productImageAdapter: ProductImageAdapter
@@ -103,7 +102,12 @@ class ViewItemFragment : Fragment() {
                 mView!!.mtv_item_name.text= pro_obj.getString("name")
                /* mView!!.txtRating_naqashat.text=pro_obj.getDouble("product_rating").toString()
                 mView!!.ratingBar_naqashat.rating=pro_obj.getDouble("product_rating").toFloat()*/
-                mView!!.mtv_item_category.text=pro_obj.getString("category_name")
+                if(SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, "").equals("ar")){
+                    mView!!.mtv_item_category.text=pro_obj.getString("category_name_ar")
+                }else{
+                    mView!!.mtv_item_category.text=pro_obj.getString("category_name")
+                }
+
                 mView!!.productDesc.text=pro_obj.getString("description")
                 val all_files=pro_obj.getJSONArray("all_files")
                 productFiles.clear()
@@ -153,8 +157,9 @@ class ViewItemFragment : Fragment() {
                             val obj_2 = data.getJSONObject(i)
                             a.id = obj_2.getInt("id")
                             a.name = obj_2.getString("name")
+                            a.name_ar = obj_2.getString("name_ar")
                             a.type = obj_2.getString("type")
-                            if(a.name.equals("Color")){
+                            if(obj_2.getString("type").equals("2", false)){
                                 a.value = JSONArray("["+obj_2.getString("value").substring(1)+"]")
 
                             }else{
@@ -179,9 +184,7 @@ class ViewItemFragment : Fragment() {
                     }
 
                 })
-                attributesAdapter= ViewItemAttrAdapter(requireContext(), attrList)
                 mView!!.rvList_attributes.adapter=viewAttrAdapter
-                attributesAdapter.notifyDataSetChanged()
             }
 
             else {

@@ -8,8 +8,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.arasthel.spannedgridlayoutmanager.SpanSize
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
 import com.dev.ecomercesupplier.R
@@ -35,7 +38,39 @@ class GalleryListAdapter(private val context: Context, private val data: ArrayLi
         else{
             holder.itemView.imgPlay.visibility=View.GONE
         }
-        Glide.with(context).load(data[position].thumbnail).centerCrop().placeholder(R.drawable.default_icon).diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.itemView.smallView)
+
+
+        val requestOptions: RequestOptions =
+            RequestOptions().error(R.drawable.default_img).centerCrop()
+
+        Glide.with(context)
+            .load(data[position].thumbnail)
+            .listener(object : RequestListener<Drawable> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: com.bumptech.glide.request.target.Target<Drawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    holder.itemView.galleryProgressBar.visibility = View.GONE
+                    return false
+                }
+
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: com.bumptech.glide.request.target.Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    holder.itemView.galleryProgressBar.visibility = View.GONE
+                    return false
+                }
+
+            })
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .apply(requestOptions).into(holder.itemView.smallView)
+
 
         /*val requestOption: RequestOptions = RequestOptions().placeholder(R.drawable.default_icon).error(R.drawable.default_icon)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

@@ -8,6 +8,7 @@ import android.view.animation.AlphaAnimation
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.dev.ecomercesupplier.R
+import com.dev.ecomercesupplier.custom.Utility
 import com.dev.ecomercesupplier.model.Categories
 import com.dev.ecomercesupplier.model.Products
 import com.dev.ecomercesupplier.model.ServeCountries
@@ -59,6 +60,7 @@ class BankDetailsFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_bank_details, container, false)
+        Utility.setLanguage(requireContext(), SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
         setUpViews()
         getProfile()
         return mView
@@ -156,10 +158,10 @@ class BankDetailsFragment : Fragment() {
                 mView!!.edtIban.error=getString(R.string.please_enter_iban_number)
             }
 
-           !SharedPreferenceUtility.getInstance().isIbanValid(iban_number, accountNumber)->{
+         /*  !SharedPreferenceUtility.getInstance().isIbanValid(iban_number, accountNumber)->{
                mView!!.edtIban.requestFocus()
                mView!!.edtIban.error=getString(R.string.please_enter_valid_iban_number)
-           }
+           }*/
             else -> {
                 editBankDetail()
             }
@@ -187,10 +189,12 @@ class BankDetailsFragment : Fragment() {
                         when {
                             jsonObject.getInt("response") == 1 -> {
                                 LogUtils.shortToast(requireContext(), jsonObject.getString("message"))
+                                SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.isBankAdded, true)
                                 findNavController().popBackStack()
                             }
                             else -> {
                                 LogUtils.shortToast(requireContext(), jsonObject.getString("message"))
+                                SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.isBankAdded, false)
                             }
                         }
                     }
@@ -208,6 +212,7 @@ class BankDetailsFragment : Fragment() {
                 LogUtils.shortToast(requireContext(), getString(R.string.check_internet))
                 mView!!.progressBar.visibility = View.GONE
                 requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.isBankAdded, false)
             }
         })
     }

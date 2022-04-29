@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.adapter.AccountTypeAdapter
+import com.dev.ecomercesupplier.custom.Utility
 import com.dev.ecomercesupplier.custom.Utility.Companion.checkedPosition
 import com.dev.ecomercesupplier.model.ModelForAccountType
 import com.dev.ecomercesupplier.model.ModelForSpinner
@@ -26,6 +27,7 @@ class ChooseCategoryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choose_category)
+        Utility.setLanguage(this, SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
         if (intent!=null){
             if (intent.extras!=null){
                 accountList = intent.getSerializableExtra("accountList") as ArrayList<ModelForAccountType>

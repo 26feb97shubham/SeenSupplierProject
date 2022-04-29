@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".activity.RegisterBankActivity">
+
+    <RelativeLayout
+        android:id="@+id/rlHeaderView"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_10sdp">
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/ivBackBankActivity"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/arrow_left_icons" />
+
+        <TextView
+            android:id="@+id/signup_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/expressway_rg"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="@string/signup"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_15ssp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainCard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/rlHeaderView"
+        android:layout_marginTop="@dimen/_50sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/background_frgt_pass">
+
+        <ScrollView
+            android:id="@+id/scrollView_register_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_create_your_account">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/_30sdp" >
+
+                <TextView
+                    android:id="@+id/tv_create_your_account"
+                    android:layout_width="@dimen/_266sdp"
+                    android:layout_height="@dimen/_36sdp"
+                    android:fontFamily="@font/expressway_rg"
+                    android:text="@string/create_your_account"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_18ssp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:gravity="center"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_create_your_account_1"
+                    android:layout_width="@dimen/_236sdp"
+                    android:layout_height="@dimen/_36sdp"
+                    android:fontFamily="@font/expressway_rg"
+                    android:text="@string/after_your_registration_is_complete_n_you_can_see_our_opportunity_products"
+                    android:textColor="#676870"
+                    android:textSize="@dimen/_12ssp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:gravity="center"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_create_your_account" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_sign_up_1_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_create_your_account_1">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/mtvBankName"
+                        android:layout_width="@dimen/_150sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:fontFamily="@font/expressway_rg"
+                        android:gravity="center_vertical"
+                        android:text="@string/account_holder_name"
+                        android:textColor="#80272833"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilBank"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipChildren="false"
+                        app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                        app:hintAnimationEnabled="false"
+                        app:hintEnabled="false"
+                        app:layout_constraintTop_toBottomOf="@id/mtvBankName">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etBankName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:hint="@string/enter_text_here"
+                            android:inputType="text"
+                            android:maxLength="30"
+                            android:maxLines="1"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/black"
+                            android:textDirection="locale"
+                            app:hintTextColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/mtvAccountNumber"
+                        android:layout_width="@dimen/_100sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:fontFamily="@font/expressway_rg"
+                        android:gravity="center_vertical"
+                        android:text="@string/account_number"
+                        android:textColor="#80272833"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tilBank" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilAccountNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipChildren="false"
+                        app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                        app:hintAnimationEnabled="false"
+                        app:hintEnabled="false"
+                        app:layout_constraintTop_toBottomOf="@id/mtvAccountNumber">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etBankAccountNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:hint="@string/enter_text_here"
+                            android:inputType="phone"
+                            android:maxLength="30"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/black"
+                            android:textDirection="locale"
+                            app:hintTextColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/mtvIBAN"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:fontFamily="@font/expressway_rg"
+                        android:gravity="center_vertical"
+                        android:text="@string/iban_number"
+                        android:textColor="#80272833"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tilAccountNumber" />
+
+
+                    <EditText
+                        android:id="@+id/etIBAN"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:fontFamily="@font/expressway_rg"
+                        android:gravity="center_vertical|start"
+                        android:hint="@string/enter_text_here"
+                        android:inputType="textPhonetic"
+                        android:maxLength="15"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black"
+                        android:textDirection="locale"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/mtvIBAN" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <TextView
+                    android:id="@+id/btnNextRegisterBank"
+                    android:layout_width="@dimen/_240sdp"
+                    android:layout_height="@dimen/_45sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@drawable/gold_filled_wide_radius_rect"
+                    android:fontFamily="@font/expressway_rg"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="@string/next"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_15ssp"
+                    android:textStyle="normal"
+                    android:layout_marginTop="@dimen/_40sdp"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_sign_up_1_view" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    app:layout_constraintTop_toBottomOf="@id/btnNextRegisterBank"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="@dimen/_8sdp">
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/mtv_already_a_user"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/btnNextRegisterBank"
+                        app:layout_constraintStart_toStartOf="@id/btnNextRegisterBank"
+                        android:fontFamily="@font/expressway_rg"
+                        android:textColor="@color/black"
+                        android:textAllCaps="false"
+                        android:gravity="center"
+                        android:textSize="@dimen/_12ssp"
+                        android:text="@string/already_a_user"/>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/mtv_log_in"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/btnNextRegisterBank"
+                        app:layout_constraintStart_toEndOf="@id/mtv_already_a_user"
+                        android:fontFamily="@font/expressway_rg"
+                        android:textColor="@color/black"
+                        android:layout_marginHorizontal="@dimen/_8sdp"
+                        android:textAllCaps="false"
+                        android:gravity="center"
+                        android:textSize="@dimen/_12ssp"
+                        android:text="@string/log_in"/>
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bankActivityProgressBar"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

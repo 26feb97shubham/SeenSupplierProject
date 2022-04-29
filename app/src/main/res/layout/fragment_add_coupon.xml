@@ -15,8 +15,9 @@
         android:src="@drawable/ic_launcher_foreground"
         android:text="@string/add_coupon"
         android:includeFontPadding="false"
-        android:textStyle="bold"
-        android:gravity="center_vertical"
+        android:gravity="center_vertical|start"
+        android:textAlignment="viewStart"
+        android:paddingHorizontal="10dp"
         android:layout_marginStart="@dimen/_10sdp"
         android:textColor="#515151"
         android:textSize="@dimen/_15ssp"
@@ -44,14 +45,15 @@
                     android:id="@+id/txt"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
-                    android:fontFamily="@font/farsi_simple_bold"
+                    android:fontFamily="@font/expressway_rg"
                     android:src="@drawable/ic_launcher_foreground"
                     android:text="@string/coupon_details"
                     android:includeFontPadding="false"
-                    android:textStyle="bold"
-                    android:gravity="center"
+                    android:gravity="center_vertical|start"
+                    android:textAlignment="viewStart"
+                    android:paddingHorizontal="10dp"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_18ssp"
+                    android:textSize="@dimen/_15ssp"
                     android:layout_marginTop="@dimen/_15sdp"
                     android:textAllCaps="true"
                     android:visibility="gone"
@@ -443,24 +445,24 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <TextView
                 android:id="@+id/btnSave"
                 android:layout_width="@dimen/_200sdp"
-                android:layout_height="@dimen/_40sdp"
-                android:background="@drawable/gold_filled_wide_radius_rect"
+                android:layout_height="@dimen/_35sdp"
                 android:layout_below="@id/cl_top"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/_60sdp"
+                android:background="@drawable/gold_filled_wide_radius_rect"
                 android:fontFamily="@font/expressway_rg"
                 android:gravity="center"
                 android:includeFontPadding="false"
+                android:letterSpacing="0.2"
                 android:text="@string/save"
-                android:visibility="visible"
                 android:textAllCaps="true"
-                android:textStyle="bold"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_15ssp"
-                android:letterSpacing="0.2" />
+                android:textSize="@dimen/_13ssp"
+                android:visibility="visible" />
 
         </RelativeLayout>
 

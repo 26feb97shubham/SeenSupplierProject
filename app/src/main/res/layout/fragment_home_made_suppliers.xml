@@ -12,14 +12,15 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
-        android:fontFamily="@font/farsi_simple_bold"
+        android:fontFamily="@font/expressway_rg"
         android:src="@drawable/ic_launcher_foreground"
         android:text="@string/homemade_suppliers"
         android:includeFontPadding="false"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:textColor="@color/gold"
-        android:textSize="@dimen/_20ssp"
+        android:gravity="center_vertical|start"
+        android:textAlignment="viewStart"
+        android:paddingHorizontal="10dp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_15ssp"
         android:textAllCaps="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +47,7 @@
                 android:textSize="@dimen/_15ssp"
                 android:textStyle="bold"
                 android:textAllCaps="true"
-                android:fontFamily="@font/farsi_simple_bold"/>
+                android:fontFamily="@font/expressway_rg"/>
             <View
                 android:id="@+id/nameView"
                 android:layout_width="match_parent"
@@ -70,7 +71,7 @@
                 android:textSize="@dimen/_15ssp"
                 android:textStyle="bold"
                 android:textAllCaps="true"
-                android:fontFamily="@font/farsi_simple_bold"/>
+                android:fontFamily="@font/expressway_rg"/>
             <View
                 android:id="@+id/categoryView"
                 android:layout_width="match_parent"

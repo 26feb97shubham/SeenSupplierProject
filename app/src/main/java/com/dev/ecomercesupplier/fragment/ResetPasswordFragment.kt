@@ -9,6 +9,8 @@ import android.view.animation.AlphaAnimation
 import androidx.fragment.app.Fragment
 import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.activity.HomeActivity
+import com.dev.ecomercesupplier.custom.Utility
+import com.dev.ecomercesupplier.utils.SharedPreferenceUtility
 import kotlinx.android.synthetic.main.fragment_reset_password.view.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -41,6 +43,8 @@ class ResetPasswordFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_reset_password, container, false)
+        Utility.setLanguage(requireContext(), SharedPreferenceUtility.getInstance().get(
+            SharedPreferenceUtility.SelectedLang, ""))
         setUpViews()
         return mView
     }

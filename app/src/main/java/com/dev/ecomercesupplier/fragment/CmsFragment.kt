@@ -48,8 +48,6 @@ private const val ARG_PARAM2 = "param2"
  */
 class CmsFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
     lateinit var mView: View
     var title:String=""
 
@@ -64,6 +62,7 @@ class CmsFragment : Fragment() {
                               savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_cms, container, false)
+        Utility.setLanguage(requireContext(), SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
         setUpViews()
         getCmsContent()
         return mView
@@ -74,21 +73,21 @@ class CmsFragment : Fragment() {
         requireActivity().other_frag_toolbar.other_frag_backImg.visibility = View.VISIBLE
         when(title){
             getString(R.string.terms_amp_conditions) -> {
-                requireActivity().main_View.setBackgroundResource(R.drawable.terms_background)
+                requireActivity().main_View.setBackgroundResource(R.drawable.bg)
                 requireActivity().other_frag_toolbar.visibility= View.VISIBLE
                 requireActivity().about_us_fragment_toolbar.visibility=View.GONE
                 mView.webView.visibility = View.VISIBLE
                 mView.rvList.visibility = View.GONE
             }
             getString(R.string.privacy_and_policy) -> {
-                requireActivity().main_View.setBackgroundResource(R.drawable.data_policy_bg)
+                requireActivity().main_View.setBackgroundResource(R.drawable.bg2)
                 requireActivity().other_frag_toolbar.visibility= View.VISIBLE
                 requireActivity().about_us_fragment_toolbar.visibility=View.GONE
                 mView.webView.visibility = View.VISIBLE
                 mView.rvList.visibility = View.GONE
             }
             else -> {
-                requireActivity().main_View.setBackgroundResource(R.drawable.about_us_bg)
+                requireActivity().main_View.setBackgroundResource(R.drawable.bg)
                 requireActivity().other_frag_toolbar.visibility= View.GONE
                 requireActivity().about_us_fragment_toolbar.visibility=View.VISIBLE
                 mView.webView.visibility = View.GONE
@@ -101,7 +100,6 @@ class CmsFragment : Fragment() {
             SharedPreferenceUtility.getInstance().hideSoftKeyBoard(requireContext(), requireActivity().other_frag_backImg)
             findNavController().popBackStack()
         }
-//        mView.header.text=title
 
 
         requireActivity().about_us_fragment_toolbar.frag_about_us_backImg.setOnClickListener {
@@ -158,19 +156,19 @@ class CmsFragment : Fragment() {
 
         val call: Call<ResponseBody?>? = when(title){
             getString(R.string.terms_amp_conditions) -> {
-                requireActivity().main_View.setBackgroundResource(R.drawable.terms_background)
+                requireActivity().main_View.setBackgroundResource(R.drawable.bg)
                 mView.webView.visibility = View.VISIBLE
                 mView!!.rvList.visibility = View.GONE
                 apiInterface.getTermsConditions(builder.build())
             }
             getString(R.string.privacy_and_policy) -> {
-                requireActivity().main_View.setBackgroundResource(R.drawable.data_policy_bg)
+                requireActivity().main_View.setBackgroundResource(R.drawable.bg2)
                 mView.webView.visibility = View.VISIBLE
                 mView!!.rvList.visibility = View.GONE
                 apiInterface.getPrivacyPolicy(builder.build())
             }
             else -> {
-                requireActivity().main_View.setBackgroundResource(R.drawable.about_us_bg)
+                requireActivity().main_View.setBackgroundResource(R.drawable.bg)
                 mView.webView.visibility = View.GONE
                 mView!!.rvList.visibility = View.VISIBLE
                 apiInterface.getAboutUs(builder!!.build())

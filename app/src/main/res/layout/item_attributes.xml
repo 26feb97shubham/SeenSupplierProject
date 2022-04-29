@@ -4,34 +4,37 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/_20sdp"
-        android:text="@string/sizes_available"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_11ssp"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:textAlignment="viewStart"
-        android:textDirection="locale"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
+        android:ellipsize="end"
+        android:fontFamily="@font/expressway_rg"
+        android:maxLines="1"
+        android:text="@string/sizes_available"
+        android:textAlignment="viewStart"
         android:textAllCaps="false"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:fontFamily="@font/farsi_simple_bold"/>
+        android:textColor="@color/black"
+        android:textDirection="locale"
+        android:textSize="@dimen/_11ssp"
+        app:layout_constraintBottom_toBottomOf="@+id/rvList"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rvList" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvList"
         android:layout_width="0dp"
         android:layout_height="@dimen/_40sdp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="horizontal"
-        tools:listitem="@layout/item_texts"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
-        app:layout_constraintStart_toEndOf="@id/name"/>
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/name"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:listitem="@layout/item_texts" />
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/_1sdp"

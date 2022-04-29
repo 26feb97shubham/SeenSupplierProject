@@ -18,14 +18,15 @@
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
-            android:fontFamily="@font/farsi_simple_bold"
+            android:fontFamily="@font/expressway_rg"
             android:src="@drawable/ic_launcher_foreground"
             android:text="@string/package_plan"
             android:includeFontPadding="false"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:textColor="@color/gold"
-            android:textSize="@dimen/_20ssp"
+            android:gravity="center_vertical|start"
+            android:textAlignment="viewStart"
+            android:paddingHorizontal="10dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_15ssp"
             android:textAllCaps="true"
             />
     </androidx.cardview.widget.CardView>
@@ -33,14 +34,13 @@
         android:id="@+id/txt2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/farsi_simple_bold"
+        android:fontFamily="@font/expressway_rg"
         android:gravity="center"
         android:text="@string/payment"
-        android:textAllCaps="false"
-        android:textStyle="bold"
+        android:textAllCaps="true"
         android:includeFontPadding="false"
         android:textColor="@color/black"
-        android:textSize="@dimen/_20ssp"
+        android:textSize="@dimen/_15ssp"
         android:layout_marginTop="@dimen/_20sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,6 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
+            android:paddingVertical="10dp"
             >
 
             <TextView
@@ -300,20 +301,21 @@
                 android:fontFamily="@font/expressway_rg"/>
             <TextView
                 android:id="@+id/btnContinue"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_45sdp"
-                android:layout_marginStart="@dimen/_15sdp"
-                android:layout_marginEnd="@dimen/_15sdp"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="@dimen/_20sdp"
                 app:layout_constraintTop_toBottomOf="@+id/saveDesc"
                 android:background="@drawable/gold_filled_wide_radius_rect"
-                android:fontFamily="@font/farsi_simple_bold"
+                android:fontFamily="@font/expressway_rg"
                 android:gravity="center"
                 android:includeFontPadding="false"
                 android:text="@string/continue_en"
-                android:textAllCaps="false"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_20ssp" />
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:letterSpacing="0.1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textSize="15sp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

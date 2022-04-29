@@ -7,14 +7,15 @@
     android:background="@color/white">
     <TextView
         android:id="@+id/header"
-        android:layout_width="@dimen/_110sdp"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/_22sdp"
-        android:fontFamily="@font/farsi_simple_bold"
+        android:fontFamily="@font/expressway_rg"
         android:src="@drawable/ic_launcher_foreground"
         android:text="@string/edit_profile"
         android:includeFontPadding="false"
-        android:textStyle="bold"
-        android:gravity="center_vertical"
+        android:gravity="center_vertical|start"
+        android:textAlignment="viewStart"
+        android:paddingHorizontal="10dp"
         android:textColor="#515151"
         android:textSize="@dimen/_15ssp"
         android:layout_marginStart="@dimen/_10sdp"
@@ -141,16 +142,19 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/txtPhone"
                     app:layout_constraintTop_toTopOf="parent">
+
                     <TextView
                         android:id="@+id/txtCountryCode"
                         android:layout_width="@dimen/_60sdp"
                         android:layout_height="match_parent"
-                        android:fontFamily="@font/expressway_rg"
                         android:layout_marginStart="@dimen/_5sdp"
-                        android:includeFontPadding="false"
-                        android:gravity="center"
                         android:background="@drawable/gray_gold_rect_box"
+                        android:fontFamily="@font/expressway_rg"
+                        android:gravity="center"
+                        android:hint="+971"
+                        android:includeFontPadding="false"
                         android:padding="@dimen/_2sdp"
+                        android:text="+971"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_11ssp"
 
@@ -311,7 +315,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <RelativeLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/rlCountry"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_35sdp"
@@ -320,21 +324,29 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/txtCountry"
                     app:layout_constraintTop_toTopOf="parent" >
+
                     <Spinner
                         android:id="@+id/spinnerCountry"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:background="@android:color/transparent"/>
+                        android:background="@android:color/transparent"
+                        app:layout_constraintEnd_toStartOf="@+id/dropDownImg"
+                        android:layout_marginEnd="10dp"
+                        android:textAlignment="viewEnd"
+                        android:gravity="end|center_vertical"
+                        app:layout_constraintStart_toStartOf="parent" />
                     <ImageView
                         android:id="@+id/dropDownImg"
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
                         android:paddingEnd="@dimen/_10sdp"
                         android:paddingStart="@dimen/_5sdp"
-                        android:layout_alignParentEnd="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         android:layout_centerVertical="true"
                         android:src="@drawable/drop_arrow05"/>
-                </RelativeLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
             <TextView
@@ -484,23 +496,25 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/_25sdp"
                 app:layout_constraintTop_toBottomOf="@+id/view2">
+
                 <ImageView
                     android:id="@+id/imgAttach"
                     android:layout_width="@dimen/_50sdp"
                     android:layout_height="@dimen/_50sdp"
-                    android:src="@drawable/attach"/>
+                    android:src="@drawable/attach" />
+
                 <TextView
                     android:id="@+id/txtUpdateLicense"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_toEndOf="@+id/imgAttach"
                     android:fontFamily="@font/expressway_rg"
                     android:text="@string/update_trade_license"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_10ssp"
-                    android:layout_toEndOf="@+id/imgAttach"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:layout_centerInParent="true"/>
+                    android:textSize="@dimen/_10ssp" />
                <!-- <View
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_1sdp"
@@ -517,7 +531,7 @@
             <TextView
                 android:id="@+id/btnSubmit"
                 android:layout_width="@dimen/_200sdp"
-                android:layout_height="@dimen/_45sdp"
+                android:layout_height="@dimen/_35sdp"
                 android:layout_marginStart="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
@@ -531,8 +545,7 @@
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:textSize="@dimen/_15ssp"
-                android:textStyle="bold"
+                android:textSize="@dimen/_13ssp"
                 android:letterSpacing="0.2"
                 app:layout_constraintTop_toBottomOf="@+id/rlUploadLicense" />
       <!--      <TextView

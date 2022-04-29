@@ -9,6 +9,7 @@ class OrderData {
     lateinit var address:String
     lateinit var price:String
     lateinit var product_name:String
+    lateinit var category_name:String
     lateinit var files:String
     lateinit var product_description:String
     lateinit var attributes: JSONArray

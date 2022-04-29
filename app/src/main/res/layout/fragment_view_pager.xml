@@ -25,7 +25,7 @@
         android:layout_height="@dimen/_35sdp"
         android:layout_marginStart="@dimen/_25sdp"
         android:layout_marginEnd="@dimen/_25sdp"
-        android:fontFamily="@font/farsi_simple_bold"
+        android:fontFamily="@font/expressway_rg"
         android:src="@drawable/ic_launcher_foreground"
         android:text="Groceries"
         android:includeFontPadding="false"

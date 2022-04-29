@@ -5,6 +5,8 @@ import android.content.SharedPreferences
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.dev.ecomercesupplier.application.MyApp
+import com.dev.ecomercesupplier.model.ModelForAccountType
+import java.io.Serializable
 import java.util.HashSet
 import java.util.regex.Pattern
 
@@ -43,7 +45,8 @@ class SharedPreferenceUtility {
             editor.putString(key, value.toString())
         } else if (value is HashSet<*>) {
             editor.putStringSet(key, value as Set<String>?)
-        } else if (value != null) {
+        }
+        else if (value != null) {
             throw RuntimeException("Attempting to save non-supported preference")
         }
 
@@ -237,7 +240,9 @@ class SharedPreferenceUtility {
         const val AdapterClickCount= "adapterClickCount"
         const val isFirstTime = "isFirstTime"
         var isLangSelected = "isLangSelected"
+        var isBankAdded = "isBankAdded"
         var isSelectedKey = "isSelectedKey"
+        var accountList = "accountList"
 
         @Synchronized
         fun getInstance(): SharedPreferenceUtility {

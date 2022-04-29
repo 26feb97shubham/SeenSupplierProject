@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.adapter.GlobalItemListAdapter
+import com.dev.ecomercesupplier.custom.Utility
 import com.dev.ecomercesupplier.model.CategoryName
 import com.dev.ecomercesupplier.utils.SharedPreferenceUtility
 import kotlinx.android.synthetic.main.activity_home.*
@@ -35,6 +36,7 @@ class GlobalMarketDetailsFragment : Fragment() {
                               savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_global_market_details, container, false)
+        Utility.setLanguage(requireContext(), SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
         setUpViews()
         return mView
     }

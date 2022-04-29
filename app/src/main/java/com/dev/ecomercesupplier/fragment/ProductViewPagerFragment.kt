@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.dev.ecomercesupplier.R
+import com.dev.ecomercesupplier.custom.Utility
+import com.dev.ecomercesupplier.utils.SharedPreferenceUtility
 import kotlinx.android.synthetic.main.product_view_pager.view.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -39,6 +41,8 @@ class ProductViewPagerFragment(private val productImg: String) : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.product_view_pager, container, false)
+        Utility.setLanguage(requireContext(), SharedPreferenceUtility.getInstance().get(
+            SharedPreferenceUtility.SelectedLang, ""))
         setUpViews()
         return mView
     }

@@ -49,13 +49,15 @@ class ServedCountriesAdapter(
             override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
                 if(isChecked){
                     servedCountries.put(data[position].id.toString())
-                    clickInstance.clickArray(servedCountries)
+                    var nameArrayType : JSONArray = JSONArray()
+                    clickInstance.clickArray(servedCountries, nameArrayType)
                 }
                 else{
                     for(i in 0 until servedCountries.length()){
                         if(servedCountries[i]==data[position].id.toString()){
                             servedCountries.remove(i)
-                            clickInstance.clickArray(servedCountries)
+                            var nameArrayType : JSONArray = JSONArray()
+                            clickInstance.clickArray(servedCountries,nameArrayType)
                             break
                         }
                     }

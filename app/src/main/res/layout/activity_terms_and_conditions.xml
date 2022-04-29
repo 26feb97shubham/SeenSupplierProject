@@ -6,15 +6,14 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@drawable/terms_and_conditions_activity_background">
+    android:background="@drawable/bg">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/topView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
         android:elevation="@dimen/_8sdp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_alignParentTop="true">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/other_frag_toolbar"
@@ -86,110 +85,17 @@
         </androidx.appcompat.widget.Toolbar>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-  <!--  <TextView
-        android:id="@+id/txtTitle"
-        android:layout_width="@dimen/_240sdp"
-        android:layout_height="@dimen/_30sdp"
-        android:fontFamily="@font/expressway_rg"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:text="@string/homemade_suppliers"
-        android:includeFontPadding="false"
-        android:textColor="@color/gray_color"
-        android:textSize="@dimen/_15ssp"
-        android:layout_marginTop="@dimen/_5sdp" />-->
-
-    <ScrollView
-        android:id="@+id/rvList"
-        android:layout_width="match_parent"
+    <WebView
+        android:id="@+id/webViewActivity"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:paddingBottom="@dimen/_30sdp"
-        android:clipToPadding="false"
+        android:background="@android:color/transparent"
+        android:layerType="software"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topView">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_12sdp">
-            <TextView
-                android:id="@+id/txtTnC"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_12sdp"
-                android:fontFamily="@font/expressway_rg" />
-        </LinearLayout>
-
-    </ScrollView>
-
-  <!--  <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/rvList"
-        android:orientation="horizontal">
-
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-
-
-    </LinearLayout>-->
-
-
-<!--    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_agreement_conditions"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.8"
-        android:padding="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_15sdp"/>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.1"
-        android:layout_marginBottom="@dimen/_15ssp"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:gravity="center"
-        android:layout_marginTop="@dimen/_15ssp"
-        android:paddingHorizontal="@dimen/_10sdp">
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/mtv_accept"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/gold_filled_wide_radius_rect"
-            android:text="@string/accept"
-            android:textColor="@color/white"
-            android:fontFamily="@font/expressway_rg"
-            android:textSize="@dimen/_15ssp"
-            android:textAllCaps="true"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="@dimen/_8sdp"/>
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/mtv_decline"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="@dimen/_8sdp"
-            android:background="@drawable/black_curved_rect_box"
-            android:text="@string/decline"
-            android:textColor="@color/black"
-            android:fontFamily="@font/expressway_rg"
-            android:textSize="@dimen/_15ssp"
-            android:textAllCaps="true"
-            android:textStyle="normal"
-            android:gravity="center" />
-
-
-    </LinearLayout>-->
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topView" />
 
 
     <ProgressBar

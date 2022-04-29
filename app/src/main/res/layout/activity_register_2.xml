@@ -106,33 +106,43 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             android:text="@string/country"
+                            android:visibility="gone"
                             android:fontFamily="@font/expressway_rg"
                             android:gravity="center_vertical"
                             android:textColor="#80272833"/>
 
-                        <RelativeLayout
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/rlCountry"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="@dimen/_35sdp"
+                            android:visibility="visible"
                             app:layout_constraintStart_toStartOf="parent"
                             android:background="@drawable/line"
                             app:layout_constraintTop_toBottomOf="@id/mtv_country">
 
                             <Spinner
                                 android:id="@+id/spinnerCountry_register_2"
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:background="@android:color/transparent" />
+                                android:layout_marginEnd="10dp"
+                                android:textAlignment="viewStart"
+                                android:gravity="start|center_vertical"
+                                android:background="@android:color/transparent"
+                                app:layout_constraintEnd_toStartOf="@+id/dropDownImg"
+                                app:layout_constraintStart_toStartOf="parent" />
+
                             <com.google.android.material.imageview.ShapeableImageView
                                 android:id="@+id/dropDownImg"
                                 android:layout_width="@dimen/_30sdp"
                                 android:layout_height="@dimen/_30sdp"
-                                android:paddingEnd="@dimen/_10sdp"
-                                android:paddingStart="@dimen/_5sdp"
-                                android:layout_alignParentEnd="true"
+                              app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
                                 android:layout_centerVertical="true"
-                                android:src="@drawable/drop_arrow05"/>
-                        </RelativeLayout>
+                                android:paddingStart="@dimen/_5sdp"
+                                android:paddingEnd="@dimen/_10sdp"
+                                android:src="@drawable/drop_arrow05" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/mtv_countries_to_be_served"
@@ -191,7 +201,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             android:layout_marginTop="@dimen/_25sdp"
-                            android:visibility="gone"
+                            android:visibility="visible"
                             app:layout_constraintTop_toBottomOf="@+id/mtv_upload_trade_licence">
                             <com.google.android.material.imageview.ShapeableImageView
                                 android:id="@+id/imgAttach_register_2"
@@ -233,8 +243,8 @@
                             android:layout_gravity="center_vertical"
                             android:src="@drawable/un_check" />
                         <TextView
-                            android:id="@+id/txtPlsAccept"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/txtPlsAccept2"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/i_accept"
                             android:textColor="@color/txt_dark_gray"
@@ -250,6 +260,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/terms_amp_conditions"
+                            android:visibility="gone"
                             android:textColor="@color/txt_dark_gray"
                             android:textSize="@dimen/_12ssp"
                             android:textStyle="normal"
@@ -260,7 +271,7 @@
                             android:layout_marginStart="@dimen/_5sdp"
                             app:layout_constraintTop_toTopOf="@+id/imgChk"
                             app:layout_constraintBottom_toBottomOf="@+id/imgChk"
-                            app:layout_constraintStart_toEndOf="@+id/txtPlsAccept"
+                            app:layout_constraintStart_toEndOf="@+id/txtPlsAccept2"
                             tools:ignore="AllCaps" />
 
                     </LinearLayout>

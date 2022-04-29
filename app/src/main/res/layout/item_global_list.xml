@@ -23,16 +23,26 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:src="@drawable/default_icon"/>
+
             <ImageView
                 android:id="@+id/imgLike"
                 android:layout_width="@dimen/_15sdp"
                 android:layout_height="@dimen/_15sdp"
+                android:layout_margin="@dimen/_5sdp"
+                android:src="@drawable/heart_white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.core.widget.ContentLoadingProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_margin="@dimen/_5sdp"
-                android:src="@drawable/heart_white"/>
+                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/globalItemProgressBar"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -55,7 +65,7 @@
         app:layout_constraintStart_toEndOf="@+id/view"
         app:layout_constraintTop_toTopOf="parent"
         android:textAllCaps="false"
-        android:fontFamily="@font/farsi_simple_bold"/>
+        android:fontFamily="@font/expressway_rg"/>
     <TextView
         android:id="@+id/category"
         android:layout_width="0dp"

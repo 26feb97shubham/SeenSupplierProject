@@ -16,6 +16,7 @@ class ApiUtils {
         const val PackagePlanPayment:String = "packagePlanPayment"
         const val GetAccountTypes:String = "getAccountTypes"
         const val GetCategories:String = "getCategories"
+        const val GetAttributesName:String = "getAttributesName"
         const val ChooseCategories:String = "chooseCategories"
         const val GetHomes:String = "getHomes"
         const val EditProfile:String = "editProfile"
@@ -37,5 +38,6 @@ class ApiUtils {
         const val GetFaq:String = "getFaq"
         const val UpdateCategory:String = "updateCategory"
         const val revenues:String = "revenues"
+        var isCatClicked = 0
     }
 }

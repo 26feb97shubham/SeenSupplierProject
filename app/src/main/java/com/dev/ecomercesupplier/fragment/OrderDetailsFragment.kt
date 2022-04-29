@@ -14,6 +14,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.bumptech.glide.Glide
 import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.adapter.ProductListForOrderAdapter
+import com.dev.ecomercesupplier.custom.Utility
 import com.dev.ecomercesupplier.dialog.RejectionDialog
 import com.dev.ecomercesupplier.interfaces.ClickInterface
 import com.dev.ecomercesupplier.model.OrderData
@@ -103,6 +104,7 @@ class OrderDetailsFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_order_details, container, false)
+        Utility.setLanguage(requireContext(), SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
         setUpViews()
         setData()
         return mView
@@ -188,11 +190,11 @@ class OrderDetailsFragment : Fragment() {
         mView!!.couponCode.text=coupon_name
         mView!!.mobNum.text=phone_number
         mView!!.couponCode.text=coupon_name
-        mView!!.taxValue.text=getString(R.string.aed)+" "+taxes
-        mView!!.shippingCharge.text=getString(R.string.aed)+" "+shipping_fee
-        mView!!.couponValue.text=getString(R.string.aed)+" "+total_discount
-        mView!!.totalValue.text=getString(R.string.aed)+" "+total_price
-        Glide.with(requireContext()).load(user_image).placeholder(R.drawable.user).into(mView!!.userProfile)
+        mView!!.taxValue.text="AED"+" "+taxes
+        mView!!.shippingCharge.text="AED"+" "+shipping_fee
+        mView!!.couponValue.text="AED"+" "+total_discount
+        mView!!.totalValue.text="AED"+" "+total_price
+        Glide.with(requireContext()).load(SharedPreferenceUtility.getInstance().get("profile_picture", "")).placeholder(R.drawable.user).into(mView!!.userProfile)
 
 
       /*  Glide.with(requireContext()).load(order_data).placeholder(R.drawable.user).into(mView!!.userProfile)

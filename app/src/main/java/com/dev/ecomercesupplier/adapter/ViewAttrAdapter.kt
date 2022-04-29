@@ -11,6 +11,7 @@ import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.interfaces.ClickInterface
 import com.dev.ecomercesupplier.model.Attributes
 import com.dev.ecomercesupplier.utils.LogUtils
+import com.dev.ecomercesupplier.utils.SharedPreferenceUtility
 import kotlinx.android.synthetic.main.item_view_attr.view.*
 import org.json.JSONArray
 
@@ -49,7 +50,15 @@ class ViewAttrAdapter(private val context: Context, private val attributeArray:J
         for(i in 0 until data.length()){
             val obj1= data.getJSONObject(i)
             if(i==0) {
-                holder.itemView.txtPrimary.text = obj1.getString("name")
+                if (SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, "").equals("ar")){
+                    if (obj1.getString("name_ar").equals("null")){
+                        holder.itemView.txtPrimary.text = obj1.getString("name")
+                    }else{
+                        holder.itemView.txtPrimary.text = obj1.getString("name_ar")
+                    }
+                }else{
+                    holder.itemView.txtPrimary.text = obj1.getString("name")
+                }
                 if(obj1.getString("type")=="1"){
                     holder.itemView.txtPrimaryValue.text = obj1.getString("value")
                 }
@@ -59,7 +68,16 @@ class ViewAttrAdapter(private val context: Context, private val attributeArray:J
 
             }
             else if(i==1) {
-                holder.itemView.txtSecondary.text = obj1.getString("name")
+//                holder.itemView.txtSecondary.text = obj1.getString("name")
+                if (SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, "").equals("ar")){
+                    if (obj1.getString("name_ar").equals("null")){
+                        holder.itemView.txtSecondary.text = obj1.getString("name")
+                    }else{
+                        holder.itemView.txtSecondary.text = obj1.getString("name_ar")
+                    }
+                }else{
+                    holder.itemView.txtSecondary.text = obj1.getString("name")
+                }
                 if(obj1.getString("type")=="1"){
                     holder.itemView.txtSecondaryValue.text = obj1.getString("value")
                 }
@@ -69,7 +87,16 @@ class ViewAttrAdapter(private val context: Context, private val attributeArray:J
 
             }
             else if(i==2) {
-                holder.itemView.txtThird.text = obj1.getString("name")
+//                holder.itemView.txtThird.text = obj1.getString("name")
+                if (SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, "").equals("ar")){
+                    if (obj1.getString("name_ar").equals("null")){
+                        holder.itemView.txtThird.text = obj1.getString("name")
+                    }else{
+                        holder.itemView.txtThird.text = obj1.getString("name_ar")
+                    }
+                }else{
+                    holder.itemView.txtThird.text = obj1.getString("name")
+                }
                 if(obj1.getString("type")=="1"){
                     holder.itemView.txtThirdValue.text = obj1.getString("value")
                 }

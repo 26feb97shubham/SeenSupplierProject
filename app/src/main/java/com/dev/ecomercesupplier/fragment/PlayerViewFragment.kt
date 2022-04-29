@@ -10,6 +10,7 @@ import android.view.animation.AlphaAnimation
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.dev.ecomercesupplier.R
+import com.dev.ecomercesupplier.custom.Utility
 import com.dev.ecomercesupplier.utils.SharedPreferenceUtility
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.SimpleExoPlayer
@@ -47,6 +48,7 @@ class PlayerViewFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_player_view, container, false)
+        Utility.setLanguage(requireContext(), SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
         setUpViews()
         return mView
     }

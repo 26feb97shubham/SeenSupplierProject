@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.adapter.CategoryListAdapter
+import com.dev.ecomercesupplier.custom.Utility
 import com.dev.ecomercesupplier.interfaces.ClickInterface
 import com.dev.ecomercesupplier.model.CategoryName
 import com.dev.ecomercesupplier.rest.ApiClient
@@ -65,6 +66,7 @@ class ChooseCategoriesFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_choose_categories, container, false)
+        Utility.setLanguage(requireContext(), SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
         setUpViews()
         getCategories()
         return mView
@@ -78,18 +80,6 @@ class ChooseCategoriesFragment : Fragment() {
             SharedPreferenceUtility.getInstance().hideSoftKeyBoard(requireContext(), requireActivity().other_frag_backImg)
             findNavController().popBackStack()
         }
-
-        mView.rvList.layoutManager= LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        categoryListAdapter= CategoryListAdapter(requireContext(), catNameList, object: ClickInterface.ClickArrayInterface{
-            override fun clickArray(idArray: JSONArray) {
-                catIDArray= JSONArray()
-                catIDArray=idArray
-                mView.txtSelect.text = catIDArray.length().toString()+" " +getString(R.string.categories_selected)
-            }
-        })
-        mView.rvList.adapter=categoryListAdapter
-
-
 
         mView.btnContinue.setOnClickListener {
             mView.btnContinue.isEnabled=false
@@ -130,10 +120,21 @@ class ChooseCategoriesFragment : Fragment() {
                             val c = CategoryName()
                             c.id=jsonObj.getInt("id")
                             c.name=jsonObj.getString("name")
+                            c.catNameAr=jsonObj.getString("name_ar")
                             c.image=jsonObj.getString("image")
                             c.checkCategoryStatus=jsonObj.getBoolean("checkCategoryStatus")
                             catNameList.add(c)
                         }
+
+                        mView.rvList.layoutManager= LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+                        categoryListAdapter= CategoryListAdapter(requireContext(), catNameList, object: ClickInterface.ClickArrayInterface{
+                            override fun clickArray(idArray: JSONArray, nameArrayType : JSONArray) {
+                                catIDArray= JSONArray()
+                                catIDArray=idArray
+                                mView.txtSelect.text = catIDArray.length().toString()+" " +getString(R.string.categories_selected)
+                            }
+                        })
+                        mView.rvList.adapter=categoryListAdapter
                         catIDArray= JSONArray()
                         for(i in 0 until catNameList.size){
                             if(catNameList[i].checkCategoryStatus){

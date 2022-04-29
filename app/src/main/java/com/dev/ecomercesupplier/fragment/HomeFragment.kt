@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,7 @@ import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.activity.HomeActivity
 import com.dev.ecomercesupplier.activity.LoginActivity
 import com.dev.ecomercesupplier.adapter.NewItemsAdapter
+import com.dev.ecomercesupplier.custom.Utility
 import com.dev.ecomercesupplier.dialog.LogoutDialog
 import com.dev.ecomercesupplier.model.Products
 import com.dev.ecomercesupplier.rest.ApiClient
@@ -47,25 +49,16 @@ import java.io.IOException
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     lateinit var mView: View
     var newItemsList=ArrayList<Products>()
-    var accessValue:Int=0
     var userId:Int=0
     var receiveOrdersCount:Int=0
     var response_body = ""
     lateinit var newItemsAdapter: NewItemsAdapter
-
-
-//    lateinit var pagerAdapter:ScreenSlidePagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,6 +74,7 @@ class HomeFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_home, container, false)
+        Utility.setLanguage(requireContext(), SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
         setUpViews()
         getHomes()
         return mView
@@ -238,6 +232,19 @@ class HomeFragment : Fragment() {
                         )
                         requireActivity().txtName.text = profile.getString("name")
                         requireActivity().txtEmail.text = profile.getString("email")
+                        Log.e("asdsadasdasd", profile.getString("account_holder_name").toString())
+
+
+                        if (profile.getString("account_holder_name").isNotEmpty()
+                            &&  profile.getString("account_number").isNotEmpty()
+                            && profile.getString("iban").isNotEmpty()){
+                            SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.isBankAdded, true)
+                        }else{
+                            SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.isBankAdded, false)
+                        }
+
+
+                        SharedPreferenceUtility.getInstance().save("profile_picture", profile.getString("profile_picture"))
                         Glide.with(requireContext()).load(profile.getString("profile_picture"))
                                 .placeholder(R.drawable.user).into(requireActivity().userIcon)
 

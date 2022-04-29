@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.dev.ecomercesupplier.R
+import com.dev.ecomercesupplier.custom.Utility
 import com.dev.ecomercesupplier.rest.ApiClient
 import com.dev.ecomercesupplier.rest.ApiInterface
 import com.dev.ecomercesupplier.utils.LogUtils
@@ -64,6 +65,7 @@ class ChangePasswordFragment : Fragment() {
         // Inflate the layout for this fragment
         if(mView==null) {
             mView = inflater.inflate(R.layout.fragment_change_password, container, false)
+            Utility.setLanguage(requireContext(), SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
             setUpViews()
         }
         return mView

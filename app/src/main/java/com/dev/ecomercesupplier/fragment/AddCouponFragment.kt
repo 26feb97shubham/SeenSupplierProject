@@ -28,6 +28,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.dev.ecomercesupplier.BuildConfig
 import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.custom.FetchPath
+import com.dev.ecomercesupplier.custom.Utility
 import com.dev.ecomercesupplier.rest.ApiClient
 import com.dev.ecomercesupplier.rest.ApiInterface
 import com.dev.ecomercesupplier.utils.LogUtils
@@ -109,6 +110,7 @@ class AddCouponFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_add_coupon, container, false)
+        Utility.setLanguage(requireContext(), SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
         setUpViews()
         return mView
     }
@@ -326,54 +328,54 @@ class AddCouponFragment : Fragment() {
         if(TextUtils.isEmpty(title)){
             mView.scrollView.scrollTo(0, 100)
             mView.title.requestFocus()
-            mView.title.error="Please enter title for your coupon"
+            mView.title.error=requireContext().getString(R.string.please_enter_title_for_your_coupon)
         }
         else if(!SharedPreferenceUtility.getInstance().isCharacterAllowed(title)){
             mView.scrollView.scrollTo(0, 100)
             mView.title.requestFocus()
-            mView.title.error="Emoji and special characters are not allowed in title"
+            mView.title.error=requireContext().getString(R.string.emojis_are_not_allowed)
         }
         else if(TextUtils.isEmpty(description)){
             mView.scrollView.scrollTo(0, 100)
             mView.description.requestFocus()
-            mView.description.error="Please enter description for your coupon"
+            mView.description.error=requireContext().getString(R.string.please_enter_description_for_your_coupon)
         }
         else if(TextUtils.isEmpty(fromTime)){
            /* mView.scrollView.scrollTo(0, 150)
             mView.fromTime.requestFocus()
             mView.fromTime.error="Please enter from date for your coupon"*/
-            LogUtils.shortToast(requireContext(), "Please enter from date for your coupon")
+            LogUtils.shortToast(requireContext(), requireContext().getString(R.string.please_enter_from_date_for_your_coupon))
         }
         else if(TextUtils.isEmpty(toTime)){
            /* mView.scrollView.scrollTo(0, 150)
             mView.toTime.requestFocus()
             mView.toTime.error="Please enter to date for your coupon"*/
-            LogUtils.shortToast(requireContext(), "Please enter to date for your coupon")
+            LogUtils.shortToast(requireContext(), requireContext().getString(R.string.please_enter_to_date_for_your_coupon))
         }
         else if(TextUtils.isEmpty(perDesc)){
             mView.scrollView.scrollTo(0, 100)
             mView.perDesc.requestFocus()
-            mView.perDesc.error="Please enter discount(%) for your coupon"
+            mView.perDesc.error=requireContext().getString(R.string.please_enter_discount_for_your_coupon)
         }
         else if(TextUtils.isEmpty(minTrans)){
             mView.scrollView.scrollTo(0, 100)
             mView.minTrans.requestFocus()
-            mView.minTrans.error="Please enter min txn value for your coupon"
+            mView.minTrans.error=requireContext().getString(R.string.please_enter_min_txn_for_your_coupon)
         }
         else if(TextUtils.isEmpty(maxCouponAmt)){
             mView.scrollView.scrollTo(0, 100)
             mView.maxCouponAmt.requestFocus()
-            mView.maxCouponAmt.error="Please enter max coupon amt for your coupon"
+            mView.maxCouponAmt.error=requireContext().getString(R.string.please_enter_max_coupon_for_your_coupon)
         }
         else if(TextUtils.isEmpty(code)){
             mView.scrollView.scrollTo(0, 100)
             mView.code.requestFocus()
-            mView.code.error="Please enter code for your coupon"
+            mView.code.error=requireContext().getString(R.string.please_enter_code_for_your_coupon)
         }
         else if(code.length<4){
             mView.scrollView.scrollTo(0, 100)
             mView.code.requestFocus()
-            mView.code.error="Code length should be at least 4 characters long"
+            mView.code.error=requireContext().getString(R.string.code_must_be_four_characters_long)
         }
         else{
             couponAdd()
@@ -538,11 +540,11 @@ class AddCouponFragment : Fragment() {
                    openCameraDialog()
 
                 } else {
-                    LogUtils.shortToast(requireContext(), "Please grant both Camera and Storage permissions")
+                    LogUtils.shortToast(requireContext(), requireContext().getString(R.string.please_grant_both_camera_and_storage_permissions))
 
                 }
             } else if (!hasAllPermissionsGranted(grantResults)) {
-                LogUtils.shortToast(requireContext(), "Please grant both Camera and Storage permissions")
+                LogUtils.shortToast(requireContext(), requireContext().getString(R.string.please_grant_both_camera_and_storage_permissions))
             }
         }
     }
@@ -560,7 +562,7 @@ class AddCouponFragment : Fragment() {
                     Glide.with(this).load("file:///$imgPath").placeholder(R.drawable.user).into(mView.img)
 
                 } else {
-                    LogUtils.shortToast(requireContext(), "something went wrong! please try again")
+                    LogUtils.shortToast(requireContext(), requireContext().getString(R.string.something_went_wrong))
                 }
             }
         } else if (requestCode == PICK_IMAGE_FROM_GALLERY && resultCode == Activity.RESULT_OK && data != null) {

@@ -18,14 +18,15 @@
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
-            android:fontFamily="@font/farsi_simple_bold"
+            android:fontFamily="@font/expressway_rg"
             android:src="@drawable/ic_launcher_foreground"
             android:text="@string/add_item"
             android:includeFontPadding="false"
             android:textStyle="bold"
-            android:gravity="center"
+            android:gravity="start|center_vertical"
+            android:paddingStart="15dp"
             android:textColor="@color/black"
-            android:textSize="@dimen/_20ssp"
+            android:textSize="@dimen/_16ssp"
             android:textAllCaps="true"
             />
     </androidx.cardview.widget.CardView>
@@ -56,7 +57,7 @@
                     android:layout_marginEnd="@dimen/_15sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-            <RelativeLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/rlCategory"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_30sdp"
@@ -70,19 +71,27 @@
 
                 <Spinner
                     android:id="@+id/spinnerCategory"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:background="@android:color/transparent" />
+                    android:layout_toStartOf="@+id/dropDownImg"
+                    android:background="@android:color/transparent"
+                    android:gravity="start|center_vertical"
+                    android:textAlignment="viewStart"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintEnd_toStartOf="@+id/dropDownImg"
+                    app:layout_constraintStart_toStartOf="parent" />
                 <ImageView
                     android:id="@+id/dropDownImg"
                     android:layout_width="@dimen/_30sdp"
                     android:layout_height="@dimen/_30sdp"
-                    android:layout_alignParentEnd="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_centerVertical="true"
                     android:paddingEnd="@dimen/_10sdp"
                     android:paddingStart="@dimen/_5sdp"
                     android:src="@drawable/drop_arrow05"/>
-            </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
             <TextView
                 android:id="@+id/txtItemName"
                 android:layout_width="wrap_content"
@@ -98,8 +107,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/rlCategory" />
 
             <EditText
-                    android:textDirection="locale"
-                    android:textAlignment="viewStart"
+                android:textDirection="locale"
+                android:textAlignment="viewStart"
                 android:id="@+id/edtName"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_30sdp"
@@ -264,11 +273,10 @@
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_15sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:fontFamily="@font/farsi_simple_bold"
+                    android:fontFamily="@font/expressway_rg"
                     android:includeFontPadding="false"
                     android:text="@string/view_attributes"
                     android:textAllCaps="false"
-                    android:textStyle="bold"
                     android:textColor="@color/gold"
                     android:textSize="@dimen/_14ssp"
                />
@@ -280,12 +288,11 @@
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_15sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:fontFamily="@font/farsi_simple_bold"
+                    android:fontFamily="@font/expressway_rg"
                     android:includeFontPadding="false"
                     android:gravity="end"
                     android:text="@string/save_attributes"
                     android:textAllCaps="false"
-                    android:textStyle="bold"
                     android:textColor="@color/gold"
                     android:textSize="@dimen/_14ssp"
                     />
@@ -377,32 +384,36 @@
                     android:text="@string/discount"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_10ssp"
+                    android:gravity="center_vertical"
                     android:textAllCaps="true"
-                    android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@id/edtDiscPer"
+                    app:layout_constraintBottom_toBottomOf="@id/edtDiscPer"/>
+
                 <EditText
-                    android:textDirection="locale"
-                    android:textAlignment="viewStart"
                     android:id="@+id/edtDiscPer"
-                    android:layout_width="@dimen/_70sdp"
+                    android:layout_width="0dp"
                     android:layout_height="@dimen/_30sdp"
-                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="8dp"
                     android:background="@drawable/gray_gold_rect_box"
                     android:fontFamily="@font/expressway_rg"
+                    android:gravity="center"
                     android:hint="@string/_30"
                     android:includeFontPadding="false"
-                    android:gravity="center"
-                    android:padding="@dimen/_5sdp"
-                    android:textAllCaps="false"
+                    android:inputType="numberDecimal"
                     android:maxLength="5"
                     android:maxLines="1"
-                    android:inputType="numberDecimal"
+                    android:padding="@dimen/_5sdp"
+                    android:textAlignment="viewStart"
+                    android:textAllCaps="false"
                     android:textColor="@color/black"
                     android:textColorHint="@color/gray"
+                    android:textDirection="locale"
                     android:textSize="@dimen/_12ssp"
+                    app:layout_constraintEnd_toEndOf="@id/llFromTo"
                     app:layout_constraintStart_toEndOf="@+id/txtDiscount"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="RtlCompat" />
@@ -532,7 +543,7 @@
                         android:id="@+id/txt"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_30sdp"
-                        android:fontFamily="@font/farsi_simple_bold"
+                        android:fontFamily="@font/expressway_rg"
                         android:src="@drawable/ic_launcher_foreground"
                         android:text="@string/upload_photos_videos"
                         android:includeFontPadding="false"

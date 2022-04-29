@@ -10,16 +10,31 @@
         android:layout_width="@dimen/_50sdp"
         android:layout_height="@dimen/_90sdp"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:cardCornerRadius="@dimen/_7sdp"
         app:cardElevation="@dimen/_3sdp"
-        android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginStart="@dimen/_10sdp"
         app:layout_constraintStart_toStartOf="parent">
-        <ImageView
-            android:id="@+id/img"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/default_icon"/>
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/default_icon"
+                android:scaleType="centerCrop"/>
+
+            <androidx.core.widget.ContentLoadingProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/currentDataProgressBar"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
     <TextView

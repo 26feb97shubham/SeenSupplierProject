@@ -15,6 +15,7 @@ import android.widget.CompoundButton
 import androidx.navigation.fragment.findNavController
 import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.activity.ChooseCategoriesActivity
+import com.dev.ecomercesupplier.custom.Utility
 import com.dev.ecomercesupplier.rest.ApiClient
 import com.dev.ecomercesupplier.rest.ApiInterface
 import com.dev.ecomercesupplier.utils.LogUtils
@@ -71,6 +72,7 @@ class PaymentDetailsFragment : Fragment() {
     ): View? {
         // Inflate the layout for requreContext() fragment
         mView = inflater.inflate(R.layout.fragment_payment_details, container, false)
+        Utility.setLanguage(requireContext(), SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
         setUpViews()
         return mView
     }

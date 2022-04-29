@@ -1,6 +1,7 @@
 package com.dev.ecomercesupplier.adapter
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,10 @@ import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
 import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.model.Products
 import com.dev.ecomercesupplier.utils.LogUtils.Companion.my_reference
@@ -31,11 +36,42 @@ class NewItemsAdapter(
 
     override fun onBindViewHolder(holder: NewItemsAdapterVH, position: Int) {
         val newItem = newItemsList[position]
-        if (!newItem.files.equals("")){
-            Glide.with(context).load(newItem.files).into(holder.itemView.siv_product_image)
+        val productImage = if (!newItem.files.equals("")){
+            newItem.files.toString()
         }else{
-            holder.itemView.siv_product_image.setImageResource(R.drawable.default_img)
+            context.getDrawable(R.drawable.default_img).toString()
         }
+
+        val requestOptions: RequestOptions =
+            RequestOptions().error(R.drawable.default_img).centerCrop()
+
+        Glide.with(context)
+            .load(productImage)
+            .listener(object : RequestListener<Drawable>{
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: com.bumptech.glide.request.target.Target<Drawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    holder.itemView.newItemsProgressBar.visibility = View.GONE
+                    return false
+                }
+
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: com.bumptech.glide.request.target.Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    holder.itemView.newItemsProgressBar.visibility = View.GONE
+                    return false
+                }
+
+            })
+            .apply(requestOptions).into(holder.itemView.siv_product_image)
+
 
         holder.itemView.mtv_product_name.text = newItem.name
         holder.itemView.mtv_product_price.text = "AED "+newItem.price

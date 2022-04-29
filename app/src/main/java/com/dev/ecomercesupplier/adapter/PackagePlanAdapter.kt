@@ -33,10 +33,15 @@ class PackagePlanAdapter(private val context: Context, private val data:ArrayLis
         }
         if (SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, "").equals("ar")){
             holder.itemView.txtPrice.text = data[position].country_currency+ " " +data[position].amount
-            holder.itemView.txtDuration.text = data[position].number.toString()+ " " +data[position].month_year_type_ar +" "+data[position].string_ar
+            if(data[position].number==3){
+                holder.itemView.txtDuration.text = "حزمة 3 شهور"
+            }else if (data[position].number==6){
+                holder.itemView.txtDuration.text = " حزمة 6 شهور"
+            }else if (data[position].number==1){
+                holder.itemView.txtDuration.text = "حزمة عام1"
+            }
             holder.itemView.packDesc.text = data[position].detail_ar
         }else{
-
             holder.itemView.txtPrice.text = data[position].country_currency+ " " +data[position].amount
             holder.itemView.txtDuration.text = data[position].number.toString()+ " " +data[position].month_year_type +" "+data[position].string
             holder.itemView.packDesc.text = data[position].detail
@@ -47,7 +52,6 @@ class PackagePlanAdapter(private val context: Context, private val data:ArrayLis
         holder.itemView.txtView.setOnClickListener {
             holder.itemView.txtView.startAnimation(AlphaAnimation(1f, 0.5f))
             clickInstance.clickPostion(position)
-
         }
     }
 

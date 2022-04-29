@@ -89,7 +89,7 @@
         android:textStyle="bold"
         android:includeFontPadding="false"
         android:textColor="@color/black"
-        android:textSize="@dimen/_18ssp"
+        android:textSize="@dimen/_15ssp"
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_marginStart="@dimen/_15sdp"
         app:layout_constraintStart_toStartOf="parent"
@@ -117,6 +117,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
             android:layout_marginTop="@dimen/_10sdp">
 
 <!--            <TextView-->
@@ -446,7 +447,7 @@
             <TextView
                 android:id="@+id/btnContinue"
                 android:layout_width="@dimen/_200sdp"
-                android:layout_height="@dimen/_30sdp"
+                android:layout_height="@dimen/_40sdp"
                 android:layout_marginStart="@dimen/_15sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_20sdp"

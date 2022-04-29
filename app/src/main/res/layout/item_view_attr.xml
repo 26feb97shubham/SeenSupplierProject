@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:layout_marginTop="@dimen/_3sdp"
-    android:layout_marginBottom="@dimen/_3sdp"
+    android:layout_margin="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -14,14 +13,11 @@
         app:cardElevation="@dimen/_5sdp"
         app:cardCornerRadius="@dimen/_15sdp"
         app:cardBackgroundColor="@color/light_white"
-        android:layout_marginStart="@dimen/_15sdp"
-        android:layout_marginEnd="@dimen/_15sdp"
         app:layout_constraintTop_toTopOf="parent">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_5sdp"
-            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginHorizontal="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_10sdp">
             <TextView
@@ -47,7 +43,7 @@
                 android:id="@+id/txtPrimaryValue"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_18sdp"
-                android:gravity="center"
+                android:gravity="center_vertical|end"
                 android:minWidth="@dimen/_18sdp"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp"
@@ -83,7 +79,7 @@
                 android:id="@+id/txtSecondaryValue"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_18sdp"
-                android:gravity="center"
+                android:gravity="center_vertical|end"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp"
                 android:maxLines="1"
@@ -156,7 +152,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:gravity="center"
+                    android:gravity="center_vertical|end"
                     android:fontFamily="@font/expressway_rg"
                     android:includeFontPadding="false"
                     android:padding="@dimen/_5sdp"
@@ -186,7 +182,7 @@
                     android:fontFamily="@font/expressway_rg"
                     android:includeFontPadding="false"
                     android:padding="@dimen/_5sdp"
-                    android:gravity="center"
+                    android:gravity="center_vertical|end"
                     android:textColor="@color/black"
                     android:textAlignment="viewEnd"
                     android:textSize="@dimen/_10ssp"
@@ -207,7 +203,7 @@
         android:elevation="@dimen/_10sdp"
         android:padding="@dimen/_2sdp"
         android:layout_marginEnd="@dimen/_6sdp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/cardView"
         app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

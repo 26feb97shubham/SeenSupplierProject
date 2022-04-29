@@ -10,40 +10,42 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
             android:id="@+id/header"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_40sdp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:fontFamily="@font/expressway_rg"
+            android:gravity="center_vertical"
+            android:includeFontPadding="false"
             android:src="@drawable/ic_launcher_foreground"
             android:text="@string/choose_your_category"
-            android:includeFontPadding="false"
-            android:textStyle="bold"
-            android:gravity="center_vertical"
+            android:textAllCaps="false"
             android:textColor="@color/gray_color"
             android:textSize="@dimen/_15ssp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:textAllCaps="false"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="@dimen/_15sdp" />
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/header1"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_40sdp"
-            android:fontFamily="@font/expressway_rg"
-            android:src="@drawable/ic_launcher_foreground"
-            android:text="Please select all the related categories for your business:"
-            android:includeFontPadding="false"
-            android:textStyle="bold"
-            android:gravity="center_vertical"
-            android:textColor="@color/gray_color"
-            android:textSize="@dimen/_10ssp"
-            android:layout_marginTop="@dimen/_4sdp"
-            android:textAllCaps="false"
             android:layout_below="@+id/header"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="@dimen/_15sdp" />
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:fontFamily="@font/expressway_rg"
+            android:gravity="center_vertical"
+            android:includeFontPadding="false"
+            android:src="@drawable/ic_launcher_foreground"
+            android:text="@string/please_select_all_the_related_categories_for_your_business"
+            android:textAllCaps="false"
+            android:textColor="@color/gray_color"
+            android:textSize="@dimen/_10ssp"
+            android:textStyle="bold" />
         <androidx.cardview.widget.CardView
             android:id="@+id/card1"
             android:layout_width="match_parent"
@@ -100,31 +102,32 @@
             android:id="@+id/rvList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@+id/card1"
             android:clipToPadding="false"
-            android:paddingBottom="@dimen/_20sdp"
-            android:paddingTop="@dimen/_10sdp"
             android:layoutAnimation="@anim/layout_animation"
-            android:layout_below="@+id/card1"/>
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_20sdp" />
+
         <TextView
             android:id="@+id/btnContinue"
             android:layout_width="@dimen/_200sdp"
             android:layout_height="@dimen/_40sdp"
+            android:layout_below="@+id/rvList"
+            android:layout_centerHorizontal="true"
             android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_15sdp"
             android:layout_marginBottom="@dimen/_20sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:background="@drawable/gold_filled_wide_radius_rect"
             android:fontFamily="@font/expressway_rg"
             android:gravity="center"
             android:includeFontPadding="false"
             android:text="@string/continue_en"
             android:textAllCaps="true"
-            android:textStyle="bold"
             android:textColor="@color/white"
-            android:layout_below="@+id/rvList"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:layout_centerHorizontal="true"
-            android:textSize="@dimen/_15ssp" />
+            android:textSize="@dimen/_15ssp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <ProgressBar
             android:id="@+id/progressBar"

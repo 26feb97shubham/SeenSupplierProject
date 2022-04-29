@@ -15,6 +15,8 @@ import android.view.animation.AlphaAnimation
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import com.dev.ecomercesupplier.R
+import com.dev.ecomercesupplier.custom.Utility
+import com.dev.ecomercesupplier.model.ModelForAccountType
 import com.dev.ecomercesupplier.rest.ApiClient
 import com.dev.ecomercesupplier.rest.ApiInterface
 import com.dev.ecomercesupplier.rest.ApiUtils
@@ -37,10 +39,12 @@ class OtpVerificationActivity : AppCompatActivity() {
     var user_id: String=""
     var doubleClick:Boolean=false
     var spannableString : SpannableString?= null
+    private var accountList= java.util.ArrayList<ModelForAccountType>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_otp_verification)
-        spannableString = SpannableString("RESEND")
+        Utility.setLanguage(this, SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
+        spannableString = SpannableString(getString(R.string.resend))
         spannableString!!.setSpan(UnderlineSpan(), 0, spannableString!!.length, 0)
         resend.setText(spannableString)
         setUpViews()
@@ -49,6 +53,15 @@ class OtpVerificationActivity : AppCompatActivity() {
         if(intent.extras != null){
             user_id = intent.extras!!.getString("user_id").toString()
             ref = intent.extras!!.getString("ref").toString()
+            accountList = intent.getSerializableExtra("accountList") as ArrayList<ModelForAccountType>
+        }
+
+        if (ref=="1"){
+            txt1.text = getString(R.string.sign_up)
+            backImg.visibility = View.GONE
+        }else{
+            txt1.text = getString(R.string.forgotPassword)
+            backImg.visibility = View.VISIBLE
         }
 
         btnVerify.isEnabled=false
@@ -106,7 +119,10 @@ class OtpVerificationActivity : AppCompatActivity() {
 
                             if(ref=="1"){
                                 LogUtils.longToast(this@OtpVerificationActivity, getString(R.string.your_profile_has_been_sent_to_admin_for_verification))
-                                startActivity(Intent(this@OtpVerificationActivity, LoginActivity::class.java))
+                                val bundle = Bundle()
+                                bundle.putSerializable("accountList", accountList)
+
+                                startActivity(Intent(this@OtpVerificationActivity, ChooseCategoryActivity::class.java).putExtras(bundle))
                                 finish()
                                 /*val data = jsonObject.getJSONObject("data")
                                 val account_type = data.getInt("account_type")
@@ -125,12 +141,12 @@ class OtpVerificationActivity : AppCompatActivity() {
 
 
                             }
-                            else if(ref=="2"){
+                            /*else if(ref=="2"){
                                 SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.UserId, user_id.toInt())
                                 SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.IsLogin, true)
                                 startActivity(Intent(this@OtpVerificationActivity, HomeActivity::class.java))
                                 finish()
-                                /*val data = jsonObject.getJSONObject("data")
+                                *//*val data = jsonObject.getJSONObject("data")
                                 val account_type = data.getInt("account_type")
                                 val package_id = data.getInt("package_id")
                                 if(account_type==2){
@@ -143,10 +159,10 @@ class OtpVerificationActivity : AppCompatActivity() {
                                     else{
                                         startActivity(Intent(this@OtpVerificationActivity, ChooseCategoriesActivity::class.java).putExtra("user_id", user_id))
                                     }
-                                }*/
+                                }*//*
 
 
-                            }
+                            }*/
                             else{
                                 startActivity(
                                     Intent(this@OtpVerificationActivity, ResetPasswordActivity::class.java)
@@ -225,7 +241,12 @@ class OtpVerificationActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        exitApp()
+        if (ref=="1"){
+            exitApp()
+        }else{
+            finish()
+        }
+
     }
     private fun exitApp() {
         val toast = Toast.makeText(

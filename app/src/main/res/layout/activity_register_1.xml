@@ -33,15 +33,15 @@
                 android:id="@+id/signup_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_centerInParent="true"
                 android:fontFamily="@font/expressway_rg"
+                android:gravity="center"
                 android:includeFontPadding="false"
+                android:text="@string/signup"
+                android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_15ssp"
-                android:layout_centerInParent="true"
-                android:textStyle="bold"
-                android:textAllCaps="false"
-                android:text="@string/signup"/>
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
@@ -240,12 +240,12 @@
                                 android:layout_height="@dimen/_40sdp"
                                 android:layout_toEndOf="@+id/txtCountryCode_register"
                                 android:fontFamily="@font/expressway_rg"
-                                android:gravity="center_vertical"
+                                android:gravity="center_vertical|start"
                                 android:inputType="phone"
                                 android:maxLength="15"
-                                android:textDirection="locale"
                                 android:textAlignment="viewStart"
                                 android:textColor="@color/black"
+                                android:textDirection="locale"
                                 android:textSize="@dimen/_12ssp" />
 
                           <!--  <com.google.android.material.textfield.TextInputLayout
@@ -385,7 +385,7 @@
                             android:layout_height="wrap_content"
                             app:layout_constraintTop_toBottomOf="@id/btnNext"
                             app:layout_constraintStart_toStartOf="@id/btnNext"
-                            android:fontFamily="@font/farsi_simple_bold"
+                            android:fontFamily="@font/expressway_rg"
                             android:textColor="@color/black"
                             android:textAllCaps="false"
                             android:gravity="center"
@@ -398,7 +398,7 @@
                             android:layout_height="wrap_content"
                             app:layout_constraintTop_toBottomOf="@id/btnNext"
                             app:layout_constraintStart_toEndOf="@id/mtv_already_a_user"
-                            android:fontFamily="@font/farsi_simple_bold"
+                            android:fontFamily="@font/expressway_rg"
                             android:textColor="@color/black"
                             android:layout_marginHorizontal="@dimen/_8sdp"
                             android:textAllCaps="false"

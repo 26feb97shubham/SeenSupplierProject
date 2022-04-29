@@ -13,7 +13,15 @@ import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.interfaces.ClickInterface
 import com.dev.ecomercesupplier.model.MyOrders
 import com.dev.ecomercesupplier.model.OrderData
+import com.dev.ecomercesupplier.utils.SharedPreferenceUtility
+import kotlinx.android.synthetic.main.item_current_order.view.*
 import kotlinx.android.synthetic.main.item_past_orders.view.*
+import kotlinx.android.synthetic.main.item_past_orders.view.mobNum
+import kotlinx.android.synthetic.main.item_past_orders.view.orderNum
+import kotlinx.android.synthetic.main.item_past_orders.view.orderStatus
+import kotlinx.android.synthetic.main.item_past_orders.view.rvList
+import kotlinx.android.synthetic.main.item_past_orders.view.userName
+import kotlinx.android.synthetic.main.item_past_orders.view.userProfile
 
 class PastOrderAdapter(private val context: Context, private val data:ArrayList<MyOrders>, private val clickInst: ClickInterface.ClickPosInterface): RecyclerView.Adapter<PastOrderAdapter.MyViewHolder>() {
 
@@ -30,7 +38,7 @@ class PastOrderAdapter(private val context: Context, private val data:ArrayList<
         holder.itemView.mobNum.text = data[position].phone_number
         holder.itemView.totalPrice.text = context.getString(R.string.total_colom)+context.getString(R.string.aed)+" "+data[position].total_price
 
-        Glide.with(context).load(data[position].user_image).placeholder(R.drawable.user).into(holder.itemView.userProfile)
+        Glide.with(context).load(SharedPreferenceUtility.getInstance().get("profile_picture", "")).placeholder(R.drawable.user).into(holder.itemView.userProfile)
 
         if(data[position].accept_reject==1){
             holder.itemView.orderStatus.text=context.getString(R.string.delivered)

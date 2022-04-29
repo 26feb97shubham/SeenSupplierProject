@@ -38,6 +38,7 @@ import com.dev.ecomercesupplier.BuildConfig
 import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.adapter.UploadImageVideoAdapter
 import com.dev.ecomercesupplier.custom.FetchPath
+import com.dev.ecomercesupplier.custom.Utility
 import com.dev.ecomercesupplier.custom.Utility.Companion.IMAGE_DIRECTORY_NAME
 import com.dev.ecomercesupplier.interfaces.ClickInterface
 import com.dev.ecomercesupplier.rest.ApiClient
@@ -103,6 +104,7 @@ class UploadImageVideoFragment : Fragment() {
         // Inflate the layout for this fragment
         if(mView==null){
             mView = inflater.inflate(R.layout.fragment_upload_image_video, container, false)
+            Utility.setLanguage(requireContext(), SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
             setUpViews()
 
         }
@@ -127,36 +129,9 @@ class UploadImageVideoFragment : Fragment() {
             requestToUploadProfilePhoto()
         }
 
-       /* mView!!.btnstartUploading.setOnClickListener {
-            mView!!.btnstartUploading.startAnimation(AlphaAnimation(1f, 0.5f))
-            for (i in 0 until pathList.size){
-                Handler(Looper.getMainLooper()).postDelayed(Runnable {
-                    uploadFile(i)
-                }, 100)
-            }
-
-        }*/
-
-       /* mView!!.rvList.layoutManager=LinearLayoutManager(requireContext())
-        uploadImageVideoAdapter= UploadImageVideoAdapter(
-            requireContext(),
-            pathList,
-            object : ClickInterface.ClickPosItemViewInterface {
-                override fun clickPosItemView(pos: Int, itemView: View) {
-                    *//* if(type=="remove"){
-                    pathList.removeAt(pos)
-                    uploadImageVideoAdapter.notifyDataSetChanged()
-                }*//*
-
-                    uploadFile(pathList[pos], itemView)
-                }
-
-
-            })
-        mView!!.rvList.adapter=uploadImageVideoAdapter*/
     }
 
-    fun hasPermissions(context: Context?, vararg permissions: String?): Boolean {
+    private fun hasPermissions(context: Context?, vararg permissions: String?): Boolean {
         if (context != null && permissions != null) {
             for (permission in permissions) {
                 if (ActivityCompat.checkSelfPermission(context, permission!!) != PackageManager.PERMISSION_GRANTED) {
@@ -167,26 +142,12 @@ class UploadImageVideoFragment : Fragment() {
         return true
     }
 
-    fun requestToUploadProfilePhoto() {
+    private fun requestToUploadProfilePhoto() {
         if (!hasPermissions(requireContext(), *PERMISSIONS)) {
             requestPermissions(PERMISSIONS, PERMISSION_CAMERA_EXTERNAL_STORAGE_CODE)
         } else if (hasPermissions(requireContext(), *PERMISSIONS)) {
             openCameraDialog()
         }
-
-/*        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
-            if(ContextCompat.checkSelfPermission(
-                    requireContext(),
-                    FilePickerConst.PERMISSIONS_FILE_PICKER
-                )!=PackageManager.PERMISSION_GRANTED){
-                return
-            }else{
-//                chooseImageVideo()
-                openCameraDialog()
-            }
-        }*/
-
-
     }
 
 
@@ -249,16 +210,8 @@ class UploadImageVideoFragment : Fragment() {
 
 
     private fun chooseImage() {
-//        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-//        intent.type = "image/*"
-//        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-//        intent.action = Intent.ACTION_GET_CONTENT
-//        intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-//        intent.addCategory(Intent.CATEGORY_OPENABLE)
-//        startActivityForResult(intent, PICK_IMAGE_FROM_GALLERY)
-
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        intent.type = "image/*"
+        intent.type = "image/* video/*"
         intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         uri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE)
@@ -266,41 +219,7 @@ class UploadImageVideoFragment : Fragment() {
         startActivityForResult(intent, PICK_IMAGE_FROM_GALLERY)
     }
 
-
-
-
-    private fun chooseImageVideo() {
-        if (PICK_DOC == FilePickerConst.REQUEST_CODE_DOC){
-            val intent= Intent(requireContext(), FilePickerActivity::class.java)
-            intent.putExtra(
-                FilePickerActivity.CONFIGS, Configurations.Builder()
-                    .setCheckPermission(true)
-                    .setShowFiles(false)
-                    .setShowImages(true)
-                    .setShowAudios(false)
-                    .setShowVideos(true)
-                    .setMaxSelection(5)
-                    .enableImageCapture(true)
-                    .enableVideoCapture(true)
-                    .setSkipZeroSizeFiles(true)
-                    .build()
-            )
-            startActivityForResult(intent, PICK_DOC)
-        }else{
-            val intent= Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
-            startActivityForResult(intent, PICK_DOC)
-        }
-
-//        val intent = Intent()
-//        intent.type = "image/*"
-//        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-//        intent.setAction(Intent.ACTION_GET_CONTENT);
-//        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_MULTIPLE);
-
-
-    }
     fun uploadFile(imagePath: String, itemView: View) {
-//        val imagePath=pathList[pos]
         requireActivity().window.setFlags(
             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
@@ -319,24 +238,20 @@ class UploadImageVideoFragment : Fragment() {
                 )
                 .setPriority(Priority.HIGH)
                 .build()
-                .setUploadProgressListener(object : UploadProgressListener {
-                    override fun onProgress(bytesUploaded: Long, totalBytes: Long) {
-                        itemView.progressBar.progress = (bytesUploaded * 100 / totalBytes).toInt()
-                        itemView.txtProgress.text =
-                            (bytesUploaded * 100 / totalBytes).toString() + " % " + getString(
-                                R.string.uploaded
-                            )
-                    }
-                })
-                .getAsString(object : StringRequestListener {
+                .setUploadProgressListener { bytesUploaded, totalBytes ->
+                    itemView.progressBar.progress = (bytesUploaded * 100 / totalBytes).toInt()
+                    itemView.txtProgress.text =
+                        (bytesUploaded * 100 / totalBytes).toString() + " % " + getString(
+                            R.string.uploaded
+                        )
+                }
+            .getAsString(object : StringRequestListener {
                     override fun onResponse(response: String?) {
                         requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                         uploadCount += 1
                         if (uploadCount == pathList.size) {
                             requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                         }
-
-//                    Toast.makeText(context, response, Toast.LENGTH_SHORT).show()
                     }
 
                     override fun onError(anError: ANError) {
@@ -348,7 +263,7 @@ class UploadImageVideoFragment : Fragment() {
     }
 
 
-    fun hasAllPermissionsGranted(grantResults: IntArray): Boolean {
+    private fun hasAllPermissionsGranted(grantResults: IntArray): Boolean {
         for (grantResult in grantResults) {
             if (grantResult == PackageManager.PERMISSION_DENIED) {
                 return false
@@ -363,21 +278,20 @@ class UploadImageVideoFragment : Fragment() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == PICK_DOC) {
-            if (grantResults.size > 0) { /*  if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {*/
+            if (grantResults.size > 0) {
                 if (hasAllPermissionsGranted(grantResults)) {
-                   //chooseImageVideo()
                     openCameraDialog()
                 } else {
                     LogUtils.shortToast(
                         requireContext(),
-                        "Please grant both Camera and Storage permissions"
+                        requireContext().getString(R.string.please_grant_both_camera_and_storage_permissions)
                     )
 
                 }
             } else if (!hasAllPermissionsGranted(grantResults)) {
                 LogUtils.shortToast(
                     requireContext(),
-                    "Please grant both Camera and Storage permissions"
+                    requireContext().getString(R.string.please_grant_both_camera_and_storage_permissions)
                 )
             }
         }
@@ -412,11 +326,6 @@ class UploadImageVideoFragment : Fragment() {
                     pathList,
                     object : ClickInterface.ClickPosItemViewInterface {
                         override fun clickPosItemView(pos: Int, itemView: View) {
-                            /* if(type=="remove"){
-                            pathList.removeAt(pos)
-                            uploadImageVideoAdapter.notifyDataSetChanged()
-                        }*/
-
                             uploadFile(pathList[pos], itemView)
                         }
 
@@ -427,50 +336,24 @@ class UploadImageVideoFragment : Fragment() {
             }
         }
         else if (requestCode == CAMERA_CAPTURE_IMAGE_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) { //previewCapturedImage();
+            if (resultCode == RESULT_OK) {
                 if (uri != null) {
                     imagePath = ""
+                    galleryPhotos.clear()
                     Log.e("uri", uri.toString())
                     imagePath = uri!!.path!!
                     galleryPhotos.add(uri!!.path!!)
                     setUploadPhotos(galleryPhotos)
                 } else {
-                    LogUtils.shortToast(requireActivity(), "something went wrong! please try again")
+                    LogUtils.shortToast(
+                        requireContext(),
+                        requireContext().getString(R.string.something_went_wrong)
+                    )
                 }
             }
         } else if (requestCode == PICK_IMAGE_FROM_GALLERY && resultCode == RESULT_OK && data != null) {
-//            pathList.clear()
             imagePath = ""
-           /* if (data != null) {
-                val clipdata = data.clipData
-                if (clipdata != null) {
-                    for (i in 0 until clipdata.itemCount) {
-                        val uri = clipdata.getItemAt(i).uri
-                        imagePath = if (uri.toString().startsWith("content")) {
-                            FetchPath.getPath(requireActivity(), uri!!)!!
-                        } else {
-                            uri!!.path!!
-                        }
-
-                        if (galleryPhotos.size>10){
-                           // LogUtils.longToast(requireContext(), getString(R.string.max_ten_image))
-                        }else{
-                            galleryPhotos.add(uri.path!!)
-                        }
-                        *//*    Glide.with(this).applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.user)).load("file:///$imagePath").into(civ_profile)*//*
-                    }
-                    setUploadPhotos(galleryPhotos)
-                } else { // handle single photo
-                    val uri = data.data
-                    imagePath = if (uri.toString().startsWith("content")) {
-                        FetchPath.getPath(requireActivity(), uri!!)!!
-                    } else {
-                        uri!!.path!!
-                    }
-                    galleryPhotos.add(uri.path!!)
-                    setUploadPhotos(galleryPhotos)
-                }
-            }*/
+            galleryPhotos.clear()
             val clipdata = data.clipData
             if (clipdata != null) {
                 for (i in 0 until clipdata.itemCount) {
@@ -480,15 +363,13 @@ class UploadImageVideoFragment : Fragment() {
                     } else {
                         uri!!.path!!
                     }
-
-                    if (galleryPhotos.size>10){
-                        // LogUtils.longToast(requireContext(), getString(R.string.max_ten_image))
-                    }else{
-                        galleryPhotos.add(imagePath)
-                    }
-                    /*    Glide.with(this).applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.user)).load("file:///$imagePath").into(civ_profile)*/
+                    galleryPhotos.add(imagePath)
                 }
-                setUploadPhotos(galleryPhotos)
+                if (galleryPhotos.size>10){
+                    LogUtils.longToast(requireContext(), getString(R.string.max_ten_images))
+                }else{
+                    setUploadPhotos(galleryPhotos)
+                }
             } else { // handle single photo
                 val uri = data.data
                 imagePath = if (uri.toString().startsWith("content")) {
@@ -500,8 +381,10 @@ class UploadImageVideoFragment : Fragment() {
                 setUploadPhotos(galleryPhotos)
             }
         } else {
-            // show this if no image is selected
-            Toast.makeText(requireContext(), "You haven't picked Image", Toast.LENGTH_LONG).show()
+            LogUtils.shortToast(
+                requireContext(),
+                requireContext().getString(R.string.you_havent_picked_image)
+            )
         }
     }
 
@@ -528,11 +411,6 @@ class UploadImageVideoFragment : Fragment() {
                 galleryPhotos,
                 object : ClickInterface.ClickPosItemViewInterface {
                     override fun clickPosItemView(pos: Int, itemView: View) {
-                        /* if(type=="remove"){
-                        pathList.removeAt(pos)
-                        uploadImageVideoAdapter.notifyDataSetChanged()
-                    }*/
-
                         uploadFile(galleryPhotos[pos], itemView)
                     }
 

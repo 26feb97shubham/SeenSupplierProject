@@ -10,6 +10,7 @@ import android.webkit.WebChromeClient
 import android.webkit.WebView
 import androidx.navigation.fragment.findNavController
 import com.dev.ecomercesupplier.R
+import com.dev.ecomercesupplier.custom.Utility
 import com.dev.ecomercesupplier.utils.SharedPreferenceUtility
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_web_view.view.*
@@ -43,6 +44,7 @@ class WebViewFragment : Fragment() {
         // Inflate the layout for this fragment
         if(mView==null) {
             mView = inflater.inflate(R.layout.fragment_web_view, container, false)
+            Utility.setLanguage(requireContext(), SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
             setUpViews()
         }
         return mView

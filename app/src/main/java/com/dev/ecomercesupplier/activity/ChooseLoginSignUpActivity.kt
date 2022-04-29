@@ -8,6 +8,8 @@ import android.os.Looper
 import android.view.animation.AlphaAnimation
 import android.widget.Toast
 import com.dev.ecomercesupplier.R
+import com.dev.ecomercesupplier.custom.Utility
+import com.dev.ecomercesupplier.utils.SharedPreferenceUtility
 import kotlinx.android.synthetic.main.activity_choose_login_sign_up.*
 
 class ChooseLoginSignUpActivity : AppCompatActivity() {
@@ -15,6 +17,7 @@ class ChooseLoginSignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choose_login_sign_up)
+        Utility.setLanguage(this, SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
         setUpViews()
     }
     private fun setUpViews() {

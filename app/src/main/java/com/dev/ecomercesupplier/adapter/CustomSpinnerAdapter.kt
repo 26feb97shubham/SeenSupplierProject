@@ -9,9 +9,10 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.model.ModelForSpinner
+import com.dev.ecomercesupplier.utils.SharedPreferenceUtility
 import java.util.ArrayList
 
-class CustomSpinnerAdapter(private val context: Context?, private val items: ArrayList<ModelForSpinner>) : BaseAdapter() {
+class CustomSpinnerAdapter(private val context: Context?, private val items: ArrayList<ModelForSpinner>, private val reference : String) : BaseAdapter() {
     override fun getCount(): Int {
         return items.size //returns total of items in the list
     }
@@ -45,7 +46,24 @@ class CustomSpinnerAdapter(private val context: Context?, private val items: Arr
                     userText.setTextColor(context!!.getColor(R.color.black))
                 }
             }
-            userText.text = items.get(position).name
+
+            if(reference.equals("addItem")){
+                if (SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, "").equals("ar")){
+                    userText.text = items.get(position).name_ar
+                }else{
+                    userText.text = items.get(position).name
+                }
+            }else{
+                userText.text = items.get(position).name
+            }
+
+
+
+        /*    if (SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, "").equals("ar")){
+                userText.text = items.get(position).name_ar
+            }else{
+                userText.text = items.get(position).name
+            }*/
         }
         return convertView
     }

@@ -40,6 +40,9 @@ import android.widget.DatePicker
 
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
+import com.dev.ecomercesupplier.custom.Utility
+import com.dev.ecomercesupplier.model.CatListModel
+import com.dev.ecomercesupplier.rest.ApiUtils
 import java.text.ParseException
 import java.text.SimpleDateFormat
 
@@ -64,6 +67,9 @@ class RevenueFragment : Fragment() {
     lateinit var categoryRevenueAdapter: CategoryRevenueAdapter
     lateinit var revenueAdapter: RevenueAdapter
     var catIDArray=JSONArray()
+    var catNameArray=JSONArray()
+    var catListMain = ArrayList<CatListModel>()
+
     var fromDate = ""
     var toDate = ""
     var revenueList = ArrayList<Revenue>()
@@ -89,6 +95,7 @@ class RevenueFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_revenue, container, false)
+        Utility.setLanguage(requireContext(), SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
         setUpViews()
         getCategories()
         getRevenues(by_default_selected)
@@ -98,7 +105,9 @@ class RevenueFragment : Fragment() {
 
     private fun setUpViews() {
         mView.cl_filtered_result.visibility = View.VISIBLE
+        mView.textViewNoRevenue.visibility = View.GONE
         requireActivity().other_frag_backImg.visibility= View.VISIBLE
+
         requireActivity().other_frag_backImg.setOnClickListener {
             requireActivity().other_frag_backImg.startAnimation(AlphaAnimation(1f, 0.5f))
             SharedPreferenceUtility.getInstance().hideSoftKeyBoard(requireContext(), requireActivity().other_frag_backImg)
@@ -106,11 +115,18 @@ class RevenueFragment : Fragment() {
         }
 
         mView!!.rv_categories.layoutManager= LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        categoryRevenueAdapter= CategoryRevenueAdapter(requireContext(), catNameList, object: ClickInterface.ClickArrayInterface{
-            override fun clickArray(idArray: JSONArray) {
+        categoryRevenueAdapter= CategoryRevenueAdapter(requireContext(), catNameList, object: ClickInterface.ClickArrayInterface1{
+            override fun clickArray(catList: ArrayList<CatListModel>) {
                 catIDArray= JSONArray()
-                catIDArray=idArray
-//                txtSelect.text = catIDArray.length().toString()+" " +getString(R.string.categories_selected)
+                catNameArray = JSONArray()
+                for (i in 0 until catList.size){
+                    catIDArray.put(catList[i].catId)
+                    if (SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, "").equals("ar")){
+                        catNameArray.put(catList[i].catNameAr)
+                    }else{
+                        catNameArray.put(catList[i].catName)
+                    }
+                }
             }
         })
         mView!!.rv_categories.adapter=categoryRevenueAdapter
@@ -119,11 +135,23 @@ class RevenueFragment : Fragment() {
         mView!!.mtv_filter.setOnClickListener {
             mView.ll_filter.visibility=View.GONE
             by_default_selected = false
+
+            catIDArray = JSONArray()
+            catNameArray = JSONArray()
+            for (i in 0 until Utility.catListSaved.size){
+                catIDArray.put(Utility.catListSaved[i].catId)
+                if (SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, "").equals("ar")){
+                    catNameArray.put(Utility.catListSaved[i].catNameAr)
+                }else{
+                    catNameArray.put(Utility.catListSaved[i].catName)
+                }
+            }
             getRevenues(by_default_selected)
         }
 
         mView.llFrom.setOnClickListener {
             by_default_selected = false
+            mView.textViewNoRevenue.visibility = View.GONE
             DatePickerDialog(requireContext(),
                 { datePicker, year, month, day ->
                     var d = ""
@@ -140,6 +168,7 @@ class RevenueFragment : Fragment() {
 
         mView.llTo.setOnClickListener {
             by_default_selected = false
+            mView.textViewNoRevenue.visibility = View.GONE
             DatePickerDialog(requireContext(),
                 { datePicker, year, month, day ->
                     var d = ""
@@ -155,13 +184,14 @@ class RevenueFragment : Fragment() {
                         getRevenues(by_default_selected)
                     }else{
                         mView.cl_filtered_result.visibility = View.GONE
-                        LogUtils.shortToast(requireContext(),"To date is before than from date")
+//                        LogUtils.shortToast(requireContext(),"To date is before than from date")
                     }
                 }, year, month, dayOfMonth
             ).show()
         }
 
         mView.ll_category_filter.setOnClickListener {
+            mView.textViewNoRevenue.visibility = View.GONE
             if (!category_clicked){
                 category_clicked=true
                 mView.ll_filter.visibility=View.VISIBLE
@@ -173,16 +203,30 @@ class RevenueFragment : Fragment() {
 
         mView!!.mtv_select_all.setOnClickListener {
             isSelectAll = true
+            ApiUtils.isCatClicked=catListMain.size
+            mView.textViewNoRevenue.visibility = View.GONE
             rv_categories.layoutManager= LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            categoryRevenueAdapter= CategoryRevenueAdapter(requireContext(), catNameList, object: ClickInterface.ClickArrayInterface{
-                override fun clickArray(idArray: JSONArray) {
+            categoryRevenueAdapter= CategoryRevenueAdapter(requireContext(), catNameList, object: ClickInterface.ClickArrayInterface1{
+                override fun clickArray(catList: ArrayList<CatListModel>) {
                     catIDArray= JSONArray()
-                    catIDArray=idArray
-//                txtSelect.text = catIDArray.length().toString()+" " +getString(R.string.categories_selected)
+                    catNameArray= JSONArray()
+                    for (i in 0 until catList.size){
+                        catIDArray.put(catList[i].catId)
+                        if (SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, "").equals("ar")){
+                            catNameArray.put(catList[i].catNameAr)
+                        }else{
+                            catNameArray.put(catList[i].catName)
+                        }
+
+                    }
                 }
             })
             rv_categories.adapter=categoryRevenueAdapter
-            categoryRevenueAdapter.notifyDataSetChanged()
+
+            catIDArray = JSONArray()
+            for(i in 0 until catNameList.size){
+                catIDArray.put(catNameList[i].id)
+            }
         }
 
     }
@@ -203,20 +247,34 @@ class RevenueFragment : Fragment() {
                 arrayOf(SharedPreferenceUtility.getInstance()[SharedPreferenceUtility.UserId, 0].toString(),
                     fromDate,
                     toDate, "", SharedPreferenceUtility.getInstance()[SharedPreferenceUtility.SelectedLang, ""]))
+            mView.revenueProgressBar.visibility = View.VISIBLE
             val call = apiInterface.revenues(builder.build())
             call!!.enqueue(object : Callback<ResponseBody?>{
                 override fun onResponse(call: Call<ResponseBody?>, response: Response<ResponseBody?>) {
+                    mView.revenueProgressBar.visibility = View.GONE
                     if (response.body()!=null){
                         val jsonObject = JSONObject(response.body()!!.string())
                         val respstatus = jsonObject.getInt("response")
+
+                        var catNameText = ""
+                        for (i in 0 until catNameArray.length()){
+                            catNameText += catNameArray.getString(i) + " | "
+                        }
+                        mView.tv_categories.text = catNameText
+
+
                         if (respstatus==1){
                             val carts = jsonObject.getJSONArray("carts")
+                            mView.textViewNoRevenue.visibility = View.GONE
+                            mView.mainCardLayout.visibility = View.VISIBLE
                             revenueList?.clear()
                             if(carts.length()==0){
                                 Log.e("ABBC", "No Carts found")
-                                mView.rv_revenues.visibility = View.GONE
+                                mView.textViewNoRevenue.visibility = View.VISIBLE
+                                mView.mainCardLayout.visibility = View.GONE
                             }else{
-                                mView.rv_revenues.visibility = View.VISIBLE
+                                mView.textViewNoRevenue.visibility = View.GONE
+                                mView.mainCardLayout.visibility = View.VISIBLE
                                 for (i in 0 until carts.length()){
                                     val obj = carts.getJSONObject(i)
                                     val revenue = Revenue()
@@ -234,8 +292,11 @@ class RevenueFragment : Fragment() {
                                 }
                                 mView.rv_revenues.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
                                 if(revenueList?.size==0){
-                                    LogUtils.shortToast(requireContext(), "No Revenue")
+                                    mView.textViewNoRevenue.visibility = View.VISIBLE
+                                    mView.mainCardLayout.visibility = View.GONE
                                 }else{
+                                    mView.textViewNoRevenue.visibility = View.GONE
+                                    mView.mainCardLayout.visibility = View.VISIBLE
                                     revenueAdapter = revenueList?.let {
                                         RevenueAdapter(requireContext(),
                                             it
@@ -250,12 +311,17 @@ class RevenueFragment : Fragment() {
 
                         }else{
                             revenueList?.clear()
+                            mView.textViewNoRevenue.visibility = View.VISIBLE
+                            mView.mainCardLayout.visibility = View.GONE
                         }
                     }
                 }
 
                 override fun onFailure(call: Call<ResponseBody?>, throwable: Throwable) {
+                    mView.revenueProgressBar.visibility = View.GONE
                     LogUtils.e("msg", throwable.message)
+                    mView.textViewNoRevenue.visibility = View.VISIBLE
+                    mView.mainCardLayout.visibility = View.GONE
                 }
             })
         }else{
@@ -264,17 +330,32 @@ class RevenueFragment : Fragment() {
                     fromDate,
                     toDate, catIDArray.toString(), SharedPreferenceUtility.getInstance()[SharedPreferenceUtility.SelectedLang, ""]))
             val call = apiInterface.revenues(builder.build())
+            mView.revenueProgressBar.visibility = View.VISIBLE
             call!!.enqueue(object : Callback<ResponseBody?>{
                 override fun onResponse(call: Call<ResponseBody?>, response: Response<ResponseBody?>) {
+                    mView.revenueProgressBar.visibility = View.GONE
                     if (response.body()!=null){
                         val jsonObject = JSONObject(response.body()!!.string())
                         val respstatus = jsonObject.getInt("response")
+                        var catNameText = ""
+                        for (i in 0 until catNameArray.length()){
+                            catNameText += catNameArray.getString(i) + " | "
+                        }
+                        mView.tv_categories.text = catNameText
+
                         if (respstatus==1){
                             val carts = jsonObject.getJSONArray("carts")
+                            mView.textViewNoRevenue.visibility = View.GONE
+                            mView.mainCardLayout.visibility = View.VISIBLE
+                            var catNameText = ""
+
                             revenueList?.clear()
                             if(carts.length()==0){
-                                Log.e("ABBC", "No Carts found")
+                                mView.textViewNoRevenue.visibility = View.VISIBLE
+                                mView.mainCardLayout.visibility = View.GONE
                             }else{
+                                mView.textViewNoRevenue.visibility = View.GONE
+                                mView.mainCardLayout.visibility = View.VISIBLE
                                 for (i in 0 until carts.length()){
                                     val obj = carts.getJSONObject(i)
                                     val revenue = Revenue()
@@ -292,8 +373,11 @@ class RevenueFragment : Fragment() {
                                 }
                                 mView.rv_revenues.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
                                 if(revenueList?.size==0){
-                                    LogUtils.shortToast(requireContext(), "No Revenue")
+                                    mView.textViewNoRevenue.visibility = View.VISIBLE
+                                    mView.mainCardLayout.visibility = View.GONE
                                 }else{
+                                    mView.textViewNoRevenue.visibility = View.GONE
+                                    mView.mainCardLayout.visibility = View.VISIBLE
                                     revenueAdapter = revenueList?.let {
                                         RevenueAdapter(requireContext(),
                                             it
@@ -307,12 +391,17 @@ class RevenueFragment : Fragment() {
 
                         }else{
                             revenueList?.clear()
+                            mView.textViewNoRevenue.visibility = View.VISIBLE
+                            mView.mainCardLayout.visibility = View.GONE
                         }
                     }
                 }
 
                 override fun onFailure(call: Call<ResponseBody?>, throwable: Throwable) {
+                    mView.revenueProgressBar.visibility = View.GONE
                     LogUtils.e("msg", throwable.message)
+                    mView.textViewNoRevenue.visibility = View.VISIBLE
+                    mView.mainCardLayout.visibility = View.GONE
                 }
 
             })
@@ -338,26 +427,34 @@ class RevenueFragment : Fragment() {
                         for (i in 0 until categories.length()) {
                             val jsonObj = categories.getJSONObject(i)
                             val c = CategoryName()
+                            var catListModel = CatListModel()
+                            catListModel.catId=jsonObj.getInt("id")
+                            catListModel.catName=jsonObj.getString("name")
+                            catListModel.catNameAr=jsonObj.getString("name_ar")
                             c.id=jsonObj.getInt("id")
                             c.name=jsonObj.getString("name")
+                            c.catNameAr=jsonObj.getString("name_ar")
                             catNameList.add(c)
+                            catListMain.add(catListModel)
                         }
+
                         catIDArray= JSONArray()
                         for(i in 0 until catNameList.size){
                             if(catNameList[i].checkCategoryStatus){
                                 catIDArray.put(catNameList[i].id)
                             }
                         }
-                        //mView.txtSelect.text = catIDArray.length().toString()+" " +getString(R.string.categories_selected)
-                        mView.rv_categories.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-                        categoryListAdapter = CategoryListAdapter(requireContext(), catNameList, object : ClickInterface.ClickArrayInterface{
-                            override fun clickArray(idArray: JSONArray) {
-                                catIDArray= JSONArray()
-                                catIDArray=idArray
-                            }
 
+                        mView.rv_categories.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+                        categoryRevenueAdapter= CategoryRevenueAdapter(requireContext(), catNameList, object: ClickInterface.ClickArrayInterface1{
+                            override fun clickArray(catList: ArrayList<CatListModel>) {
+                                catIDArray= JSONArray()
+                                for (i in 0 until catList.size){
+                                    catIDArray.put(catList[i].catId)
+                                }
+                            }
                         })
-                        categoryListAdapter.notifyDataSetChanged()
+                        mView.rv_categories.adapter=categoryRevenueAdapter
 
                     }
                 } catch (e: IOException) {

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/_120sdp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/gold">
+    android:background="#F2F2F2">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/userView"
         android:layout_width="@dimen/_70sdp"
@@ -12,7 +12,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginEnd="@dimen/_15sdp">
+        android:layout_marginHorizontal="@dimen/_15sdp">
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/userIcon"
         android:layout_width="match_parent"
@@ -32,7 +32,7 @@
             android:id="@+id/txtName"
             android:layout_width="0dp"
             android:layout_height="@dimen/_25sdp"
-            android:fontFamily="@font/farsi_simple_bold"
+            android:fontFamily="@font/expressway_rg"
             android:includeFontPadding="false"
             android:textDirection="locale"
             android:textAlignment="viewEnd"
@@ -69,6 +69,5 @@
             android:textAllCaps="false"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

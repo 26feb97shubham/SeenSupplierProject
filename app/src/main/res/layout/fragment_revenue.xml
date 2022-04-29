@@ -36,8 +36,13 @@
                    android:id="@+id/tv_categories"
                    android:layout_marginStart="@dimen/_8sdp"
                    android:textSize="@dimen/_11ssp"
-                   android:hint="Fashion | Food"
-                   android:gravity="center_vertical"
+                   android:hint="@string/select_category"
+                   android:maxLines="1"
+                   android:ellipsize="end"
+                   android:gravity="center_vertical|start"
+                   android:textAlignment="viewStart"
+                   android:paddingHorizontal="4dp"
+                   android:layout_marginEnd="8dp"
                    android:textColorHint="@color/black"
                    android:fontFamily="@font/expressway_rg"
                    android:textColor="@color/black"/>
@@ -60,24 +65,31 @@
            </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_200sdp"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@id/ll_category_filter"
         android:layout_marginTop="@dimen/_4sdp"
         android:visibility="gone"
         android:id="@+id/ll_filter">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_categories"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_8sdp" />
+            android:layout_height="0dp"
+            android:layout_weight="0.8"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:orientation="vertical">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_categories"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_20sdp"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
             android:layout_marginStart="@dimen/_8sdp"
-            android:text="Select All"
+            android:text="@string/select_all"
             android:gravity="center"
             android:textAllCaps="true"
             android:fontFamily="@font/expressway_rg"
@@ -87,15 +99,18 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_20sdp"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
             android:layout_marginStart="@dimen/_8sdp"
-            android:text="Filter"
+            android:text="@string/filter"
             android:gravity="center"
             android:textAllCaps="true"
             android:fontFamily="@font/expressway_rg"
             android:textSize="@dimen/_10ssp"
             android:textColor="@color/gold"
             android:id="@+id/mtv_filter"/>
+
+
 
     </LinearLayout>
 
@@ -201,6 +216,8 @@
         android:layout_marginTop="@dimen/_10sdp"
         app:cardCornerRadius="@dimen/_15sdp"
         app:strokeColor="#DBDBDB"
+        android:visibility="visible"
+        android:id="@+id/mainCardLayout"
         app:strokeWidth="@dimen/_1sdp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -214,7 +231,7 @@
                 android:layout_marginStart="@dimen/_8sdp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:text="From-To"
+                android:text="@string/from_to"
                 android:gravity="center_vertical"
                 android:fontFamily="@font/expressway_rg"
                 android:textSize="@dimen/_10ssp"
@@ -245,6 +262,7 @@
                 app:layout_constraintTop_toBottomOf="@id/rv_revenues"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginEnd="@dimen/_8sdp"
+                android:layoutDirection="ltr"
                 android:orientation="horizontal">
 
                 <com.google.android.material.textview.MaterialTextView
@@ -266,7 +284,7 @@
                     android:layout_marginStart="@dimen/_8sdp"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:text="From-To"
+                    android:text=""
                     android:gravity="center_vertical"
                     android:fontFamily="@font/expressway_rg"
                     android:textSize="@dimen/_10ssp"
@@ -277,5 +295,32 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
+
+
+    <TextView
+        android:id="@+id/textViewNoRevenue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/expressway_rg"
+        android:text="@string/no_revenues_found"
+        android:textColor="#515151"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/revenueProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="50dp"
+        android:visibility="gone"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

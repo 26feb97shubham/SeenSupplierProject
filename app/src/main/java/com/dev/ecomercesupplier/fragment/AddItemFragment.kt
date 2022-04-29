@@ -31,11 +31,9 @@ import com.dev.ecomercesupplier.adapter.CustomSpinnerAdapter
 import com.dev.ecomercesupplier.adapter.ImageVideoAdapter
 import com.dev.ecomercesupplier.adapter.NewImageVideoAdapter
 import com.dev.ecomercesupplier.custom.FetchPath
+import com.dev.ecomercesupplier.custom.Utility
 import com.dev.ecomercesupplier.interfaces.ClickInterface
-import com.dev.ecomercesupplier.model.Attributes
-import com.dev.ecomercesupplier.model.CategoryName
-import com.dev.ecomercesupplier.model.ModelForSpinner
-import com.dev.ecomercesupplier.model.PhotoData
+import com.dev.ecomercesupplier.model.*
 import com.dev.ecomercesupplier.rest.ApiClient
 import com.dev.ecomercesupplier.rest.ApiInterface
 import com.dev.ecomercesupplier.utils.LogUtils
@@ -94,6 +92,7 @@ class AddItemFragment : Fragment() {
     private  var mMonth:Int = 0
     private  var mDay:Int = 0
     private var selectCatID = "0"
+    private var attributeNameMain = ""
     var allow_coupans :Int = 0
     var add_offer  :Int = 0
     private var imagePath = ""
@@ -133,6 +132,7 @@ class AddItemFragment : Fragment() {
         // Inflate the layout for this fragment
         if(mView==null){
             mView = inflater.inflate(R.layout.fragment_add_item, container, false)
+            Utility.setLanguage(requireContext(), SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
             setUpViews()
             if(pos==-1){
                 mView!!.btnUploadItem.text = requireContext().getString(R.string.place_item)
@@ -354,7 +354,7 @@ class AddItemFragment : Fragment() {
         mView!!.btnView.setOnClickListener {
             mView!!.btnView.startAnimation(AlphaAnimation(1f, 0.5f))
             if(attributeArray.length()==0){
-                LogUtils.shortToast(requireContext(), "Please first save attributes")
+                LogUtils.shortToast(requireContext(), requireContext().getString(R.string.please_save_attributes))
             }
             else{
                 att_count_1 = attrList.size
@@ -447,7 +447,7 @@ class AddItemFragment : Fragment() {
 
         }
 
-        adp_categories = CustomSpinnerAdapter(requireContext(), catSpinner)
+        adp_categories = CustomSpinnerAdapter(requireContext(), catSpinner, "addItem")
         mView!!.spinnerCategory.adapter = adp_categories
 
         mView!!.spinnerCategory.onItemSelectedListener= object : AdapterView.OnItemSelectedListener{
@@ -461,11 +461,13 @@ class AddItemFragment : Fragment() {
                         if (catNameList[k].id == catSpinner[p2].id) {
                             val attributes = catNameList[k].attributes
                             attrList.clear()
+
                             for (m in 0 until attributes.length()) {
                                 val obj = attributes.getJSONObject(m)
                                 val a = Attributes()
                                 a.id=obj.getInt("id")
                                 a.name = obj.getString("name")
+                                a.name_ar = obj.getString("name_ar")
                                 a.type = obj.getString("type")
                                 a.value = obj.getJSONArray("value")
                                 attrList.add(a)
@@ -495,6 +497,45 @@ class AddItemFragment : Fragment() {
 
         }
     }
+
+   /* private fun getAttributeName(attributeName: String): String {
+        var attributeName1 = ""
+        requireActivity().window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        mView!!.progressBar.visibility= View.VISIBLE
+
+        val apiInterface = ApiClient.getClient()!!.create(ApiInterface::class.java)
+        val builder = ApiClient.createBuilder(arrayOf("name", "lang"),
+            arrayOf(attributeName, SharedPreferenceUtility.getInstance()[SharedPreferenceUtility.SelectedLang, ""]))
+
+        val call = apiInterface.getAttributeName(builder.build())
+
+        call?.enqueue(object : Callback<AttributeNameResponse>{
+            override fun onResponse(call: Call<ResponseBody?>, response: Response<ResponseBody?>) {
+                mView!!.progressBar.visibility = View.GONE
+                requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+
+                try {
+                    if (response.body() != null) {
+                        val jsonObject = JSONObject(response.body()!!.string())
+                        attributeName1 = jsonObject.getString("name")
+                    }
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {
+                attributeName1 = ""
+                mView!!.progressBar.visibility = View.GONE
+                requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+            }
+        })
+        return  attributeName1
+    }*/
 
     private fun validateAndUpload() {
         name=mView!!.edtName.text.toString()
@@ -669,6 +710,7 @@ class AddItemFragment : Fragment() {
                                 val m1 = ModelForSpinner()
                                 m1.id = jsonObj.getInt("id")
                                 m1.name = jsonObj.getString("name")
+                                m1.name_ar = jsonObj.getString("name_ar")
                                 catSpinner.add(m1)
 
                                 val c = CategoryName()
@@ -748,6 +790,7 @@ class AddItemFragment : Fragment() {
                                                 val a = Attributes()
                                                 a.id=obj.getInt("id")
                                                 a.name = obj.getString("name")
+                                                a.name_ar = obj.getString("name_ar")
                                                 a.type = obj.getString("type")
                                                 a.value = obj.getJSONArray("value")
                                                 attrList.add(a)

@@ -14,8 +14,10 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.androidnetworking.utils.Utils
 import com.dev.ecomercesupplier.MyWebViewClient
 import com.dev.ecomercesupplier.R
+import com.dev.ecomercesupplier.custom.Utility
 import com.dev.ecomercesupplier.custom.Utility.Companion.checkedPosition
 import com.dev.ecomercesupplier.model.ModelForAccountType
 import com.dev.ecomercesupplier.rest.ApiClient
@@ -34,44 +36,53 @@ import java.io.IOException
 import java.util.ArrayList
 
 class AgreementActivity : AppCompatActivity() {
-    private var url : String ?= null
-    private var acc_type_id : String ?= null
-    private var userId : String ?= null
-    private var lang : String ?= null
-    private var accountList= ArrayList<ModelForAccountType>()
-    var doubleClick:Boolean=false
+    private var url: String? = null
+    private var acc_type_id: String? = null
+    private var userId: String? = null
+    private var lang: String? = null
+    private var accountList = ArrayList<ModelForAccountType>()
+    var doubleClick: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_agreement)
+        Utility.setLanguage(
+            this,
+            SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, "")
+        )
         setUpView()
     }
 
     private fun setUpView() {
-        if (intent!=null){
-            if (intent.extras!=null){
-                accountList = intent.getSerializableExtra("accountList") as ArrayList<ModelForAccountType>
+        if (intent != null) {
+            if (intent.extras != null) {
+                accountList =
+                    intent.getSerializableExtra("accountList") as ArrayList<ModelForAccountType>
             }
         }
+        mtv_decline.text = resources.getString(R.string.decline)
+        mtv_accept.text = resources.getString(R.string.accept)
+
 
         url = accountList[checkedPosition].url
         acc_type_id = accountList[checkedPosition].id.toString()
-        Log.e("accid", ""+acc_type_id)
+        Log.e("accid", "" + acc_type_id)
 
-        userId = SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.UserId, 0).toString()
+        userId =
+            SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.UserId, 0).toString()
         lang = SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, "")
 
-        Log.e("userId", ""+userId)
-        Log.e("lang", ""+lang)
+        Log.e("userId", "" + userId)
+        Log.e("lang", "" + lang)
 
         web_view_agreement.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
-                progressBar_accept_agreement.visibility= View.GONE
+                progressBar_accept_agreement.visibility = View.GONE
             }
 
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                 super.onPageStarted(view, url, favicon)
-                progressBar_accept_agreement.visibility= View.VISIBLE
+                progressBar_accept_agreement.visibility = View.VISIBLE
             }
 
             override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
@@ -97,17 +108,28 @@ class AgreementActivity : AppCompatActivity() {
         mtv_accept.setOnClickListener {
             acceptAggrement()
         }
+        Utility.setLanguage(
+            this,
+            SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, "")
+        )
     }
 
     private fun acceptAggrement() {
-        window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-        progressBar_accept_agreement.visibility= View.VISIBLE
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+        )
+        progressBar_accept_agreement.visibility = View.VISIBLE
         val apiInterface = ApiClient.getClient()!!.create(ApiInterface::class.java)
 
-        val builder = ApiClient.createBuilder(arrayOf("user_id", "account_type", "lang"),
-            arrayOf(userId.toString(),
+        val builder = ApiClient.createBuilder(
+            arrayOf("user_id", "account_type", "lang"),
+            arrayOf(
+                userId.toString(),
                 acc_type_id.toString(),
-                lang.toString()))
+                lang.toString()
+            )
+        )
 
         val call = apiInterface.updateCategory(builder.build())
         call!!.enqueue(object : Callback<ResponseBody?> {
@@ -117,10 +139,17 @@ class AgreementActivity : AppCompatActivity() {
                 try {
                     if (response.body() != null) {
                         val jsonObject = JSONObject(response.body()!!.string())
-                        if (jsonObject.getInt("response")==1){
-                            startActivity(Intent(this@AgreementActivity, PackagePlanActivity::class.java)
-                                .putExtra("user_id", userId))
-                        }else{
+                        if (jsonObject.getInt("response") == 1) {
+                            /*  startActivity(Intent(this@AgreementActivity, PackagePlanActivity::class.java)
+                                  .putExtra("user_id", userId))*/
+
+                            LogUtils.shortToast(
+                                this@AgreementActivity,
+                                getString(R.string.your_profile_has_been_sent_to_admin_for_verification)
+                            )
+                            startActivity(Intent(this@AgreementActivity, LoginActivity::class.java))
+                            finish()
+                        } else {
                             LogUtils.shortToast(this@AgreementActivity, "No Response")
                         }
                     }
@@ -145,6 +174,7 @@ class AgreementActivity : AppCompatActivity() {
     override fun onBackPressed() {
         exitApp()
     }
+
     private fun exitApp() {
         val toast = Toast.makeText(
             this,
@@ -153,16 +183,15 @@ class AgreementActivity : AppCompatActivity() {
         )
 
 
-        if(doubleClick){
+        if (doubleClick) {
             finishAffinity()
-            doubleClick=false
-        }
-        else{
+            doubleClick = false
+        } else {
 
-            doubleClick=true
+            doubleClick = true
             Handler(Looper.getMainLooper()).postDelayed(Runnable {
                 toast.show()
-                doubleClick=false
+                doubleClick = false
             }, 500)
         }
     }

@@ -17,6 +17,7 @@ import com.dev.ecomercesupplier.activity.ChooseLangActivity
 import com.dev.ecomercesupplier.activity.LoginActivity
 import com.dev.ecomercesupplier.activity.RegisterActivity_1
 import com.dev.ecomercesupplier.activity.SignUpActivity
+import com.dev.ecomercesupplier.custom.Utility
 import com.dev.ecomercesupplier.utils.SharedPreferenceUtility
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_choose_login_sign_up.*
@@ -62,6 +63,7 @@ class IntroFragment(val position: Int) : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_intro, container, false)
+        Utility.setLanguage(requireContext(), SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
         mainView = mView.findViewById(R.id.mainView)
         mainView2 = mView.findViewById(R.id.third_screen_layout)
         btnLogin = mView.findViewById(R.id.btnLogin)

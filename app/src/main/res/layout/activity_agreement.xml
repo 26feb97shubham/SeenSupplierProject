@@ -1,61 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/terms_and_conditions_activity_background"
+    android:orientation="vertical"
     tools:context=".activity.AgreementActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-          <WebView
-        android:id="@+id/web_view_agreement"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-              android:layout_weight="0.9"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_40sdp"
-        android:layout_marginVertical="@dimen/_15ssp"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:gravity="center"
-        android:paddingHorizontal="@dimen/_10sdp">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/mtv_accept"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/gold_filled_wide_radius_rect"
-            android:text="@string/accept"
-            android:textColor="@color/white"
-            android:fontFamily="@font/expressway_rg"
-            android:textSize="@dimen/_15ssp"
-            android:textAllCaps="true"
+        <WebView
+            android:id="@+id/web_view_agreement"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.9" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginVertical="@dimen/_15ssp"
             android:gravity="center"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="@dimen/_8sdp"/>
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/mtv_decline"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="@dimen/_8sdp"
-            android:background="@drawable/black_curved_rect_box"
-            android:text="@string/decline"
-            android:textColor="@color/black"
-            android:fontFamily="@font/expressway_rg"
-            android:textSize="@dimen/_15ssp"
-            android:textAllCaps="true"
-            android:textStyle="normal"
-            android:gravity="center" />
-    </LinearLayout>
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:weightSum="2">
 
+            <TextView
+                android:id="@+id/mtv_accept"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:background="@drawable/gold_filled_wide_radius_rect"
+                android:fontFamily="@font/expressway_rg"
+                android:gravity="center"
+                android:letterSpacing="0.1"
+                android:text=""
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_15ssp" />
+
+            <TextView
+                android:id="@+id/mtv_decline"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:background="@drawable/black_curved_rect_box"
+                android:fontFamily="@font/expressway_rg"
+                android:gravity="center"
+                android:letterSpacing="0.1"
+                android:text=""
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15ssp"
+                android:textStyle="normal" />
+        </LinearLayout>
 
 
     </LinearLayout>
@@ -64,7 +67,7 @@
         android:id="@+id/progressBar_accept_agreement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:elevation="@dimen/_5sdp"
-        android:visibility="gone"
-        android:layout_centerInParent="true"/>
+        android:visibility="gone" />
 </RelativeLayout>

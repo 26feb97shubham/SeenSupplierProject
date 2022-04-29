@@ -14,6 +14,7 @@ import com.arasthel.spannedgridlayoutmanager.SpannedGridLayoutManager
 import com.bumptech.glide.Glide
 import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.adapter.GalleryListAdapter
+import com.dev.ecomercesupplier.custom.Utility
 import com.dev.ecomercesupplier.interfaces.ClickInterface
 import com.dev.ecomercesupplier.model.Categories
 import com.dev.ecomercesupplier.model.Galleries
@@ -63,6 +64,7 @@ class GalleryFragment : Fragment() {
                               savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_gallery, container, false)
+        Utility.setLanguage(requireContext(), SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
         setUpViews()
         getHomes(false)
         return mView
@@ -101,42 +103,7 @@ class GalleryFragment : Fragment() {
                 }
             }
         }*/
-        val spannedGridLayoutManager = SpannedGridLayoutManager(
-            orientation = SpannedGridLayoutManager.Orientation.VERTICAL,
-            spans = 3)
-        spannedGridLayoutManager.spanSizeLookup = SpannedGridLayoutManager.SpanSizeLookup { position ->
-            when {
-                position == 0 -> {
-                    /**
-                     * 150f is now static
-                     * should calculate programmatically in runtime
-                     * for to manage header hight for different resolution devices
-                     */
-                    SpanSize(3, 2)
-                }
-                position == 4 || position==accessValue ->{
-                    accessValue=position+6
-                    SpanSize(2, 2)
-                }
 
-                else ->
-                    SpanSize(1, 1)
-            }
-        }
-        mView.rvList.layoutManager =spannedGridLayoutManager
-
-                /*mView.rvList.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)*/
-        galleryListAdapter= GalleryListAdapter(requireContext(), galleryList, object : ClickInterface.ClickPosInterface {
-            override fun clickPostion(pos: Int) {
-                val bundle=Bundle()
-                bundle.putString("thumbnail", galleryList[pos].thumbnail)
-                bundle.putString("files", galleryList[pos].files)
-                findNavController().navigate(R.id.action_galleryFragment_to_playerViewFragment, bundle)
-            }
-
-        })
-
-//        mView.rvList.adapter=galleryListAdapter
 
 
 //        setCategoryData()
@@ -186,6 +153,41 @@ class GalleryFragment : Fragment() {
                             mView.txtNoDataFound.visibility=View.GONE
                             mView.rvList.visibility=View.VISIBLE
                         }
+                        val spannedGridLayoutManager = SpannedGridLayoutManager(
+                            orientation = SpannedGridLayoutManager.Orientation.VERTICAL,
+                            spans = 3)
+                        spannedGridLayoutManager.spanSizeLookup = SpannedGridLayoutManager.SpanSizeLookup { position ->
+                            when {
+                                position == 0 -> {
+                                    /**
+                                     * 150f is now static
+                                     * should calculate programmatically in runtime
+                                     * for to manage header hight for different resolution devices
+                                     */
+                                    SpanSize(3, 2)
+                                }
+                                position == 4 || position==accessValue ->{
+                                    accessValue=position+6
+                                    SpanSize(2, 2)
+                                }
+
+                                else ->
+                                    SpanSize(1, 1)
+                            }
+                        }
+                        mView.rvList.layoutManager =spannedGridLayoutManager
+
+                        /*mView.rvList.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)*/
+                        galleryListAdapter= GalleryListAdapter(requireContext(), galleryList, object : ClickInterface.ClickPosInterface {
+                            override fun clickPostion(pos: Int) {
+                                val bundle=Bundle()
+                                bundle.putString("thumbnail", galleryList[pos].thumbnail)
+                                bundle.putString("files", galleryList[pos].files)
+                                findNavController().navigate(R.id.action_galleryFragment_to_playerViewFragment, bundle)
+                            }
+
+                        })
+
                         mView.rvList.adapter=galleryListAdapter
 //                        galleryListAdapter.notifyDataSetChanged()
 

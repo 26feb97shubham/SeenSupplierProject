@@ -31,8 +31,10 @@ import com.bumptech.glide.request.RequestOptions
 import com.dev.ecomercesupplier.BuildConfig
 import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.activity.ChooseLoginSignUpActivity
+import com.dev.ecomercesupplier.adapter.CustomDropdownCountryNameAdapter
 import com.dev.ecomercesupplier.adapter.ServedCountriesAdapter
 import com.dev.ecomercesupplier.custom.FetchPath
+import com.dev.ecomercesupplier.custom.Utility
 import com.dev.ecomercesupplier.interfaces.ClickInterface
 import com.dev.ecomercesupplier.model.ModelForSpinner
 import com.dev.ecomercesupplier.model.ServeCountries
@@ -110,6 +112,7 @@ class EditProfileFragment : Fragment() {
     var registered_number=""
     var registered_country_code=""
     var is_back = false
+    lateinit var customDropdownCountryNameAdapter : CustomDropdownCountryNameAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -122,6 +125,7 @@ class EditProfileFragment : Fragment() {
                               savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_edit_profile, container, false)
+        Utility.setLanguage(requireContext(), SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
         setUpViews()
         getCountries()
         return mView
@@ -188,7 +192,7 @@ class EditProfileFragment : Fragment() {
             servedCountriesList,
             is_back,
             object : ClickInterface.ClickArrayInterface{
-                override fun clickArray(array: JSONArray) {
+                override fun clickArray(array: JSONArray, nameArrayType : JSONArray) {
                     servedCountries=array
                     Log.e("servedCountries", servedCountries.toString())
                 }
@@ -299,16 +303,17 @@ class EditProfileFragment : Fragment() {
 
 
         }*/
-        mView.txtCountryCode.setOnClickListener {
+    /*    mView.txtCountryCode.setOnClickListener {
             if(cCodeList.size != 0){
                 showCountryCodeList()
             }
 
-        }
+        }*/
 
-        adp_country_name = ArrayAdapter(requireContext(), R.layout.spinner_item, country_name)
-        adp_country_name.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        mView.spinnerCountry.adapter = adp_country_name
+        customDropdownCountryNameAdapter = CustomDropdownCountryNameAdapter(requireContext(), country_name)
+       /* adp_country_name = ArrayAdapter(requireContext(), R.layout.spinner_item, country_name)
+        adp_country_name.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)*/
+        mView.spinnerCountry.adapter = customDropdownCountryNameAdapter
 
         mView.spinnerCountry.onItemSelectedListener= object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
@@ -588,7 +593,7 @@ class EditProfileFragment : Fragment() {
                         }
 //                        txtCountryCode.text=country_code[0]
                         adp_country_code.notifyDataSetChanged()
-                        adp_country_name.notifyDataSetChanged()
+                        customDropdownCountryNameAdapter.notifyDataSetChanged()
 
                         val countries_to_be_served = jsonObject.getJSONArray("countries_to_be_served")
 
@@ -628,7 +633,6 @@ class EditProfileFragment : Fragment() {
         phone = mView.edtPhone.text.toString()
         email = mView.edtEmail.text.toString()
         bio = mView.edtBio.text.toString()
-        selectCountryCode = mView.txtCountryCode.text.toString()
 
         if (TextUtils.isEmpty(name)) {
             mView.edtName.requestFocus()
@@ -646,11 +650,11 @@ class EditProfileFragment : Fragment() {
             mView.edtEmail.error=getString(R.string.please_enter_valid_email)
 //            LogUtils.shortToast(this, getString(R.string.please_enter_valid_email))
         }
-        else if (TextUtils.isEmpty(selectCountryCode)) {
+     /*   else if (TextUtils.isEmpty(selectCountryCode)) {
 //            edtPhone.error=getString(R.string.please_select_your_country_code)
             LogUtils.shortToast(requireContext(), getString(R.string.please_select_your_country_code))
 
-        }
+        }*/
         else if (TextUtils.isEmpty(phone)) {
             mView.edtPhone.requestFocus()
             mView.edtPhone.error=getString(R.string.please_enter_your_phone_number)
@@ -681,8 +685,8 @@ class EditProfileFragment : Fragment() {
         else {
             if(registered_number!=phone){
                 val builder = android.app.AlertDialog.Builder(requireContext())
-                builder.setTitle("Alert!")
-                builder.setMessage("Are you sure you want to updated your phone number")
+                builder.setTitle(requireContext().getString(R.string.alert))
+                builder.setMessage(requireContext().getString(R.string.are_you_sure_you_want_to_update_your_phone_number))
                 builder.setPositiveButton(R.string.ok) { dialog, which ->
                     dialog.cancel()
                     editProfile()
@@ -922,7 +926,7 @@ class EditProfileFragment : Fragment() {
                     }
 
                 } else {
-                    LogUtils.shortToast(requireContext(), "something went wrong! please try again")
+                    LogUtils.shortToast(requireContext(), requireContext().getString(R.string.something_went_wrong))
                 }
             }
         } else if (requestCode == PICK_IMAGE_FROM_GALLERY && resultCode == Activity.RESULT_OK && data != null) {

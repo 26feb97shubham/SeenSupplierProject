@@ -13,7 +13,14 @@ import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.interfaces.ClickInterface
 import com.dev.ecomercesupplier.model.MyOrders
 import com.dev.ecomercesupplier.model.OrderData
+import com.dev.ecomercesupplier.utils.SharedPreferenceUtility
+import kotlinx.android.synthetic.main.item_current_order.view.*
 import kotlinx.android.synthetic.main.item_new_order.view.*
+import kotlinx.android.synthetic.main.item_new_order.view.mobNum
+import kotlinx.android.synthetic.main.item_new_order.view.orderNum
+import kotlinx.android.synthetic.main.item_new_order.view.rvList
+import kotlinx.android.synthetic.main.item_new_order.view.userName
+import kotlinx.android.synthetic.main.item_new_order.view.userProfile
 
 class NewOrderAdapter(private val context: Context, private val data:ArrayList<MyOrders>, private val clickInst: ClickInterface.ClickPosTypeInterface): RecyclerView.Adapter<NewOrderAdapter.MyViewHolder>() {
 
@@ -29,7 +36,7 @@ class NewOrderAdapter(private val context: Context, private val data:ArrayList<M
          holder.itemView.userName.text = data[position].user_name
          holder.itemView.mobNum.text = data[position].phone_number
 
-          Glide.with(context).load(data[position].user_image).placeholder(R.drawable.user).into(holder.itemView.userProfile)
+        Glide.with(context).load(SharedPreferenceUtility.getInstance().get("profile_picture", "")).placeholder(R.drawable.user).into(holder.itemView.userProfile)
 
             holder.orderDataList.clear()
             for(i in 0 until data[position].order_data.length()){

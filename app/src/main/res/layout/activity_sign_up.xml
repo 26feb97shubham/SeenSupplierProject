@@ -418,28 +418,53 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-
-                    <EditText
-                        android:textDirection="locale"
-                        android:textAlignment="viewStart"
-                        android:id="@+id/edtPassword"
+                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_35sdp"
-                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
                         android:background="@drawable/gray_gold_rect_box"
-                        android:elevation="@dimen/_5sdp"
-                        android:fontFamily="@font/expressway_rg"
-                        android:hint="@string/enter_a_valid_password"
-                        android:includeFontPadding="false"
-                        android:inputType="textPassword"
-                        android:padding="@dimen/_10sdp"
-                        android:textAllCaps="false"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/gray"
-                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/txtPassword"
-                        app:layout_constraintTop_toTopOf="parent" />
+                         app:layout_constraintTop_toTopOf="parent">
+
+                         <EditText
+                             android:id="@+id/edtPassword"
+                             android:layout_width="0dp"
+                             android:layout_height="@dimen/_35sdp"
+                             android:layout_marginHorizontal="@dimen/_5sdp"
+                             android:background="@null"
+                             android:elevation="@dimen/_5sdp"
+                             android:fontFamily="@font/expressway_rg"
+                             android:hint="@string/enter_a_valid_password"
+                             android:includeFontPadding="false"
+                             android:inputType="textPassword"
+                             android:padding="@dimen/_10sdp"
+                             android:textAlignment="viewStart"
+                             android:textAllCaps="false"
+                             android:textColor="@color/black"
+                             android:textColorHint="@color/gray"
+                             android:textDirection="locale"
+                             android:textSize="@dimen/_12ssp"
+                             app:layout_constraintEnd_toStartOf="@+id/iv_pass_show_hide_login"
+                             app:layout_constraintStart_toStartOf="parent"
+                             app:layout_constraintTop_toTopOf="parent" />
+
+                         <ImageView
+                             android:id="@+id/iv_pass_show_hide_login"
+                             android:layout_width="0dp"
+                             android:layout_weight="0.1"
+                             android:layout_height="wrap_content"
+                             android:src="@drawable/invisible"
+                             app:tint="@color/gold"
+                             app:layout_constraintTop_toTopOf="parent"
+                             app:layout_constraintBottom_toBottomOf="parent"
+                             app:layout_constraintEnd_toEndOf="parent"
+                             android:layout_marginHorizontal="@dimen/_6sdp"
+                             android:padding="@dimen/_4sdp"/>
+                     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -465,28 +490,53 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <EditText
-                        android:textDirection="locale"
-                        android:textAlignment="viewStart"
-                        android:id="@+id/edtConfirmPassword"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_35sdp"
-                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
                         android:background="@drawable/gray_gold_rect_box"
-                        android:elevation="@dimen/_5sdp"
-                        android:fontFamily="@font/expressway_rg"
-                        android:hint="@string/verify_password"
-                        android:includeFontPadding="false"
-                        android:inputType="textPassword"
-                        android:padding="@dimen/_10sdp"
-                        android:textAllCaps="false"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/gray"
-                        android:textSize="@dimen/_12ssp"
-
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/txtConfirmPassword"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <EditText
+                            android:id="@+id/edtConfirmPassword"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_35sdp"
+                            android:layout_marginHorizontal="@dimen/_5sdp"
+                            android:background="@null"
+                            android:elevation="@dimen/_5sdp"
+                            android:fontFamily="@font/expressway_rg"
+                            android:hint="@string/verify_password"
+                            android:includeFontPadding="false"
+                            android:inputType="textPassword"
+                            android:padding="@dimen/_10sdp"
+                            android:textAlignment="viewStart"
+                            android:textAllCaps="false"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/gray"
+                            android:textDirection="locale"
+                            android:textSize="@dimen/_12ssp"
+                            app:layout_constraintEnd_toStartOf="@+id/iv_pass_show_hide_login_verify"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/iv_pass_show_hide_login_verify"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_6sdp"
+                            android:layout_weight="0.1"
+                            android:padding="@dimen/_4sdp"
+                            android:src="@drawable/invisible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="@color/gold" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -722,11 +772,12 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="@dimen/_25sdp"
                     app:layout_constraintTop_toBottomOf="@+id/imgChk">
+
                     <ImageView
                         android:id="@+id/imgAttach"
                         android:layout_width="@dimen/_50sdp"
                         android:layout_height="@dimen/_50sdp"
-                        android:src="@drawable/attach"/>
+                        android:src="@drawable/attach" />
                     <TextView
                         android:id="@+id/txt2"
                         android:layout_width="wrap_content"

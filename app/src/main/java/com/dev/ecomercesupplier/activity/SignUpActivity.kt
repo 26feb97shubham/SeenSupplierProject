@@ -32,6 +32,8 @@ import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.adapter.CustomSpinnerAdapter
 import com.dev.ecomercesupplier.adapter.ServedCountriesAdapter
 import com.dev.ecomercesupplier.custom.FetchPath
+import com.dev.ecomercesupplier.custom.Utility
+import com.dev.ecomercesupplier.custom.Utility.Companion.showPassword
 import com.dev.ecomercesupplier.interfaces.ClickInterface
 import com.dev.ecomercesupplier.model.ModelForSpinner
 import com.dev.ecomercesupplier.model.ServeCountries
@@ -100,8 +102,9 @@ class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
+        Utility.setLanguage(this, SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
         setUpViews()
-        getCountires()
+//        getCountires()
        /* getAccountTypes()*/
     }
     private fun setUpViews() {
@@ -123,12 +126,20 @@ class SignUpActivity : AppCompatActivity() {
 
         })
 
-        txtCountryCode.setOnClickListener {
-            if(cCodeList.size != 0){
-                showCountryCodeList()
-            }
-
+        iv_pass_show_hide_login.setOnClickListener {
+            showPassword(iv_pass_show_hide_login, edtPassword)
         }
+
+        iv_pass_show_hide_login_verify.setOnClickListener {
+            showPassword(iv_pass_show_hide_login_verify, edtConfirmPassword)
+        }
+
+//        txtCountryCode.setOnClickListener {
+//            if(cCodeList.size != 0){
+//                showCountryCodeList()
+//            }
+//
+//        }
 
         bankAccountDetails.setOnClickListener {
             bankAccountDetails.startAnimation(AlphaAnimation(1f, 0.5f))
@@ -203,7 +214,7 @@ class SignUpActivity : AppCompatActivity() {
         }
 
 
-        adp_country_name = CustomSpinnerAdapter(this, countryList)
+        adp_country_name = CustomSpinnerAdapter(this, countryList, "countryList")
         spinnerCountry.adapter = adp_country_name
 
         spinnerCountry.onItemSelectedListener= object : AdapterView.OnItemSelectedListener{
@@ -219,7 +230,7 @@ class SignUpActivity : AppCompatActivity() {
 
         }
 
-        adp_accountType = CustomSpinnerAdapter(this, accountList)
+        adp_accountType = CustomSpinnerAdapter(this, accountList, "accountList")
         spinnerAccountType.adapter = adp_accountType
 
         spinnerAccountType.onItemSelectedListener= object : AdapterView.OnItemSelectedListener{
@@ -700,11 +711,11 @@ class SignUpActivity : AppCompatActivity() {
                         openCameraDialog2()
                     }
                 } else {
-                    LogUtils.shortToast(this, "Please grant both Camera and Storage permissions")
+                    LogUtils.shortToast(this, getString(R.string.please_grant_both_camera_and_storage_permissions))
 
                 }
             } else if (!hasAllPermissionsGranted(grantResults)) {
-                LogUtils.shortToast(this, "Please grant both Camera and Storage permissions")
+                LogUtils.shortToast(this, getString(R.string.please_grant_both_camera_and_storage_permissions))
             }
         }
     }
@@ -731,7 +742,7 @@ class SignUpActivity : AppCompatActivity() {
                     }
 
                 } else {
-                    LogUtils.shortToast(this, "something went wrong! please try again")
+                    LogUtils.shortToast(this, getString(R.string.something_went_wrong))
                 }
             }
         } else if (requestCode == PICK_IMAGE_FROM_GALLERY && resultCode == Activity.RESULT_OK && data != null) {

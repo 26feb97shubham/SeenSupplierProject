@@ -22,7 +22,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:fontFamily="@font/farsi_simple_bold"
+        android:fontFamily="@font/expressway_rg"
         android:gravity="center_horizontal"
         android:includeFontPadding="false"
         android:textColor="@color/gold"

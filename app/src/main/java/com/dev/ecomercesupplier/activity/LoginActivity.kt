@@ -37,6 +37,10 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.IOException
 import java.util.ArrayList
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
+
 
 class LoginActivity : AppCompatActivity() {
     var remembered:Boolean=false
@@ -54,6 +58,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        Utility.setLanguage(this, SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
         spannableString = SpannableString(getString(R.string.signup))
         spannableString!!.setSpan(UnderlineSpan(), 0, spannableString!!.length, 0)
         tv_signup.setText(spannableString)
@@ -340,6 +345,7 @@ class LoginActivity : AppCompatActivity() {
 
   //                            SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.UserId, data.getInt("user_id"))
                               findNavController().navigate(R.id.action_loginFragment_to_otpVerificationFragment, bundle)*/
+                            SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.UserId, data.getInt("user_id"))
                             val bundle = Bundle()
                             bundle.putSerializable("accountList", accountList)
                             startActivity(
@@ -347,9 +353,28 @@ class LoginActivity : AppCompatActivity() {
 
                         }else if (jsonObject.getInt("response") == 3){
                             val data = jsonObject.getJSONObject("data")
+                            SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.UserId, data.getInt("user_id"))
                             user_id = data.getInt("user_id").toString()
                             startActivity(Intent(this@LoginActivity, PackagePlanActivity::class.java)
                                     .putExtra("user_id", user_id))
+                        }else if (jsonObject.getInt("response") == 4){
+                            val data = jsonObject.getJSONObject("data")
+                            SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.UserId, data.getInt("user_id"))
+                            user_id = data.getInt("user_id").toString()
+                            val gson = Gson()
+                            val json = SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.accountList, "")
+                            if (json.isEmpty()){
+                                LogUtils.e("err", "eror")
+                            }else{
+                                val type: Type = object : TypeToken<List<ModelForAccountType?>?>() {}.type
+                                accountList = gson.fromJson(json, type)
+                            }
+                            val bundle = Bundle()
+                            bundle.putSerializable("accountList", accountList)
+                            bundle.putString("ref", "1")
+                            bundle.putString("user_id", user_id)
+                            startActivity(Intent(this@LoginActivity, OtpVerificationActivity::class.java)
+                                .putExtras(bundle))
                         }
                         else {
                             LogUtils.longToast(this@LoginActivity, jsonObject.getString("message"))

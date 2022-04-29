@@ -2,17 +2,32 @@ package com.dev.ecomercesupplier.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.interfaces.ClickInterface
+import com.dev.ecomercesupplier.model.AttributeNameResponse
 import com.dev.ecomercesupplier.model.Attributes
+import com.dev.ecomercesupplier.rest.ApiClient
+import com.dev.ecomercesupplier.rest.ApiInterface
+import com.dev.ecomercesupplier.utils.SharedPreferenceUtility
+import kotlinx.android.synthetic.main.fragment_add_item.view.*
 import kotlinx.android.synthetic.main.item_attributes.view.*
+import kotlinx.android.synthetic.main.item_attributes.view.rvList
+import okhttp3.ResponseBody
 import org.json.JSONArray
+import org.json.JSONException
 import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.IOException
+import java.lang.NullPointerException
 
 
 class AttributesAdapter(
@@ -27,6 +42,8 @@ class AttributesAdapter(
     var secondAttr: String = ""
     var thirdAttr: String = ""
 
+    private var attributeNameMain = ""
+
     companion object {
         var attrData: JSONArray = JSONArray()
     }
@@ -39,7 +56,14 @@ class AttributesAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, @SuppressLint("RecyclerView") position: Int) {
-        holder.itemView.name.text = data[position].name
+        attributeNameMain = if (SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, "").equals("ar")){
+            data[position].name_ar
+        }else{
+            data[position].name
+        }
+       // attributeNameMain = getAttributeName(attributeNameMain)
+
+        holder.itemView.name.text = attributeNameMain
 
         if (position == 0) {
             if (data[position].type.equals("2", false)) {
@@ -86,6 +110,7 @@ class AttributesAdapter(
                                             val obj1 = JSONObject()
                                             obj1.put("id", data[position].id)
                                             obj1.put("name", data[position].name)
+                                            obj1.put("name_ar", data[position].name_ar)
                                             obj1.put("type", data[position].type)
                                             obj1.put("value", primaryAttr)
                                             attrData.put(position, obj1)
@@ -99,6 +124,7 @@ class AttributesAdapter(
                                 val obj1 = JSONObject()
                                 obj1.put("id", data[position].id)
                                 obj1.put("name", data[position].name)
+                                obj1.put("name_ar", data[position].name_ar)
                                 obj1.put("type", data[position].type)
                                 obj1.put("value", primaryAttr)
                                 attrData.put(obj1)
@@ -166,6 +192,7 @@ class AttributesAdapter(
                                             val obj1 = JSONObject()
                                             obj1.put("id", data[position].id)
                                             obj1.put("name", data[position].name)
+                                            obj1.put("name_ar", data[position].name_ar)
                                             obj1.put("type", data[position].type)
                                             obj1.put("value", primaryAttr)
                                             attrData.put(position, obj1)
@@ -179,6 +206,7 @@ class AttributesAdapter(
                                 val obj1 = JSONObject()
                                 obj1.put("id", data[position].id)
                                 obj1.put("name", data[position].name)
+                                obj1.put("name_ar", data[position].name_ar)
                                 obj1.put("type", data[position].type)
                                 obj1.put("value", primaryAttr)
                                 attrData.put(obj1)
@@ -247,6 +275,7 @@ class AttributesAdapter(
                                             val obj1 = JSONObject()
                                             obj1.put("id", data[position].id)
                                             obj1.put("name", data[position].name)
+                                            obj1.put("name_ar", data[position].name_ar)
                                             obj1.put("type", data[position].type)
                                             obj1.put("value", secondAttr)
                                             attrData.put(position, obj1)
@@ -260,6 +289,7 @@ class AttributesAdapter(
                                 val obj1 = JSONObject()
                                 obj1.put("id", data[position].id)
                                 obj1.put("name", data[position].name)
+                                obj1.put("name_ar", data[position].name_ar)
                                 obj1.put("type", data[position].type)
                                 obj1.put("value", secondAttr)
                                 attrData.put(obj1)
@@ -324,6 +354,7 @@ class AttributesAdapter(
                                             val obj1 = JSONObject()
                                             obj1.put("id", data[position].id)
                                             obj1.put("name", data[position].name)
+                                            obj1.put("name_ar", data[position].name_ar)
                                             obj1.put("type", data[position].type)
                                             obj1.put("value", secondAttr)
                                             attrData.put(position, obj1)
@@ -338,6 +369,7 @@ class AttributesAdapter(
                                 val obj1 = JSONObject()
                                 obj1.put("id", data[position].id)
                                 obj1.put("name", data[position].name)
+                                obj1.put("name_ar", data[position].name_ar)
                                 obj1.put("type", data[position].type)
                                 obj1.put("value", secondAttr)
                                 attrData.put(obj1)
@@ -401,6 +433,7 @@ class AttributesAdapter(
                                             val obj1 = JSONObject()
                                             obj1.put("id", data[position].id)
                                             obj1.put("name", data[position].name)
+                                            obj1.put("name_ar", data[position].name_ar)
                                             obj1.put("type", data[position].type)
                                             obj1.put("value", thirdAttr)
                                             attrData.put(position, obj1)
@@ -414,6 +447,7 @@ class AttributesAdapter(
                                 val obj1 = JSONObject()
                                 obj1.put("id", data[position].id)
                                 obj1.put("name", data[position].name)
+                                obj1.put("name_ar", data[position].name_ar)
                                 obj1.put("type", data[position].type)
                                 obj1.put("value", thirdAttr)
                                 attrData.put(obj1)
@@ -476,6 +510,7 @@ class AttributesAdapter(
                                             val obj1 = JSONObject()
                                             obj1.put("id", data[position].id)
                                             obj1.put("name", data[position].name)
+                                            obj1.put("name_ar", data[position].name_ar)
                                             obj1.put("type", data[position].type)
                                             obj1.put("value", thirdAttr)
                                             attrData.put(position, obj1)
@@ -489,6 +524,7 @@ class AttributesAdapter(
                                 val obj1 = JSONObject()
                                 obj1.put("id", data[position].id)
                                 obj1.put("name", data[position].name)
+                                obj1.put("name_ar", data[position].name_ar)
                                 obj1.put("type", data[position].type)
                                 obj1.put("value", thirdAttr)
                                 attrData.put(obj1)

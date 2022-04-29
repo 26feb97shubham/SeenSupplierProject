@@ -48,19 +48,22 @@
            android:paddingHorizontal="@dimen/_8sdp">
 
            <com.google.android.material.textview.MaterialTextView
-               android:layout_width="@dimen/_120sdp"
-               android:layout_height="@dimen/_20sdp"
                android:id="@+id/mtv_item_name"
-               app:layout_constraintTop_toTopOf="parent"
-               app:layout_constraintStart_toStartOf="parent"
+               android:layout_width="0dp"
+               android:layout_height="@dimen/_20sdp"
+               android:ellipsize="end"
+               android:fontFamily="@font/expressway_rg"
+               android:gravity="center_vertical|start"
+               android:textAlignment="viewStart"
+               android:hint="@string/nike"
+               android:maxLines="1"
+               android:textAllCaps="false"
                android:textColor="@color/gray_color"
                android:textColorHint="@color/gray_color"
-               android:hint="@string/nike"
-               android:ellipsize="end"
-               android:textAllCaps="false"
-               android:gravity="center_vertical"
-               android:fontFamily="@font/expressway_rg"
-               android:textStyle="bold"/>
+               android:textStyle="bold"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toTopOf="parent" />
 
            <com.google.android.material.textview.MaterialTextView
                android:layout_width="@dimen/_80sdp"
@@ -79,19 +82,22 @@
                android:textStyle="bold"/>
 
            <com.google.android.material.textview.MaterialTextView
-               android:layout_width="@dimen/_80sdp"
-               android:layout_height="@dimen/_15sdp"
                android:id="@+id/mtv_item_category"
-               app:layout_constraintTop_toBottomOf="@id/mtv_item_name"
-               app:layout_constraintStart_toStartOf="parent"
+               android:layout_width="0dp"
+               android:layout_height="@dimen/_15sdp"
+               android:ellipsize="end"
+               android:fontFamily="@font/expressway_rg"
+               android:gravity="center_vertical|start"
+               android:textAlignment="viewStart"
+               android:hint="@string/nike"
+               android:maxLines="1"
+               android:textAllCaps="false"
                android:textColor="@color/gold"
                android:textColorHint="@color/gold"
-               android:hint="@string/nike"
-               android:ellipsize="end"
-               android:textAllCaps="false"
-               android:gravity="center_vertical"
-               android:fontFamily="@font/expressway_rg"
-               android:textStyle="normal"/>
+               android:textStyle="normal"
+               app:layout_constraintEnd_toEndOf="@+id/mtv_item_name"
+               app:layout_constraintStart_toStartOf="@+id/mtv_item_name"
+               app:layout_constraintTop_toBottomOf="@id/mtv_item_name" />
 
            <LinearLayout
                android:id="@+id/ratingView"

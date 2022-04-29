@@ -120,10 +120,11 @@
                         android:fontFamily="@font/expressway_rg"
                         android:gravity="center"
                         android:includeFontPadding="false"
-                        android:text="@string/submit"
+                        android:text="@string/continue_en"
                         android:textAllCaps="true"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_15ssp"
+                        android:letterSpacing="0.2"
                         android:textStyle="normal"
                         android:layout_marginTop="@dimen/_40sdp"
                         app:layout_constraintTop_toBottomOf="@+id/rv_select_your_account_type" />

@@ -21,16 +21,19 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginStart="@dimen/_20sdp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:fontFamily="@font/farsi_simple_bold"
+            android:fontFamily="@font/expressway_rg"
+            android:gravity="center_vertical|start"
             android:includeFontPadding="false"
-            android:textColor="@color/gold"
+            android:paddingHorizontal="10dp"
+            android:text="Groceries"
+            android:textAlignment="viewStart"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
             android:textSize="@dimen/_20ssp"
             android:textStyle="bold"
-            android:textAllCaps="true"
             android:visibility="visible"
-            android:text="Groceries"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

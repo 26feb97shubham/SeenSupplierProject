@@ -21,10 +21,12 @@
     <string name="enter_a_valid_password">Enter a valid password</string>
     <string name="forgotPassword">Forgot Password</string>
     <string name="forgotYourPassword">Forgot Your Password ?</string>
-    <string name="please_enter_your_registered_phone_number_n_and_an_otp_will_be_sent">Please verify with your phone number by submitting \n the OTP sent on the same below.</string>
+    <string name="please_enter_your_registered_phone_number_n_and_an_otp_will_be_sent">Please verify with your phone number by submitting </string>
+    <string name="please_enter_your_registered_phone_number_n_and_an_otp_will_be_sent_a">the OTP sent on the same below. </string>
     <string name="enter_phone_number">Enter registered mobile number</string>
     <string name="send">Send</string>
     <string name="next">Next</string>
+    <string name="please_save_attributes">Please first save attributes</string>
     <string name="verification">OTP Verification</string>
     <string name="verify">Verify</string>
     <string name="please_verify_with_your_phone_number_by_submitting_the_otp_sent_on_the_same_below">Please verify with your phone number by submitting the OTP sent on the same below.</string>
@@ -211,7 +213,7 @@
     <string name="about_us">About Us</string>
     <string name="please_click_back_again_to_exist">Please click BACK again to exit</string>
     <string name="add_more_items">Add item</string>
-    <string name="add_item">Add Item</string>
+    <string name="add_item">Add New Item</string>
     <string name="category">Category</string>
     <string name="item_name">Item Name</string>
     <string name="enter_item_name">Enter Item Name</string>
@@ -241,7 +243,7 @@
     <string name="save_attributes">Save Attributes</string>
     <string name="view_attributes">View Attributes</string>
     <string name="watch">Watch</string>
-    <string name="item_quantity">Item Quantity:</string>
+    <string name="item_quantity">Quantity:</string>
     <string name="_50_pcs_in_stock">50 pcs in stock</string>
     <string name="invalid_password">"Invalid Password "</string>
     <string name="attr_name">Attr name</string>
@@ -261,8 +263,8 @@
     <string name="enter_offer_title">Enter offer title</string>
     <string name="enter_offer_description">Enter offer decription</string>
     <string name="enter_offer_code">Enter offer code</string>
-    <string name="discount_perc">Discount(%):</string>
-    <string name="min_txn_aed">Min txn (AED):</string>
+    <string name="discount_perc">Discount:</string>
+    <string name="min_txn_aed">limit(AED):</string>
     <string name="max_coupon_amt">Max coupon Amt:</string>
     <string name="enter_discount_percenatge">Enter discount percentage</string>
     <string name="enter_min_txn_value">Enter min txn value</string>
@@ -348,6 +350,8 @@
     <string name="languages">Languages</string>
     <string name="categories_selected">Categories selected</string>
     <string name="pcs_in_stock">pcs in stock</string>
+    <string name="pcs">pcs</string>
+    <string name="in_stock">in stock</string>
     <string name="please_select_price">Please select price</string>
     <string name="please_select_quantity">Please select quantity</string>
     <string name="please_save_the_attributes">Please save the attributes</string>
@@ -371,6 +375,7 @@
     <string name="from_to">From/To:</string>
     <string name="revenues">Revenues</string>
     <string name="from">From:</string>
+    <string name="out_of_stock">Out of Stock</string>
     <string name="strong_password_2021" translatable="false">Strong_password_2021</string>
     <string name="title_activity_choose_category">ChooseCategoryActivity</string>
     <!--
@@ -400,4 +405,25 @@
     <string name="please_grant_both_camera_and_storage_permissions">Please grant both Camera and Storage permissions</string>
     <string name="plan">PLAN</string>
     <string name="seen" translatable="false">SEEN</string>
+    <string name="select_all">Select All</string>
+    <string name="filter">Filter</string>
+    <string name="bank_name">Bank Name</string>
+    <string name="no_revenues_found">No Revenues Found</string>
+    <string name="please_select_all_the_related_categories_for_your_business">Please select all the related categories for your business:</string>
+    <string name="please_enter_title_for_your_coupon">Please enter title for your coupon</string>
+    <string name="please_enter_description_for_your_coupon">Please enter description for your coupon</string>
+    <string name="please_enter_from_date_for_your_coupon">Please enter from date for your coupon</string>
+    <string name="please_enter_to_date_for_your_coupon">Please enter to date for your coupon</string>
+    <string name="please_enter_discount_for_your_coupon">Please enter discount percentage for your coupon</string>
+    <string name="please_enter_min_txn_for_your_coupon">Please enter minimum transaction amount for your coupon</string>
+    <string name="please_enter_max_coupon_for_your_coupon">Please enter maximum coupon amount for your coupon</string>
+    <string name="please_enter_code_for_your_coupon">Please enter coupon code for your coupon</string>
+    <string name="code_must_be_four_characters_long">Coupon code must be four characters long</string>
+    <string name="are_you_sure_you_want_to_update_your_phone_number">Are you sure you want to update your phone number</string>
+    <string name="you_havent_picked_image">You have not picked Image</string>
+    <string name="bank_details_not_added">Bank details not added</string>
+    <string name="please_add_your_bank_details_first">Please add your bank details first</string>
+    <string name="alert">Alert</string>
+    <string name="choose_your">Choose your</string>
+    <string name="max_ten_images">Maximum ten images can be selected at once</string>
 </resources>

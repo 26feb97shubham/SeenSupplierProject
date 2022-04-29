@@ -16,6 +16,7 @@
         android:layout_marginEnd="@dimen/_15sdp"
         app:strokeColor="#DBDBDB"
         app:strokeWidth="1dp"
+        app:cardElevation="@dimen/_2sdp"
         app:layout_constraintTop_toTopOf="parent">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -52,27 +53,39 @@
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
                 android:src="@drawable/default_icon"/>
+
+            <androidx.core.widget.ContentLoadingProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/myItemProgressBar"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_18sdp"
-        android:gravity="start"
-        android:text="@string/product_name"
-        android:textColor="#515151"
-        android:textSize="@dimen/_11ssp"
-        android:textStyle="bold"
-        android:maxLines="2"
-        android:ellipsize="end"
-        android:textDirection="locale"
-        android:textAlignment="viewStart"
-        android:layout_marginStart="@dimen/_8sdp"
-        app:layout_constraintTop_toTopOf="@id/view"
-        android:textAllCaps="false"
-        app:layout_constraintStart_toEndOf="@id/view"
-        android:layout_marginEnd="@dimen/_10sdp"
-        android:fontFamily="@font/expressway_rg"/>
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_18sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="5dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/expressway_rg"
+            android:gravity="start|center_vertical"
+            android:maxLines="1"
+            android:text="@string/product_name"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false"
+            android:textColor="#515151"
+            android:textDirection="locale"
+            android:textSize="@dimen/_11ssp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/imgEdit"
+            app:layout_constraintStart_toEndOf="@id/view"
+            app:layout_constraintTop_toTopOf="@id/view" />
 
         <TextView
             android:id="@+id/price"
@@ -90,7 +103,6 @@
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_3sdp"
-            app:layout_constraintEnd_toStartOf="@+id/ratingView"
             app:layout_constraintStart_toEndOf="@+id/view"
             app:layout_constraintTop_toBottomOf="@+id/name"
             android:textAllCaps="false"
@@ -103,7 +115,7 @@
             android:layout_marginStart="8dp"
             android:ellipsize="end"
             android:fontFamily="@font/expressway_rg"
-            android:gravity="start"
+            android:gravity="start|center_vertical"
             android:maxLines="1"
             android:text="@string/item_quantity"
             android:textAlignment="viewStart"
@@ -117,11 +129,14 @@
 
         <TextView
             android:id="@+id/stockCount"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="@dimen/_18sdp"
             android:ellipsize="end"
             android:fontFamily="@font/expressway_rg"
-            android:maxLines="2"
+            android:gravity="center_vertical|start"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:paddingStart="8dp"
             android:text="@string/_50_pcs_in_stock"
             android:textAlignment="viewStart"
             android:textAllCaps="false"
@@ -129,9 +144,10 @@
             android:textDirection="locale"
             android:textSize="@dimen/_9ssp"
             android:textStyle="normal"
-            android:layout_marginStart="@dimen/_5sdp"
-            app:layout_constraintStart_toEndOf="@+id/txtQty"
             app:layout_constraintBottom_toBottomOf="@id/view"
+            app:layout_constraintEnd_toEndOf="@+id/name"
+            app:layout_constraintEnd_toStartOf="@+id/imgDelete"
+            app:layout_constraintStart_toEndOf="@+id/txtQty"
             app:layout_constraintTop_toTopOf="@id/txtQty" />
 
         <ImageView
@@ -144,7 +160,7 @@
             android:src="@drawable/edit_gray"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="@dimen/_20sdp"/>
+            android:layout_marginEnd="8dp"/>
 
         <ImageView
             android:id="@+id/imgDelete"
@@ -157,7 +173,7 @@
             app:layout_constraintBottom_toBottomOf="@id/view"
             android:layout_marginTop="@dimen/_15sdp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="@dimen/_20sdp" />
+            android:layout_marginEnd="@dimen/_8sdp" />
         <!--    <TextView-->
 <!--        android:id="@+id/category"-->
 <!--        android:layout_width="wrap_content"-->

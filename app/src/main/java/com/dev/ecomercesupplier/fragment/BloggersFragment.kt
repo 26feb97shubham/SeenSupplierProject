@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.adapter.CategoryListAdapter
 import com.dev.ecomercesupplier.adapter.NameListAdapter
+import com.dev.ecomercesupplier.custom.Utility
 import com.dev.ecomercesupplier.interfaces.ClickInterface
 import com.dev.ecomercesupplier.model.CategoryName
 import com.dev.ecomercesupplier.utils.SharedPreferenceUtility
@@ -52,6 +53,7 @@ class BloggersFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_bloggers, container, false)
+        Utility.setLanguage(requireContext(), SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
         setUpViews()
         return mView
     }
@@ -81,7 +83,7 @@ class BloggersFragment : Fragment() {
         mView.categoryView.isSelected=true
         categoryListAdapter= CategoryListAdapter(requireContext(), catNameList, object :ClickInterface.ClickArrayInterface{
 
-            override fun clickArray(idArray: JSONArray) {
+            override fun clickArray(idArray: JSONArray, nameArrayType : JSONArray) {
             }
 
         })

@@ -6,81 +6,87 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/_10sdp">
+
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/header"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
                         android:id="@+id/txtBrand"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/farsi_simple_bold"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:fontFamily="@font/expressway_rg"
+                        android:text="abc"
                         android:textColor="#515151"
                         android:textSize="@dimen/_10ssp"
                         android:textStyle="bold"
-                        android:text="abc"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:layout_marginTop="@dimen/_5sdp"
                         app:layout_constraintStart_toStartOf="parent"
-                        android:layout_marginStart="@dimen/_15sdp" />
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <TextView
                         android:id="@+id/txtSupplier"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_15sdp"
                         android:fontFamily="@font/expressway_rg"
+                        android:gravity="center"
+                        android:text="abc"
+                        android:textAllCaps="true"
                         android:textColor="#515151"
                         android:textSize="@dimen/_10ssp"
                         android:textStyle="normal"
-                        android:gravity="center"
-                        android:textAllCaps="true"
                         app:layout_constraintStart_toStartOf="parent"
-                        android:layout_marginStart="@dimen/_15sdp"
-                        android:text="abc"
-                        app:layout_constraintTop_toBottomOf="@+id/txtBrand"/>
+                        app:layout_constraintTop_toBottomOf="@+id/txtBrand" />
+
                     <TextView
                         android:id="@+id/address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:drawablePadding="@dimen/_7sdp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/expressway_rg"
                         android:gravity="top"
+                        android:maxLines="1"
+                        android:text="Sharjah, UAE"
+                        android:textAllCaps="false"
                         android:textColor="#515151"
                         android:textSize="@dimen/_10ssp"
                         android:textStyle="normal"
-                        android:maxLines="1"
-                        android:ellipsize="end"
-                        android:text="Sharjah, UAE"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:drawablePadding="@dimen/_7sdp"
-                        android:layout_marginStart="@dimen/_15sdp"
-                        android:layout_marginEnd="@dimen/_15sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
+                        app:drawableStartCompat="@drawable/location_gray_icon"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:textAllCaps="false"
-                        android:fontFamily="@font/expressway_rg"
-                        app:drawableStartCompat="@drawable/location_gray_icon" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/txtRating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="4"
-                        android:textColor="@color/orange"
-                        android:textSize="@dimen/_10ssp"
                         android:layout_marginTop="@dimen/_8sdp"
-                        app:layout_constraintEnd_toStartOf="@id/ratingBar"
                         android:layout_marginEnd="@dimen/_5sdp"
+                        android:text="4"
+                        android:textColor="#515151"
+                        android:textSize="@dimen/_10ssp"
+                        app:layout_constraintEnd_toStartOf="@id/ratingBar"
                         app:layout_constraintTop_toBottomOf="@+id/address" />
 
                     <RatingBar
@@ -88,65 +94,74 @@
                         style="@style/Base.Widget.AppCompat.RatingBar.Small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_8sdp"
                         android:layout_marginStart="@dimen/_3sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginTop="@dimen/_8sdp"
                         android:layout_marginEnd="@dimen/_11ssp"
                         android:theme="@style/grayRatingBar"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/address" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/categories_rvlist"
-                    android:layout_width="@dimen/_120sdp"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clLayout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/header"
-                    android:layout_marginStart="@dimen/_15sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/header" >
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/categories_rvlist"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintWidth_percent="0.5"/>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/countries_rvlist"
-                    android:layout_width="@dimen/_100sdp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/header"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="@dimen/_15sdp" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/countries_rvlist"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/categories_rvlist"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent="0.4" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/bioCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:minHeight="@dimen/_60sdp"
                     app:cardCornerRadius="@dimen/_10sdp"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
                     app:cardElevation="@dimen/_15sdp"
-                    app:layout_constraintTop_toBottomOf="@+id/categories_rvlist">
+                    app:layout_constraintTop_toBottomOf="@+id/clLayout">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginEnd="@dimen/_10sdp"
-                        android:paddingBottom="@dimen/_10sdp"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/_10sdp">
+
                         <TextView
                             android:id="@+id/txtBio"
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/_30sdp"
-                            android:fontFamily="@font/farsi_simple_bold"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_16ssp"
-                            android:textStyle="bold"
                             android:layout_marginTop="@dimen/_5sdp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
+                            android:fontFamily="@font/expressway_rg"
                             android:text="@string/bio"
-                            app:layout_constraintTop_toTopOf="parent"/>
+                            android:textColor="#515151"
+                            android:textSize="@dimen/_16ssp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/txtBioContent"
@@ -154,9 +169,9 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/expressway_rg"
                             android:textAlignment="viewStart"
-                            android:textDirection="locale"
                             android:textAllCaps="false"
                             android:textColor="@color/txt_gray"
+                            android:textDirection="locale"
                             android:textSize="@dimen/_9ssp"
                             android:textStyle="normal"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -169,56 +184,58 @@
                     android:id="@+id/lastView"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    app:layout_constraintTop_toBottomOf="@+id/bioCard"
                     android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
-                    android:background="@color/gray" />
+                    android:background="@color/gray"
+                    app:layout_constraintTop_toBottomOf="@+id/bioCard" />
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/productView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
-                    app:layout_constraintTop_toBottomOf="@+id/lastView"
-                    android:paddingBottom="@dimen/_10sdp">
+                    android:paddingBottom="@dimen/_10sdp"
+                    app:layout_constraintTop_toBottomOf="@+id/lastView">
+
                     <TextView
                         android:id="@+id/txtProducts"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/_30sdp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginStart="@dimen/_15sdp"
                         android:layout_marginEnd="@dimen/_15sdp"
-                        android:fontFamily="@font/farsi_simple_bold"
+                        android:fontFamily="@font/expressway_rg"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
                         android:src="@drawable/ic_launcher_foreground"
                         android:text="@string/products"
-                        android:includeFontPadding="false"
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_15ssp"
                         android:textAllCaps="false"
-                        />
+                        android:textColor="#515151"
+                        android:textSize="@dimen/_15ssp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <TextView
                         android:id="@+id/viewAllProducts"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
                         android:fontFamily="@font/expressway_rg"
                         android:text="@string/view_all"
-                        android:textColor="@color/gold"
-                        android:textSize="@dimen/_11ssp"
                         android:textAllCaps="true"
-                        android:layout_marginEnd="@dimen/_15sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
+                        android:textColor="#515151"
+                        android:textSize="@dimen/_9ssp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
                     <View
                         android:layout_width="@dimen/_50sdp"
                         android:layout_height="@dimen/_1sdp"
-                        android:layout_marginEnd="@dimen/_15sdp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:background="@color/gold"
-                        app:layout_constraintTop_toBottomOf="@+id/viewAllProducts"/>
+                        android:background="#515151"
+                        app:layout_constraintEnd_toEndOf="@id/viewAllProducts"
+                        app:layout_constraintStart_toStartOf="@id/viewAllProducts"
+                        app:layout_constraintTop_toBottomOf="@+id/viewAllProducts" />
                     <!--  <androidx.viewpager2.widget.ViewPager2
                           android:id="@+id/viewPager2"
                           android:layout_width="match_parent"
@@ -234,23 +251,24 @@
                         android:id="@+id/rvProducts"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/txtProducts"
                         android:layout_marginStart="@dimen/_15sdp"
-                        android:layout_marginEnd="@dimen/_15sdp"/>
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtProducts" />
+
                     <TextView
                         android:id="@+id/txtNoProduct"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minHeight="@dimen/_60sdp"
                         android:fontFamily="@font/expressway_rg"
                         android:gravity="center"
-                        android:visibility="gone"
+                        android:minHeight="@dimen/_60sdp"
                         android:text="@string/no_products_found"
                         android:textAllCaps="false"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12ssp"
                         android:textStyle="normal"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/txtProducts" />

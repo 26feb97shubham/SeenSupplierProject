@@ -33,6 +33,7 @@
             android:layout_height="@dimen/_20sdp"
             android:src="@drawable/cross"
             android:layout_gravity="end"
+            android:visibility="gone"
             />
 
     </androidx.cardview.widget.CardView>

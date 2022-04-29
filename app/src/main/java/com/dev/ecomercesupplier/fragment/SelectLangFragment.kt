@@ -51,6 +51,7 @@ class SelectLangFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_select_lang, container, false)
+        Utility.setLanguage(requireContext(), SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
         backImg = mView.findViewById(R.id.backImg)
         setUpViews()
         return mView

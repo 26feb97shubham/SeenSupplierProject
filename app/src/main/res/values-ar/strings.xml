@@ -21,7 +21,7 @@
     <string name="enter_a_valid_password">أدخل كلمة مرور صالحة</string>
     <string name="forgotPassword">هل نسيت كلمة السر</string>
     <string name="forgotYourPassword">نسيت رقمك السري?</string>
-    <string name="please_enter_your_registered_phone_number_n_and_an_otp_will_be_sent">الرجاء إدخال رقم هاتفك المسجل \ n وسيتم إرسال OTP.</string>
+    <string name="please_enter_your_registered_phone_number_n_and_an_otp_will_be_sent">يرجى التحقق من رقم هاتفك عن طريق التقديم</string>
     <string name="enter_phone_number">أدخل رقم الهاتف المحمول المسجل</string>
     <string name="send">إرسال</string>
     <string name="next">التالي</string>
@@ -88,7 +88,7 @@
     <string name="brand">ماركة</string>
     <string name="homemade_supplier">مورد محلي الصنع</string>
     <string name="view_all">عرض الكل ..</string>
-    <string name="new_received_orders">الطلبات الجديدة المستلمة</string>
+    <string name="new_received_orders"> لاتوجد طلبات جديدة</string>
     <string name="received_orders">الطلبات المستلمة</string>
     <string name="home">منزل، بيت</string>
     <string name="please_enter_your_full_name">من فضلك ادخل اسمك الكامل</string>
@@ -111,7 +111,7 @@
     <string name="please_enter_your_otp">الرجاء إدخال otp الخاص بك</string>
     <string name="otp_length_valid">يجب أن يكون طول Otp مساويًا لـ 4 أحرف</string>
     <string name="camera">آلة تصوير</string>
-    <string name="cancel">يلغي</string>
+    <string name="cancel">الغاء</string>
     <string name="add_photo">إضافة صورة !!</string>
     <string name="contact_number">رقم الاتصال</string>
     <string name="profile">الملف الشخصي</string>
@@ -135,7 +135,7 @@
     <string name="offers_and_discounts">العروض والخصومات</string>
     <string name="please_choose_your_language">الرجاء اختيار لغتك</string>
     <string name="please_first_enter_your_password">الرجاء إدخال كلمة المرور الخاصة بك أولاً</string>
-    <string name="terms_amp_conditions"><![CDATA[البنود و الظروف]]></string>
+    <string name="terms_amp_conditions"> انا اوافق على الشروط والاحكام</string>
     <string name="please_accept">الرجاء الموافقة</string>
     <string name="settings">إعدادات</string>
     <string name="skip">يتخطى</string>
@@ -204,7 +204,7 @@
     <string name="about_us">معلومات عنا</string>
     <string name="please_click_back_again_to_exist">الرجاء النقر فوق "رجوع" مرة أخرى للخروج</string>
     <string name="add_more_items">إضافة عنصر</string>
-    <string name="add_item">اضافة عنصر</string>
+    <string name="add_item">اضافة عنصر جديد</string>
     <string name="category">فئة</string>
     <string name="item_name">اسم العنصر</string>
     <string name="enter_item_name">أدخل اسم العنصر</string>
@@ -218,8 +218,8 @@
     <string name="aed_100">100 درهم إماراتي</string>
     <string name="discount">من عند:</string>
     <string name="_30">30%</string>
-    <string name="from">من عند:</string>
-    <string name="to">ل:</string>
+    <string name="from">خصم  :</string>
+    <string name="to">الى</string>
     <string name="upload_item">تحميل البند</string>
     <string name="upload_photos_videos">تحميل الصور / الفيديو</string>
     <string name="maximum_of_5_photos_videos">5 صور / فيديو كحد أقصى</string>
@@ -231,10 +231,10 @@
     <string name="please_enter_item_name">الرجاء إدخال اسم العنصر</string>
     <string name="please_enter_discount_percentage">الرجاء إدخال نسبة الخصم</string>
     <string name="save">حفظ القسيمة</string>
-    <string name="save_text">أنقذ</string>
+    <string name="save_text">حفظ</string>
     <string name="view_attributes">عرض السمات</string>
     <string name="watch">يشاهد</string>
-    <string name="item_quantity">البند الكمية:</string>
+    <string name="item_quantity">الكمية:</string>
     <string name="_50_pcs_in_stock">50 جهاز كمبيوتر في الأوراق المالية</string>
     <string name="invalid_password">رمز مرور خاطئ</string>
     <string name="attr_name">اسم السمة</string>
@@ -243,7 +243,7 @@
     <string name="saved_coupons">القسائم المحفوظة</string>
     <string name="couponfood1234">قسيمة الغذاء 1234</string>
     <string name="_25_discount">25٪ خصم</string>
-    <string name="view">منظر</string>
+    <string name="view">عرض</string>
     <string name="edit">يحرر</string>
     <string name="delete">حذف</string>
     <string name="coupon_details">تفاصيل القسيمة</string>
@@ -252,10 +252,11 @@
     <string name="description">وصف:</string>
     <string name="code">شفرة:</string>
     <string name="enter_offer_title">أدخل عنوان العرض</string>
-    <string name="enter_offer_description">أدخل فك العرض</string>
+    <string name="enter_offer_description"> ادخل الوصف
+</string>
     <string name="enter_offer_code">أدخل كود العرض</string>
-    <string name="discount_perc">Discount(%):</string>
-    <string name="min_txn_aed">الحد الأدنى للتكسن (درهم):</string>
+    <string name="discount_perc">الخصم:</string>
+    <string name="min_txn_aed">الحد  (درهم):</string>
     <string name="max_coupon_amt">المبلغ الأقصى للقسيمة:</string>
     <string name="enter_discount_percenatge">أدخل نسبة الخصم</string>
     <string name="enter_min_txn_value">أدخل الحد الأدنى لقيمة المعاملة</string>
@@ -280,8 +281,8 @@
     <string name="logout_excl">تسجيل خروج!</string>
     <string name="are_you_sure_you_want_to_logout">هل أنت متأكد أنك تريد تسجيل الخروج؟</string>
     <string name="new_">جديد</string>
-    <string name="current">تيار</string>
-    <string name="past">الأوامر السابقة</string>
+    <string name="current">الحالية</string>
+    <string name="past">السابقة</string>
     <string name="no_orders_available">لا توجد طلبات متاحة</string>
     <string name="order_hess">ترتيب #</string>
     <string name="delivery_date">تاريخ التسليم او الوصول:</string>
@@ -383,7 +384,7 @@
     <string name="please_select_your_country">الرجاء تحديد بلدك</string>
     <string name="please_click_on_new_items">في الآونة الأخيرة لا توجد عناصر موجودة في القائمة الخاصة بك، يرجى إضافة العناصر أولا</string>
     <string name="delete_message">هل تريد بالتأكيد حذف الصورة؟</string>
-    <string name="place_item">وضع العنصر</string>
+    <string name="place_item">اضافة العنصر</string>
     <string name="save_changes">حفظ التغييرات</string>
     <string name="view_item">عرض العنصر</string>
     <string name="nike">نايكي</string>
@@ -392,4 +393,28 @@
     <string name="something_went_wrong">حدث خطأ ما! الرجاء المحاولة مرة أخرى</string>
     <string name="please_grant_both_camera_and_storage_permissions">الرجاء منح أذونات الكاميرا والتخزين</string>
     <string name="plan">خطة</string>
+    <string name="please_enter_your_registered_phone_number_n_and_an_otp_will_be_sent_a">أرسل OTP على نفسه أدناه.</string>
+    <string name="pcs">قطعة</string>
+    <string name="in_stock">متوفرة</string>
+    <string name="select_all">اختر الكل</string>
+    <string name="filter">منقي</string>
+    <string name="bank_name">اسم البنك</string>
+    <string name="no_revenues_found">لم يتم العثور على ايرادات</string>
+    <string name="please_select_all_the_related_categories_for_your_business">الرجاء تحديد جميع الفئات ذات الصلة بعملك:</string>
+    <string name="out_of_stock">غير متوفرة</string>
+    <string name="please_save_attributes">يرجى أولا حفظ السمات</string>
+    <string name="please_enter_title_for_your_coupon">الرجاء إدخال عنوان قسيمتك</string>
+    <string name="please_enter_description_for_your_coupon">الرجاء إدخال وصف للقسيمة الخاصة بك</string>
+    <string name="please_enter_from_date_for_your_coupon">الرجاء إدخال من تاريخ القسيمة الخاصة بك</string>
+    <string name="please_enter_to_date_for_your_coupon">الرجاء إدخال تاريخ القسيمة الخاصة بك</string>
+    <string name="please_enter_discount_for_your_coupon">الرجاء إدخال نسبة الخصم للقسيمة الخاصة بك</string>
+    <string name="please_enter_min_txn_for_your_coupon">الرجاء إدخال الحد الأدنى لمبلغ المعاملة للقسيمة الخاصة بك</string>
+    <string name="please_enter_max_coupon_for_your_coupon">الرجاء إدخال الحد الأقصى لمبلغ القسيمة لقسيمتك</string>
+    <string name="please_enter_code_for_your_coupon">الرجاء إدخال رمز القسيمة للقسيمة الخاصة بك</string>
+    <string name="code_must_be_four_characters_long">يجب أن يتكون رمز القسيمة من أربعة أحرف</string>
+    <string name="are_you_sure_you_want_to_update_your_phone_number">هل أنت متأكد أنك تريد تحديث رقم هاتفك</string>
+    <string name="you_havent_picked_image">أنت لم تختر الصورة</string>
+    <string name="alert">إنذار</string>
+    <string name="bank_details_not_added">التفاصيل المصرفية غير مضافة</string>
+    <string name="please_add_your_bank_details_first">الرجاء إضافة التفاصيل المصرفية الخاصة بك أولا</string>
 </resources>

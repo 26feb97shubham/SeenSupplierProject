@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.interfaces.ClickInterface
 import com.dev.ecomercesupplier.model.Attributes
+import com.dev.ecomercesupplier.utils.SharedPreferenceUtility
 import kotlinx.android.synthetic.main.item_attributes.view.*
 import kotlinx.android.synthetic.main.item_view_attr.view.*
 import org.json.JSONArray
@@ -545,13 +546,32 @@ class ViewItemAttrAdapter(
 
 
         if (data[position].type.equals("1")){
-            holder.itemView.txtPrimary.text = data[position].name
+           // holder.itemView.txtPrimary.text = data[position].name
+            if (SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, "").equals("ar")){
+                holder.itemView.txtPrimary.text = data[position].name_ar
+            }else{
+                holder.itemView.txtPrimary.text = data[position].name
+            }
             holder.itemView.txtPrimaryValue.text = data[position].value[0].toString()
             holder.itemView.edtItemPrice.text = "AED "+data[position].price
             holder.itemView.edtItemQty.text = data[position].quantity + " pcs"
         }else if(data[position].type.equals("2")){
-            holder.itemView.txtSecondary.text = data[position].name
+           // holder.itemView.txtSecondary.text = data[position].name
+            if (SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, "").equals("ar")){
+                holder.itemView.txtPrimary.text = data[position].name_ar
+            }else{
+                holder.itemView.txtPrimary.text = data[position].name
+            }
             holder.itemView.txtSecondaryValue.text = data[position].value[0].toString()
+            holder.itemView.edtItemPrice.text = "AED "+data[position].price
+            holder.itemView.edtItemQty.text = data[position].quantity + " pcs"
+        }else{
+            if (SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, "").equals("ar")){
+                holder.itemView.txtPrimary.text = data[position].name_ar
+            }else{
+                holder.itemView.txtPrimary.text = data[position].name
+            }
+            holder.itemView.txtPrimaryValue.text = data[position].value[0].toString()
             holder.itemView.edtItemPrice.text = "AED "+data[position].price
             holder.itemView.edtItemQty.text = data[position].quantity + " pcs"
         }

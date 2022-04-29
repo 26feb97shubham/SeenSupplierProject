@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.adapter.PackagePlanAdapter
+import com.dev.ecomercesupplier.custom.Utility
 import com.dev.ecomercesupplier.dialog.PackagePlanDialog
 import com.dev.ecomercesupplier.interfaces.ClickInterface
 import com.dev.ecomercesupplier.model.PackagePlans
@@ -36,6 +37,7 @@ class PackagePlanActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_package_plan)
+        Utility.setLanguage(this, SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
         setUpViews()
         getPackages(false)
     }
@@ -51,7 +53,13 @@ class PackagePlanActivity : AppCompatActivity() {
                 var packPlan = ""
                 var detail = ""
                 if (SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, "").equals("ar")){
-                    packPlan=packList[pos].number.toString()+ " " +packList[pos].month_year_type_ar+ " " +packList[pos].string_ar + " "+getString(R.string.plan)
+                    if(packList[pos].number==3){
+                        packPlan = "حزمة 3 شهور"
+                    }else if (packList[pos].number==6){
+                        packPlan = " حزمة 6 شهور"
+                    }else if (packList[pos].number==1){
+                        packPlan = "حزمة عام1"
+                    }
                     detail=packList[pos].detail_ar
                 }else{
                     packPlan=packList[pos].number.toString()+ " " +packList[pos].month_year_type+ " " +packList[pos].string + " "+getString(R.string.plan)

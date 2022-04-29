@@ -13,6 +13,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.adapter.CategoryListAdapter
+import com.dev.ecomercesupplier.custom.Utility
+import com.dev.ecomercesupplier.custom.Utility.Companion.direction
+import com.dev.ecomercesupplier.custom.Utility.Companion.signUpcatIDList
 import com.dev.ecomercesupplier.interfaces.ClickInterface
 import com.dev.ecomercesupplier.model.CategoryName
 import com.dev.ecomercesupplier.rest.ApiClient
@@ -39,9 +42,11 @@ class ChooseCategoriesActivity : AppCompatActivity() {
     lateinit var categoryListAdapter: CategoryListAdapter
     var catIDArray=JSONArray()
     var user_id: String=""
+    var isClicked = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choose_categories)
+        Utility.setLanguage(this, SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
         setUpViews()
         getCategories()
     }
@@ -52,9 +57,11 @@ class ChooseCategoriesActivity : AppCompatActivity() {
             user_id=intent.getStringExtra("user_id").toString()
         }
 //        rvList.layoutManager=GridLayoutManager(this, 3)
+        direction = "Register"
         rvList.layoutManager= LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         categoryListAdapter= CategoryListAdapter(this, catNameList, object:ClickInterface.ClickArrayInterface{
-            override fun clickArray(idArray: JSONArray) {
+            override fun clickArray(idArray: JSONArray, nameArrayType : JSONArray) {
+                isClicked = true
                 catIDArray= JSONArray()
                 catIDArray=idArray
 //                txtSelect.text = catIDArray.length().toString()+" " +getString(R.string.categories_selected)
@@ -69,6 +76,10 @@ class ChooseCategoriesActivity : AppCompatActivity() {
         btnContinue.setOnClickListener {
             btnContinue.isEnabled=false
             btnContinue.startAnimation(AlphaAnimation(1f, 0.5f))
+
+            if(!isClicked){
+                catIDArray = signUpcatIDList
+            }
 
             if(catIDArray.length()==0){
                 LogUtils.shortToast(this, getString(R.string.please_select_categories))
@@ -104,6 +115,7 @@ class ChooseCategoriesActivity : AppCompatActivity() {
                             val c = CategoryName()
                             c.id=jsonObj.getInt("id")
                             c.name=jsonObj.getString("name")
+                            c.catNameAr=jsonObj.getString("name_ar")
                             c.image=jsonObj.getString("image")
                             c.checkCategoryStatus=jsonObj.getBoolean("checkCategoryStatus")
                             catNameList.add(c)
@@ -155,6 +167,7 @@ class ChooseCategoriesActivity : AppCompatActivity() {
                         val jsonObject = JSONObject(response.body()!!.string())
 
                         if (jsonObject.getInt("response") == 1){
+                            direction = ""
                             SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.UserId, user_id.toInt())
                             SharedPreferenceUtility.getInstance().save(SharedPreferenceUtility.IsLogin, true)
                             startActivity(Intent(this@ChooseCategoriesActivity, HomeActivity::class.java))

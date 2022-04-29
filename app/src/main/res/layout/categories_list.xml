@@ -4,18 +4,17 @@
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
 xmlns:app="http://schemas.android.com/apk/res-auto"
-android:layout_marginStart="@dimen/_3sdp"
 android:layout_marginEnd="@dimen/_3sdp">
 <androidx.appcompat.widget.AppCompatButton
     android:id="@+id/name"
-    android:layout_width="@dimen/_80sdp"
-    android:layout_height="@dimen/_30sdp"
+    android:layout_width="@dimen/_60sdp"
+    android:layout_height="@dimen/_20sdp"
     android:background="@drawable/gray_box"
     android:text="ABC"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     android:fontFamily="@font/expressway_rg"
-    android:textSize="@dimen/_11ssp"
+    android:textSize="9sp"
     android:textColor="#515151"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

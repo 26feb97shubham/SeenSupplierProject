@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.adapter.NotificationsAdapter
 import com.dev.ecomercesupplier.custom.SwipeToDeleteCallback
+import com.dev.ecomercesupplier.custom.Utility
 import com.dev.ecomercesupplier.interfaces.ClickInterface
 import com.dev.ecomercesupplier.model.Notifications
 import com.dev.ecomercesupplier.rest.ApiClient
@@ -66,6 +67,7 @@ class NotificationsFragment : Fragment() {
                               savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_notifications, container, false)
+        Utility.setLanguage(requireContext(), SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
         setUpViews()
         getNotifications(false)
         return mView
@@ -272,15 +274,18 @@ class NotificationsFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         requireActivity().other_frag_notificationImg.visibility = View.GONE
+        requireActivity().other_frag_toolbar.visibility = View.VISIBLE
     }
 
     override fun onDestroy() {
         super.onDestroy()
         requireActivity().other_frag_notificationImg.visibility = View.VISIBLE
+        requireActivity().other_frag_toolbar.visibility = View.VISIBLE
     }
 
     override fun onStop() {
         super.onStop()
         requireActivity().other_frag_notificationImg.visibility = View.VISIBLE
+        requireActivity().other_frag_toolbar.visibility = View.VISIBLE
     }
 }

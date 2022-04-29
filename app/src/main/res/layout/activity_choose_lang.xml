@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
+        android:paddingVertical="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
@@ -27,7 +28,7 @@
             android:gravity="center"
             android:includeFontPadding="false"
             android:textSize="@dimen/_15ssp"
-            android:text="Choose your" />
+            android:text="@string/choose_your" />
 
         <TextView
             android:id="@+id/txt2"
@@ -35,10 +36,10 @@
             android:layout_height="@dimen/_50sdp"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_15sdp"
-            android:fontFamily="@font/farsi_simple_bold"
+            android:fontFamily="@font/expressway_rg"
             android:gravity="center"
             android:src="@drawable/ic_launcher_foreground"
-            android:text="LANGUAGE"
+            android:text="@string/language"
             android:includeFontPadding="false"
             android:textStyle="bold"
             android:textColor="@color/gold"
@@ -108,7 +109,7 @@
                         android:fontFamily="@font/expressway_rg"
                         android:gravity="center"
                         android:textSize="@dimen/_18ssp"
-                        android:text="Arabic"
+                        android:text="عربي"
                         android:src="@drawable/ic_launcher_foreground"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -202,12 +203,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="@dimen/_40sdp"
             android:background="@drawable/gold_filled_rect_box"
-            android:fontFamily="@font/farsi_simple_bold"
+            android:fontFamily="@font/expressway_rg"
             android:includeFontPadding="false"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:gravity="center"
-            android:textSize="@dimen/_20ssp"
-            android:textStyle="bold"
+            android:textSize="18sp"
+            android:letterSpacing="0.2"
             android:elevation="@dimen/_5sdp"
             android:textAllCaps="true"
             android:text="@string/next"/>

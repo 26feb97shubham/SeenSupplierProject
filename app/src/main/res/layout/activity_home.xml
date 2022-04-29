@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/toolbar_layout"
+            android:layoutDirection="ltr"
             app:layout_constraintTop_toTopOf="parent">
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -88,6 +89,7 @@
                 app:contentInsetStart="0dp"
                 app:contentInsetEnd="0dp"
                 android:visibility="visible"
+                android:layoutDirection="ltr"
                 app:layout_constraintTop_toTopOf="parent">
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/other_frag_toolbarView"
@@ -192,11 +194,12 @@
                                                         android:id="@+id/frag_profile_backImg"
                                                         android:layout_width="@dimen/_20sdp"
                                                         android:layout_height="@dimen/_20sdp"
-                                                        android:src="@drawable/back_gray"
+                                                        android:src="@drawable/ic_baseline_arrow_back_24"
                                                         android:layout_marginStart="@dimen/_15sdp"
                                                         app:layout_constraintStart_toStartOf="parent"
                                                         app:layout_constraintTop_toTopOf="parent"
-                                                        app:layout_constraintBottom_toBottomOf="parent"/>
+                                                        app:layout_constraintBottom_toBottomOf="parent"
+                                                        app:tint="@color/dark_gray" />
 
                                                     <ImageView
                                                         android:id="@+id/frag_profile_notificationImg"
@@ -622,9 +625,11 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navView"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/_200sdp"
         android:layout_height="match_parent"
         android:background="@android:color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         android:layout_gravity="end"
         >
         <LinearLayout

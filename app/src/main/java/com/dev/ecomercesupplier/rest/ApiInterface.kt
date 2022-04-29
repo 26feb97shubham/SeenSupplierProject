@@ -1,5 +1,6 @@
 package com.dev.ecomercesupplier.rest
 
+import com.dev.ecomercesupplier.model.AttributeNameResponse
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -43,6 +44,9 @@ interface ApiInterface {
 
     @POST(ApiUtils.GetCategories)
     fun getCategories(@Body body: RequestBody?): Call<ResponseBody?>?
+
+    @POST(ApiUtils.GetAttributesName)
+    fun getAttributeName(@Body body: RequestBody): Call<AttributeNameResponse>
 
     @POST(ApiUtils.GetHomes)
     fun getHomes(@Body body: RequestBody?): Call<ResponseBody?>?

@@ -29,6 +29,7 @@ import com.dev.ecomercesupplier.R
 import com.dev.ecomercesupplier.adapter.CustomSpinnerAdapter
 import com.dev.ecomercesupplier.adapter.ServedCountriesAdapter
 import com.dev.ecomercesupplier.custom.FetchPath
+import com.dev.ecomercesupplier.custom.Utility
 import com.dev.ecomercesupplier.custom.Utility.Companion.IMAGE_DIRECTORY_NAME
 import com.dev.ecomercesupplier.custom.Utility.Companion.apiInterface
 import com.dev.ecomercesupplier.custom.Utility.Companion.hasPermissions
@@ -81,6 +82,7 @@ class RegisterActivity_1 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_1)
+        Utility.setLanguage(this, SharedPreferenceUtility.getInstance().get(SharedPreferenceUtility.SelectedLang, ""))
         setUpViews()
         getCountires()
     }
@@ -185,11 +187,11 @@ class RegisterActivity_1 : AppCompatActivity() {
             requestToUploadProfilePhoto()
         }
 
-        txtCountryCode_register.setOnClickListener {
+       /* txtCountryCode_register.setOnClickListener {
             if(cCodeList.size != 0){
                 showCountryCodeList()
             }
-        }
+        }*/
 
         btnNext_register_1.setOnClickListener {
             btnNext_register_1.startAnimation(AlphaAnimation(1f, 0.5f))
@@ -395,11 +397,11 @@ class RegisterActivity_1 : AppCompatActivity() {
                 if (hasAllPermissionsGranted(grantResults)) {
                     openCameraDialog()
                 } else {
-                    LogUtils.shortToast(this, "Please grant both Camera and Storage permissions")
+                    LogUtils.shortToast(this, getString(R.string.please_grant_both_camera_and_storage_permissions))
 
                 }
             } else if (!hasAllPermissionsGranted(grantResults)) {
-                LogUtils.shortToast(this, "Please grant both Camera and Storage permissions")
+                LogUtils.shortToast(this, getString(R.string.please_grant_both_camera_and_storage_permissions))
             }
         }
     }
@@ -418,7 +420,7 @@ class RegisterActivity_1 : AppCompatActivity() {
                     Glide.with(this).load("file:///$profilePath").placeholder(R.drawable.user).into(img_register_1)
 
                 } else {
-                    LogUtils.shortToast(this, "something went wrong! please try again")
+                    LogUtils.shortToast(this, getString(R.string.something_went_wrong))
                 }
             }
         } else if (requestCode == PICK_IMAGE_FROM_GALLERY && resultCode == Activity.RESULT_OK && data != null) {

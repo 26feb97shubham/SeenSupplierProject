@@ -29,22 +29,7 @@ class UploadImageVideoAdapter(private val context: Context, private val data: Ar
         else{
             holder.itemView.imgPlay.visibility= View.GONE
         }
-        /*holder.itemView.imgRemove.setOnClickListener {
-            holder.itemView.imgRemove.startAnimation(AlphaAnimation(1f, .5f))
-            clickInstance.clickPostionType(position, "Remove")
-        }*/
-
         clickInstance.clickPosItemView(position, holder.itemView)
-
-
-     /*   holder.itemView.imgRemove.setOnClickListener {
-            holder.itemView.imgRemove.startAnimation(AlphaAnimation(1f, 0.5f))
-            clickInstance.clickPostion(position)
-
-        }*/
-
-
-
     }
 
 
