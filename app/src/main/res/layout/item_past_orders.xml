@@ -150,7 +150,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start"
-            android:text="Company Name"
+            android:text="@string/emirates_post"
             android:textAlignment="viewStart"
             android:textDirection="locale"
             android:textColor="@color/black"
@@ -165,44 +165,53 @@
             app:layout_constraintTop_toBottomOf="@+id/rvList"
             android:textAllCaps="false"
             android:fontFamily="@font/expressway_rg"/>
-        <TextView
-            android:id="@+id/dateDeliveredTxt"
+
+        <LinearLayout
+            android:id="@+id/llDeliverdDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="start"
-            android:text="@string/date_delivered"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_8ssp"
-            android:textStyle="normal"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:layout_marginTop="@dimen/_3sdp"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
+            android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/shippingTxt"
-            android:textAllCaps="false"
-            android:fontFamily="@font/expressway_rg"/>
-        <TextView
-            android:id="@+id/deliveredDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="start"
-            android:text="24/03/2021"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_8ssp"
-            android:textStyle="normal"
-            android:maxLines="1"
-            android:textAlignment="viewStart"
-            android:textDirection="locale"
-            android:ellipsize="end"
-            android:layout_marginTop="@dimen/_3sdp"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_10sdp"
-            app:layout_constraintStart_toEndOf="@+id/shippingTxt"
-            app:layout_constraintTop_toBottomOf="@+id/shippingTxt"
-            android:textAllCaps="false"
-            android:fontFamily="@font/expressway_rg"/>
+            app:layout_constraintTop_toBottomOf="@+id/shippingTxt">
+            <TextView
+                android:id="@+id/dateDeliveredTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/date_delivered"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_8ssp"
+                android:textStyle="normal"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_marginTop="@dimen/_3sdp"
+
+                android:textAllCaps="false"
+                android:fontFamily="@font/expressway_rg"/>
+            <TextView
+                android:id="@+id/deliveredDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="24/03/2021"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_8ssp"
+                android:textStyle="normal"
+                android:maxLines="1"
+                android:textAlignment="viewStart"
+                android:textDirection="locale"
+                android:ellipsize="end"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                app:layout_constraintStart_toEndOf="@+id/shippingTxt"
+                app:layout_constraintTop_toBottomOf="@+id/shippingTxt"
+                android:textAllCaps="false"
+                android:fontFamily="@font/expressway_rg"/>
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/totalPrice"

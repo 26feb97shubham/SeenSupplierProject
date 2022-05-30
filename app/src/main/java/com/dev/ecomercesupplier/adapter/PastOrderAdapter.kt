@@ -1,5 +1,6 @@
 package com.dev.ecomercesupplier.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -30,7 +31,7 @@ class PastOrderAdapter(private val context: Context, private val data:ArrayList<
         return MyViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, @SuppressLint("RecyclerView") position: Int) {
 
         holder.itemView.orderNum.text = context.getString(R.string.order_hess)+data[position].order_id
 //         holder.itemView.deliveredDate.text = context.getString(R.string.delivery_date)+"  "+data[position].delivery_date
@@ -43,10 +44,12 @@ class PastOrderAdapter(private val context: Context, private val data:ArrayList<
         if(data[position].accept_reject==1){
             holder.itemView.orderStatus.text=context.getString(R.string.delivered)
             holder.itemView.orderStatus.setTextColor(ContextCompat.getColor(context, R.color.gold))
+            holder.itemView.llDeliverdDate.visibility = View.VISIBLE
         }
         else if(data[position].accept_reject==2){
             holder.itemView.orderStatus.text=context.getString(R.string.rejected)
             holder.itemView.orderStatus.setTextColor(ContextCompat.getColor(context, R.color.dark_red))
+            holder.itemView.llDeliverdDate.visibility = View.GONE
         }
 
         holder.orderDataList.clear()

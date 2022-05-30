@@ -45,6 +45,10 @@ class ViewAttrAdapter(private val context: Context, private val attributeArray:J
         val obj= attributeArray.getJSONObject(position)
         holder.itemView.edtItemPrice.text="AED "+obj.getString("price")
         holder.itemView.edtItemQty.text=obj.getString("quantity")
+        holder.itemView.edtItemLength.text=obj.getString("length") + " cm"
+        holder.itemView.edtItemWidth.text=obj.getString("width")+ " cm"
+        holder.itemView.edtItemHeight.text=obj.getString("height")+ " cm"
+        holder.itemView.edtItemWeight.text=obj.getString("weight")+ " gm"
 
         val data=obj.getJSONArray("data")
         for(i in 0 until data.length()){

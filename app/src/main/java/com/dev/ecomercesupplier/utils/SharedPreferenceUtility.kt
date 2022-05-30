@@ -231,6 +231,7 @@ class SharedPreferenceUtility {
         const val DeviceId = "device_id"
         const val UserId = "userId"
         const val SelectedLang = "selectedLang"
+        const val MyCurrentOrderData = "myCurrentOrderData"
         const val IsLogin = "isLogin"
         const val IsCreateAccount = "isCreateAccount"
         const val IsWelcomeShow = "isWelcomeShow"

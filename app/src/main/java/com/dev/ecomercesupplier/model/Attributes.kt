@@ -10,5 +10,9 @@ class Attributes {
     var price:String=""
     var quantity:String=""
     var sold_out:String=""
+    var length:String=""
+    var width:String=""
+    var height:String=""
+    var weight:String=""
     lateinit var value:JSONArray
 }

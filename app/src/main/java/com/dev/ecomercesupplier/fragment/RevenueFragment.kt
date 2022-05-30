@@ -40,6 +40,7 @@ import android.widget.DatePicker
 
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
+import android.widget.Toast
 import com.dev.ecomercesupplier.custom.Utility
 import com.dev.ecomercesupplier.model.CatListModel
 import com.dev.ecomercesupplier.rest.ApiUtils
@@ -79,7 +80,7 @@ class RevenueFragment : Fragment() {
     var year: Int = calendar.get(Calendar.YEAR)
     var month: Int = calendar.get(Calendar.MONTH)
     var dayOfMonth: Int = calendar.get(Calendar.DAY_OF_MONTH)
-    var dfDate: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+    var dfDate: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -152,6 +153,7 @@ class RevenueFragment : Fragment() {
         mView.llFrom.setOnClickListener {
             by_default_selected = false
             mView.textViewNoRevenue.visibility = View.GONE
+            Locale.setDefault(Locale.ENGLISH)
             DatePickerDialog(requireContext(),
                 { datePicker, year, month, day ->
                     var d = ""
@@ -169,6 +171,7 @@ class RevenueFragment : Fragment() {
         mView.llTo.setOnClickListener {
             by_default_selected = false
             mView.textViewNoRevenue.visibility = View.GONE
+            Locale.setDefault(Locale.ENGLISH)
             DatePickerDialog(requireContext(),
                 { datePicker, year, month, day ->
                     var d = ""
@@ -179,13 +182,19 @@ class RevenueFragment : Fragment() {
                     }
                     mView.toTime.setText(""+year + "-" + (month + 1) + "-" + d)
                     toDate = mView.toTime.text.toString()
-                    if (checkDates(fromDate, toDate)){
-                        mView.cl_filtered_result.visibility = View.VISIBLE
-                        getRevenues(by_default_selected)
+
+                    if (fromDate.isEmpty()){
+                        Toast.makeText(requireContext(), requireContext().getString(R.string.please_select_from_date), Toast.LENGTH_LONG).show()
                     }else{
-                        mView.cl_filtered_result.visibility = View.GONE
+                        if (checkDates(fromDate, toDate)){
+                            mView.cl_filtered_result.visibility = View.VISIBLE
+                            getRevenues(by_default_selected)
+                        }else{
+                            mView.cl_filtered_result.visibility = View.GONE
 //                        LogUtils.shortToast(requireContext(),"To date is before than from date")
+                        }
                     }
+
                 }, year, month, dayOfMonth
             ).show()
         }

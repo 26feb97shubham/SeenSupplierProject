@@ -102,6 +102,10 @@ class AddItemFragment : Fragment() {
     var discount :String=""
     var from_date :String=""
     var to_date :String=""
+    var length :String=""
+    var width :String=""
+    var height :String=""
+    var weight :String=""
     var attributeObj=JSONObject()
     var responseBody:String=""
     var pos:Int=-1
@@ -268,34 +272,54 @@ class AddItemFragment : Fragment() {
                             LogUtils.shortToast(requireContext(), getString(R.string.please_select)+ " "  + attrList[2].name)
                         }
                     } else {
-
-                        /* val dataArray = JSONArray(attributeObj.getString("data"))
-                     for (i in 0 until dataArray.length()) {
-
-                         val obj = dataArray.getJSONObject(i)
-                         val name = obj.getString("name")
-                         if (TextUtils.isEmpty(name)) {
-                             LogUtils.shortToast(requireContext(), "Please select " + name)
-                             break
-                         }
-                     }*/
-
-                        /*if (attributeObj.length() == 0) {
-                    LogUtils.shortToast(requireContext(), "Please select " + attrList[0].name)
-                } else if (attributeObj.length() != 0) {
-                    for (k in 0 until attrList.size) {
-                        if (TextUtils.isEmpty(attributeObj.getString(attrList[k].id.toString()))) {
-                            LogUtils.shortToast(requireContext(), "Please select " + attrList[k].name)
-                            break
-                        }
-
-                    }*/
                         when {
                             TextUtils.isEmpty(mView!!.edtItemPrice.text.toString()) -> {
                                 LogUtils.shortToast(requireContext(), getString(R.string.please_select_price))
                             }
+                            !(TextUtils.isDigitsOnly(mView!!.edtItemPrice.text.toString())) -> {
+                                LogUtils.shortToast(requireContext(), getString(R.string.price_validation_message))
+                            }
                             TextUtils.isEmpty(mView!!.edtItemQty.text.toString()) -> {
                                 LogUtils.shortToast(requireContext(), getString(R.string.please_select_quantity))
+                            }
+                            !(TextUtils.isDigitsOnly(mView!!.edtItemQty.text.toString())) -> {
+                                LogUtils.shortToast(requireContext(), getString(R.string.quantity_validation_message))
+                            }
+                            TextUtils.isEmpty(mView!!.edtItemLength.text.toString()) -> {
+                                LogUtils.shortToast(requireContext(), getString(R.string.length_validation_message))
+                            }
+                            !(TextUtils.isDigitsOnly(mView!!.edtItemLength.text.toString())) -> {
+                                LogUtils.shortToast(requireContext(), getString(R.string.length_validation_message))
+                            }
+                            mView!!.edtItemLength.text.toString().equals("0")->{
+                                LogUtils.shortToast(requireContext(), getString(R.string.length_validation_message))
+                            }
+                            TextUtils.isEmpty(mView!!.edtItemWidth.text.toString()) -> {
+                                LogUtils.shortToast(requireContext(), getString(R.string.width_validation_message))
+                            }
+                            !(TextUtils.isDigitsOnly(mView!!.edtItemWidth.text.toString())) -> {
+                                LogUtils.shortToast(requireContext(), getString(R.string.width_validation_message))
+                            }
+                            mView!!.edtItemWidth.text.toString().equals("0")->{
+                                LogUtils.shortToast(requireContext(), getString(R.string.width_validation_message))
+                            }
+                            TextUtils.isEmpty(mView!!.edtItemHeight.text.toString()) -> {
+                                LogUtils.shortToast(requireContext(), getString(R.string.height_validation_message))
+                            }
+                            !(TextUtils.isDigitsOnly(mView!!.edtItemHeight.text.toString())) -> {
+                                LogUtils.shortToast(requireContext(), getString(R.string.height_validation_message))
+                            }
+                            mView!!.edtItemHeight.text.toString().equals("0")->{
+                                LogUtils.shortToast(requireContext(), getString(R.string.height_validation_message))
+                            }
+                            TextUtils.isEmpty(mView!!.edtItemWeight.text.toString()) -> {
+                                LogUtils.shortToast(requireContext(), getString(R.string.weight_validation_message))
+                            }
+                            !(TextUtils.isDigitsOnly(mView!!.edtItemWeight.text.toString())) -> {
+                                LogUtils.shortToast(requireContext(), getString(R.string.weight_validation_message))
+                            }
+                            mView!!.edtItemWeight.text.toString().equals("0")->{
+                                LogUtils.shortToast(requireContext(), getString(R.string.weight_validation_message))
                             }
                             else -> {
                                 AttributesAdapter.attrData=JSONArray()
@@ -304,12 +328,20 @@ class AddItemFragment : Fragment() {
                                 SharedPreferenceUtility.getInstance().hideSoftKeyBoard(requireContext(), mView!!.btnSave)
                                 attributeObj.put("price", mView!!.edtItemPrice.text.toString())
                                 attributeObj.put("quantity", mView!!.edtItemQty.text.toString())
+                                attributeObj.put("length", mView!!.edtItemLength.text.toString())
+                                attributeObj.put("width", mView!!.edtItemWidth.text.toString())
+                                attributeObj.put("height", mView!!.edtItemHeight.text.toString())
+                                attributeObj.put("weight", mView!!.edtItemWeight.text.toString())
                                 attributeObj.put("id", attributeArray.length())
 //                                attributeObj.put("sold_out", "0")
                                 attributeArray.put(attributeObj)
                                 LogUtils.e("attributeArray", attributeArray.toString())
                                 mView!!.edtItemPrice.setText("")
                                 mView!!.edtItemQty.setText("")
+                                mView!!.edtItemLength.setText("")
+                                mView!!.edtItemWidth.setText("")
+                                mView!!.edtItemHeight.setText("")
+                                mView!!.edtItemWeight.setText("")
                                 attributeObj= JSONObject()
                                 attributesAdapter.notifyDataSetChanged()
                             }
@@ -456,6 +488,8 @@ class AddItemFragment : Fragment() {
                 if(p2 != 0) {
                     mView!!.llViewSave.visibility=View.VISIBLE
                     mView!!.llPriceQty.visibility=View.VISIBLE
+                    mView!!.txtOtherParams.visibility=View.VISIBLE
+                    mView!!.otherParamsLinearLayout.visibility=View.VISIBLE
                     selectCatID = catSpinner[p2].id.toString()
                     for (k in 0 until catNameList.size) {
                         if (catNameList[k].id == catSpinner[p2].id) {
@@ -479,6 +513,8 @@ class AddItemFragment : Fragment() {
                 else{
                     mView!!.llViewSave.visibility=View.GONE
                     mView!!.llPriceQty.visibility=View.GONE
+                    mView!!.txtOtherParams.visibility=View.GONE
+                    mView!!.otherParamsLinearLayout.visibility=View.GONE
                     selectCatID=catSpinner[p2].id.toString()
                     attrList.clear()
                     attributesAdapter.notifyDataSetChanged()
@@ -489,6 +525,8 @@ class AddItemFragment : Fragment() {
                 attributeObj=JSONObject()
                 mView!!.llViewSave.visibility=View.GONE
                 mView!!.llPriceQty.visibility=View.GONE
+                mView!!.txtOtherParams.visibility=View.GONE
+                mView!!.otherParamsLinearLayout.visibility=View.GONE
                 selectCatID="0"
                 attrList.clear()
                 attributesAdapter.notifyDataSetChanged()
@@ -606,6 +644,18 @@ class AddItemFragment : Fragment() {
                         }
                         TextUtils.isEmpty(mView!!.edtItemQty.text.toString()) -> {
                             LogUtils.shortToast(requireContext(), getString(R.string.please_select_quantity))
+                        }
+                        TextUtils.isEmpty(mView!!.edtItemLength.text.toString()) -> {
+                            LogUtils.shortToast(requireContext(), getString(R.string.length_validation_message))
+                        }
+                        TextUtils.isEmpty(mView!!.edtItemWidth.text.toString()) -> {
+                            LogUtils.shortToast(requireContext(), getString(R.string.width_validation_message))
+                        }
+                        TextUtils.isEmpty(mView!!.edtItemHeight.text.toString()) -> {
+                            LogUtils.shortToast(requireContext(), getString(R.string.height_validation_message))
+                        }
+                        TextUtils.isEmpty(mView!!.edtItemWeight.text.toString()) -> {
+                            LogUtils.shortToast(requireContext(), getString(R.string.weight_validation_message))
                         }
                         else -> {
                             LogUtils.shortToast(requireContext(), getString(R.string.please_save_the_attributes))
@@ -780,6 +830,8 @@ class AddItemFragment : Fragment() {
                                 if(p2 != 0) {
                                     mView!!.llViewSave.visibility=View.VISIBLE
                                     mView!!.llPriceQty.visibility=View.VISIBLE
+                                    mView!!.txtOtherParams.visibility=View.VISIBLE
+                                    mView!!.otherParamsLinearLayout.visibility=View.VISIBLE
                                     selectCatID = catSpinner[p2].id.toString()
                                     for (k in 0 until catNameList.size) {
                                         if (catNameList[k].id == catSpinner[p2].id) {
@@ -802,6 +854,8 @@ class AddItemFragment : Fragment() {
                                 else{
                                     mView!!.llViewSave.visibility=View.GONE
                                     mView!!.llPriceQty.visibility=View.GONE
+                                    mView!!.txtOtherParams.visibility=View.GONE
+                                    mView!!.otherParamsLinearLayout.visibility=View.GONE
                                     selectCatID=catSpinner[p2].id.toString()
                                     attrList.clear()
                                     attributesAdapter.notifyDataSetChanged()
@@ -812,6 +866,8 @@ class AddItemFragment : Fragment() {
                                 attributeObj=JSONObject()
                                 mView!!.llViewSave.visibility=View.GONE
                                 mView!!.llPriceQty.visibility=View.GONE
+                                mView!!.txtOtherParams.visibility=View.GONE
+                                mView!!.otherParamsLinearLayout.visibility=View.GONE
                                 selectCatID="0"
                                 attrList.clear()
                                 attributesAdapter.notifyDataSetChanged()
@@ -868,6 +924,10 @@ class AddItemFragment : Fragment() {
 
     private fun addItem() {
         Log.e("size", ""+galleryPhotos.size)
+        length=mView!!.edtItemLength.text.toString().trim()
+        width=mView!!.edtItemWidth.text.toString().trim()
+        height=mView!!.edtItemHeight.text.toString().trim()
+        weight=mView!!.edtItemWeight.text.toString().trim()
         if(TextUtils.isEmpty(discount)){
             discount="0"
         }

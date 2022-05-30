@@ -224,6 +224,7 @@
                             android:gravity="center"
                             android:orientation="horizontal">
                             <TextView
+                                android:textDirection="ltr"
                                 android:id="@+id/fromTime"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -233,7 +234,7 @@
                                 android:textAllCaps="true"
                                 android:paddingStart="@dimen/_7sdp"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_10ssp" />
+                                android:textSize="@dimen/_8ssp" />
                             <ImageView
                                 android:layout_width="@dimen/_20sdp"
                                 android:layout_height="@dimen/_25sdp"
@@ -251,6 +252,7 @@
                             android:gravity="center"
                             android:orientation="horizontal">
                             <TextView
+                                android:textDirection="ltr"
                                 android:id="@+id/toTime"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -260,7 +262,7 @@
                                 android:textAllCaps="true"
                                 android:paddingStart="@dimen/_7sdp"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_10ssp" />
+                                android:textSize="@dimen/_8ssp" />
                             <ImageView
                                 android:layout_width="@dimen/_20sdp"
                                 android:layout_height="@dimen/_20sdp"

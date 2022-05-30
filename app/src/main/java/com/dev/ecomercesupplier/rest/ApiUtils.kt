@@ -5,6 +5,7 @@ class ApiUtils {
         const val DeviceType:String="2"
         const val Register:String="register"
         const val LOGIN:String = "login"
+        const val createbooking:String = "createbooking"
         const val ForgotPassword:String = "forgotPassword"
         const val VerifyAccount:String = "verifyAccount"
         const val ChangePassword:String = "changePassword"
@@ -38,6 +39,8 @@ class ApiUtils {
         const val GetFaq:String = "getFaq"
         const val UpdateCategory:String = "updateCategory"
         const val revenues:String = "revenues"
+        const val createBooking:String = "booking/rest/CreateBooking"
+        const val getTrackDetails:String = "GetTrackDetails"
         var isCatClicked = 0
     }
 }

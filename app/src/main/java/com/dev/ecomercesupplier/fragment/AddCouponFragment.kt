@@ -251,16 +251,17 @@ class AddCouponFragment : Fragment() {
 
         mView.llFrom.setOnClickListener {
             mView.llFrom.startAnimation(AlphaAnimation(1f, 0.5f))
-            val c = Calendar.getInstance()
+            val c = Calendar.getInstance(Locale.US)
             mYear = c.get(Calendar.YEAR)
             mMonth = c.get(Calendar.MONTH)
             mDay = c.get(Calendar.DAY_OF_MONTH)
+            Locale.setDefault(Locale.US)
             val datePickerDialog = DatePickerDialog(requireContext(),
                     DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                         val from=String.format("%02d", dayOfMonth) + "/" + String.format("%02d", (monthOfYear + 1)) + "/" + year
-                        val fromDate = SimpleDateFormat("dd/MM/yyyy").parse(from)
+                        val fromDate = SimpleDateFormat("dd/MM/yyyy", Locale.US).parse(from)
                         if(!TextUtils.isEmpty(mView.toTime.text.toString())) {
-                            val toDate = SimpleDateFormat("dd/MM/yyyy").parse(mView.toTime.text.toString())
+                            val toDate = SimpleDateFormat("dd/MM/yyyy", Locale.US).parse(mView.toTime.text.toString())
                             if(toDate.after(fromDate)){
                                 mView.fromTime.text = from
                             } else{
@@ -277,16 +278,17 @@ class AddCouponFragment : Fragment() {
         }
         mView.llTo.setOnClickListener {
             mView.llTo.startAnimation(AlphaAnimation(1f, 0.5f))
-            val c = Calendar.getInstance()
+            val c = Calendar.getInstance(Locale.US)
             mYear = c.get(Calendar.YEAR)
             mMonth = c.get(Calendar.MONTH)
             mDay = c.get(Calendar.DAY_OF_MONTH)
+            Locale.setDefault(Locale.US)
             val datePickerDialog = DatePickerDialog(requireContext(),
                     DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                         val to=String.format("%02d", dayOfMonth) + "/" + String.format("%02d", (monthOfYear + 1)) + "/" + year
-                        val toDate = SimpleDateFormat("dd/MM/yyyy").parse(to)
+                        val toDate = SimpleDateFormat("dd/MM/yyyy", Locale.US).parse(to)
                         if(!TextUtils.isEmpty(mView.fromTime.text.toString())) {
-                            val fromDate = SimpleDateFormat("dd/MM/yyyy").parse(mView.fromTime.text.toString())
+                            val fromDate = SimpleDateFormat("dd/MM/yyyy", Locale.US).parse(mView.fromTime.text.toString())
                             if(toDate.after(fromDate)){
                                 mView.toTime.text = to
                             } else{
@@ -317,11 +319,11 @@ class AddCouponFragment : Fragment() {
         code=mView.code.text.toString()
 
         if(!TextUtils.isEmpty(fromTime)){
-            from_date=SimpleDateFormat("yyyy-MM-dd").format(SimpleDateFormat("dd/MM/yyyy").parse(fromTime))
+            from_date=SimpleDateFormat("yyyy-MM-dd", Locale.US).format(SimpleDateFormat("dd/MM/yyyy", Locale.US).parse(fromTime))
         }
 
         if(!TextUtils.isEmpty(toTime)){
-            to_date=SimpleDateFormat("yyyy-MM-dd").format(SimpleDateFormat("dd/MM/yyyy").parse(toTime))
+            to_date=SimpleDateFormat("yyyy-MM-dd", Locale.US).format(SimpleDateFormat("dd/MM/yyyy", Locale.US).parse(toTime))
         }
 
 
@@ -510,7 +512,7 @@ class AddCouponFragment : Fragment() {
         }
         // Create a media file name
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss",
-                Locale.getDefault()).format(Date())
+            Locale.US).format(Date())
         val mediaFile: File
         mediaFile = if (type == MEDIA_TYPE_IMAGE) {
             File(mediaStorageDir.path + File.separator

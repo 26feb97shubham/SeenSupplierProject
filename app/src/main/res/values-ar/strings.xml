@@ -385,6 +385,7 @@
     <string name="please_click_on_new_items">في الآونة الأخيرة لا توجد عناصر موجودة في القائمة الخاصة بك، يرجى إضافة العناصر أولا</string>
     <string name="delete_message">هل تريد بالتأكيد حذف الصورة؟</string>
     <string name="place_item">اضافة العنصر</string>
+    <string name="place_item_one">وضع  العنصر</string>
     <string name="save_changes">حفظ التغييرات</string>
     <string name="view_item">عرض العنصر</string>
     <string name="nike">نايكي</string>
@@ -417,4 +418,26 @@
     <string name="alert">إنذار</string>
     <string name="bank_details_not_added">التفاصيل المصرفية غير مضافة</string>
     <string name="please_add_your_bank_details_first">الرجاء إضافة التفاصيل المصرفية الخاصة بك أولا</string>
+    <string name="choose_your">اختر خاصتك</string>
+    <string name="max_ten_images">يمكن تحديد عشر صور كحد أقصى في وقت واحد</string>
+    <string name="images_uploaded">تم تحميل الصور</string>
+    <string name="length">الطول (سم)</string>
+    <string name="width">العرض (سم)</string>
+    <string name="weight">الوزن (جم)</string>
+    <string name="height">الارتفاع (سم)</string>
+    <string name="other_params">معلمات أخرى</string>
+    <string name="_25_cm">25 سم</string>
+    <string name="_25_gm">25 جرام</string>
+    <string name="length_validation_message">الرجاء إدخال طول صالح</string>
+    <string name="width_validation_message">الرجاء إدخال عرض صالح</string>
+    <string name="height_validation_message">الرجاء إدخال ارتفاع صالح</string>
+    <string name="weight_validation_message">الرجاء إدخال وزن صالح</string>
+    <string name="price_validation_message">يرجى إدخال سعر مقبول</string>
+    <string name="length_1">طول</string>
+    <string name="width_1">عرض</string>
+    <string name="weight_1">وزن</string>
+    <string name="height_1">ارتفاع</string>
+    <string name="your_tracking_number_is_empty_or_invalid">معرف التتبع الخاص بك غير صالح أو فارغ</string>
+    <string name="emirates_post">بريد الإمارات</string>
+    <string name="quantity_validation_message">الرجاء إدخال كمية صالحة</string>
 </resources>

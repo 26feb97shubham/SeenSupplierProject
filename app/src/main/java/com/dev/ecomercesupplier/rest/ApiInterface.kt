@@ -1,12 +1,15 @@
 package com.dev.ecomercesupplier.rest
 
 import com.dev.ecomercesupplier.model.AttributeNameResponse
+import com.dev.ecomercesupplier.model.BookingResultResponse
+import com.dev.ecomercesupplier.model.MyJsonDataModel
+import com.dev.ecomercesupplier.model.TrackFinalResultResponse
+import com.google.gson.JsonObject
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
+import org.json.JSONObject
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ApiInterface {
     @POST(ApiUtils.LOGIN)
@@ -110,4 +113,14 @@ interface ApiInterface {
 
     @POST(ApiUtils.revenues)
     fun revenues(@Body body: RequestBody?) : Call<ResponseBody?>?
+
+
+    @POST(ApiUtils.createBooking)
+    fun createBooking(@HeaderMap headerMap: Map<String, String>, @Body body: MyJsonDataModel?) : Call<BookingResultResponse?>?
+
+    @POST(ApiUtils.createbooking)
+    fun createbooking(@Body body: RequestBody?) : Call<ResponseBody?>?
+
+    @GET(ApiUtils.getTrackDetails)
+    fun getTrackDetails(@Query("track_id") track_id : String) : Call<TrackFinalResultResponse?>?
 }

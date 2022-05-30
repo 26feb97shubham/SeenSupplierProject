@@ -94,6 +94,14 @@
             android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_10sdp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@+id/topView"/>
         <TextView
             android:id="@+id/orderStatus"
             android:layout_width="wrap_content"
@@ -108,21 +116,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_15sdp"
-            app:layout_constraintBottom_toBottomOf="@id/deliveredStatus"
+            android:layout_marginTop="@dimen/_4sdp"
+            app:layout_constraintTop_toBottomOf="@+id/rvList"
             android:textAllCaps="true"
             android:fontFamily="@font/expressway_rg"/>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginStart="@dimen/_10sdp"
-            app:layout_constraintTop_toBottomOf="@+id/topView"/>
          <View
               android:id="@+id/bottomView"
               android:layout_width="match_parent"
               android:layout_height="@dimen/_1sdp"
               android:background="@color/gray"
+             android:visibility="gone"
               app:layout_constraintTop_toBottomOf="@+id/rvList"
               android:layout_marginEnd="@dimen/_10sdp"
               android:layout_marginStart="@dimen/_10sdp"
@@ -138,6 +141,7 @@
             android:textSize="@dimen/_7ssp"
             android:textStyle="normal"
             android:maxLines="1"
+            android:visibility="gone"
             android:ellipsize="end"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginStart="@dimen/_10sdp"
@@ -152,6 +156,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start"
+            android:visibility="gone"
             android:text="Company Name"
             android:textColor="@color/black"
             android:textSize="@dimen/_7ssp"
@@ -177,6 +182,7 @@
             android:textSize="@dimen/_7ssp"
             android:textStyle="normal"
             android:maxLines="1"
+            android:visibility="gone"
             android:ellipsize="end"
             android:layout_marginTop="@dimen/_3sdp"
             android:layout_marginStart="@dimen/_10sdp"
@@ -193,6 +199,7 @@
             android:text="On the way (24/03/2021)"
             android:textColor="@color/black"
             android:textSize="@dimen/_7ssp"
+            android:visibility="gone"
             android:textStyle="normal"
             android:maxLines="1"
             android:textAlignment="viewStart"

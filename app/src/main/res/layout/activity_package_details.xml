@@ -80,18 +80,19 @@
 
     <TextView
         android:id="@+id/txt2"
-        android:layout_width="@dimen/_150sdp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
         android:fontFamily="@font/expressway_rg"
-        android:gravity="center"
+        android:gravity="start"
+        android:includeFontPadding="false"
+        android:paddingHorizontal="10dp"
         android:text="@string/payment"
         android:textAllCaps="false"
-        android:textStyle="bold"
-        android:includeFontPadding="false"
         android:textColor="@color/black"
         android:textSize="@dimen/_15ssp"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_marginStart="@dimen/_15sdp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbarView" />
 
@@ -106,165 +107,168 @@
 <!--        app:layout_constraintTop_toBottomOf="@+id/txt2"/>-->
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/txt2"
         android:layout_marginTop="@dimen/_15sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:clipToPadding="false"
-        android:paddingBottom="@dimen/_30sdp">
+        android:paddingBottom="@dimen/_30sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt2">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:layout_marginTop="@dimen/_10sdp">
+            android:layout_marginTop="@dimen/_10sdp"
+            android:paddingBottom="10dp">
 
-<!--            <TextView-->
-<!--                android:id="@+id/txtPlanName"-->
-<!--                android:layout_width="@dimen/_180sdp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:fontFamily="@font/expressway_rg"-->
-<!--                android:text="6 months package plan"-->
-<!--                android:textAllCaps="true"-->
-<!--                android:includeFontPadding="false"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="@dimen/_12ssp"-->
-<!--                android:maxLines="2"-->
-<!--                android:ellipsize="end"-->
-<!--                android:layout_marginTop="@dimen/_15sdp"-->
-<!--                android:layout_marginStart="@dimen/_15sdp"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent"/>-->
-<!--            <TextView-->
-<!--                android:id="@+id/txtPrice"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="@dimen/_25sdp"-->
-<!--                android:fontFamily="@font/expressway_rg"-->
-<!--                android:gravity="center"-->
-<!--                android:text="AED 350"-->
+            <!--            <TextView-->
+            <!--                android:id="@+id/txtPlanName"-->
+            <!--                android:layout_width="@dimen/_180sdp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:fontFamily="@font/expressway_rg"-->
+            <!--                android:text="6 months package plan"-->
+            <!--                android:textAllCaps="true"-->
+            <!--                android:includeFontPadding="false"-->
+            <!--                android:textColor="@color/black"-->
+            <!--                android:textSize="@dimen/_12ssp"-->
+            <!--                android:maxLines="2"-->
+            <!--                android:ellipsize="end"-->
+            <!--                android:layout_marginTop="@dimen/_15sdp"-->
+            <!--                android:layout_marginStart="@dimen/_15sdp"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toTopOf="parent"/>-->
+            <!--            <TextView-->
+            <!--                android:id="@+id/txtPrice"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="@dimen/_25sdp"-->
+            <!--                android:fontFamily="@font/expressway_rg"-->
+            <!--                android:gravity="center"-->
+            <!--                android:text="AED 350"-->
 
-<!--                android:textDirection="locale"-->
-<!--                android:textAllCaps="true"-->
-<!--                android:includeFontPadding="false"-->
-<!--                android:textColor="@color/gold"-->
-<!--                android:textSize="@dimen/_12ssp"-->
-<!--                android:layout_marginStart="@dimen/_10sdp"-->
-<!--                android:layout_marginEnd="@dimen/_15sdp"-->
-<!--                android:background="@drawable/light_white_filled_rect_box"-->
-<!--                android:layout_marginTop="@dimen/_10sdp"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toEndOf="@+id/txtPlanName"/>-->
-<!--            <TextView-->
-<!--                android:id="@+id/packDesc"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="@dimen/_10sdp"-->
-<!--                android:text="@string/lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_sed_do_eiusmod_tempor_incididunt_ut_labore_et_dolore_magna_aliqua_ut_enim_ad_minim_veniam_quis_nostrud_exercitation_ullamco_laboris_nisi_ut_aliquip_ex_ea_commodo_consequat_duis_aute_irure_dolor_in_reprehenderit_in_voluptate_velit_esse_cillum_dolore_eu_fugiat_nulla_pariatur"-->
-<!--                android:textColor="@color/txt_gray"-->
-<!--                android:textSize="@dimen/_9ssp"-->
-<!--                android:textAlignment="viewStart"-->
-<!--                android:textDirection="locale"-->
-<!--                android:textStyle="normal"-->
-<!--                android:ellipsize="end"-->
-<!--                android:textAllCaps="false"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/txtPlanName"-->
-<!--                android:layout_marginStart="@dimen/_15sdp"-->
-<!--                android:layout_marginEnd="@dimen/_15sdp"-->
-<!--                android:fontFamily="@font/expressway_rg"/>-->
+            <!--                android:textDirection="locale"-->
+            <!--                android:textAllCaps="true"-->
+            <!--                android:includeFontPadding="false"-->
+            <!--                android:textColor="@color/gold"-->
+            <!--                android:textSize="@dimen/_12ssp"-->
+            <!--                android:layout_marginStart="@dimen/_10sdp"-->
+            <!--                android:layout_marginEnd="@dimen/_15sdp"-->
+            <!--                android:background="@drawable/light_white_filled_rect_box"-->
+            <!--                android:layout_marginTop="@dimen/_10sdp"-->
+            <!--                app:layout_constraintTop_toTopOf="parent"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toEndOf="@+id/txtPlanName"/>-->
+            <!--            <TextView-->
+            <!--                android:id="@+id/packDesc"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="@dimen/_10sdp"-->
+            <!--                android:text="@string/lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_sed_do_eiusmod_tempor_incididunt_ut_labore_et_dolore_magna_aliqua_ut_enim_ad_minim_veniam_quis_nostrud_exercitation_ullamco_laboris_nisi_ut_aliquip_ex_ea_commodo_consequat_duis_aute_irure_dolor_in_reprehenderit_in_voluptate_velit_esse_cillum_dolore_eu_fugiat_nulla_pariatur"-->
+            <!--                android:textColor="@color/txt_gray"-->
+            <!--                android:textSize="@dimen/_9ssp"-->
+            <!--                android:textAlignment="viewStart"-->
+            <!--                android:textDirection="locale"-->
+            <!--                android:textStyle="normal"-->
+            <!--                android:ellipsize="end"-->
+            <!--                android:textAllCaps="false"-->
+            <!--                app:layout_constraintTop_toBottomOf="@+id/txtPlanName"-->
+            <!--                android:layout_marginStart="@dimen/_15sdp"-->
+            <!--                android:layout_marginEnd="@dimen/_15sdp"-->
+            <!--                android:fontFamily="@font/expressway_rg"/>-->
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/white"
                 android:layout_marginStart="@dimen/_15sdp"
-                android:layout_marginEnd="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_7sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:layout_marginBottom="@dimen/_7sdp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/_8sdp"
                 app:cardElevation="@dimen/_10sdp"
-                app:strokeWidth="1dp"
-                app:strokeColor="#9F9F9F"
                 app:layout_constraintTop_toTopOf="parent"
-                app:cardCornerRadius="@dimen/_8sdp">
+                app:strokeColor="#9F9F9F"
+                app:strokeWidth="1dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/llView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/_10sdp">
+
                     <TextView
                         android:id="@+id/txtDuration"
                         android:layout_width="@dimen/_160sdp"
                         android:layout_height="@dimen/_25sdp"
-                        android:fontFamily="@font/expressway_rg"
-                        android:textStyle="bold"
-                        android:gravity="center_vertical"
-                        android:text="6 months package"
-                        app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginStart="@dimen/_15sdp"
-                        android:textAllCaps="true"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:fontFamily="@font/expressway_rg"
+                        android:gravity="center_vertical"
                         android:includeFontPadding="false"
+                        android:text="6 months package"
+                        android:textAllCaps="true"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12ssp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:layout_marginTop="@dimen/_5sdp"/>
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <TextView
                         android:id="@+id/txtPrice"
                         android:layout_width="@dimen/_50sdp"
                         android:layout_height="@dimen/_30sdp"
-                        android:fontFamily="@font/expressway_rg"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginTop="@dimen/_5sdp"
                         android:layout_marginEnd="@dimen/_15sdp"
+                        android:fontFamily="@font/expressway_rg"
                         android:gravity="center_vertical"
+                        android:includeFontPadding="false"
                         android:text="AED 350"
                         android:textAllCaps="true"
-                        android:includeFontPadding="false"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12ssp"
-                        android:layout_marginTop="@dimen/_5sdp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/packDesc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:layout_marginBottom="@dimen/_15sdp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/expressway_rg"
                         android:gravity="start"
-                        android:textDirection="locale"
+                        android:maxLines="3"
                         android:text="@string/lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry_lorem_ipsum_has_been_the_industry_s_standard"
+                        android:textAllCaps="false"
                         android:textColor="#9F9F9F"
+                        android:textDirection="locale"
                         android:textSize="@dimen/_9ssp"
                         android:textStyle="normal"
-                        android:maxLines="3"
-                        android:ellipsize="end"
-                        android:textAllCaps="false"
-                        app:layout_constraintTop_toBottomOf="@id/txtPrice"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_marginBottom="@dimen/_15sdp"
-                        android:layout_marginStart="@dimen/_15sdp"
-                        android:layout_marginEnd="@dimen/_15sdp"
-                        android:fontFamily="@font/expressway_rg"/>
+                        app:layout_constraintTop_toBottomOf="@id/txtPrice" />
 
                     <TextView
                         android:id="@+id/txtView"
                         android:layout_width="@dimen/_200sdp"
                         android:layout_height="@dimen/_25sdp"
-                        android:fontFamily="@font/expressway_rg"
-                        android:background="@drawable/package_details_background"
-                        android:gravity="center"
-                        android:text="@string/view_package"
-                        android:textAllCaps="true"
-                        android:includeFontPadding="false"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10ssp"
+                        android:layout_gravity="center_horizontal"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:layout_marginBottom="@dimen/_15sdp"
-                        android:layout_gravity="center_horizontal"
-                        app:layout_constraintTop_toBottomOf="@id/packDesc"
+                        android:background="@drawable/package_details_background"
+                        android:fontFamily="@font/expressway_rg"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:text="@string/view_package"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_10ssp"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"/>
+                        app:layout_constraintTop_toBottomOf="@id/packDesc" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.card.MaterialCardView>
@@ -273,160 +277,168 @@
                 android:id="@+id/view2"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_1sdp"
-                android:background="#9F9F9F"
-                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
-                app:layout_constraintTop_toBottomOf="@+id/cardView"/>
+                android:background="#9F9F9F"
+                app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
             <TextView
                 android:id="@+id/txtCardNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:fontFamily="@font/expressway_rg"
                 android:text="@string/card_number"
                 android:textColor="@color/txt_gray"
                 android:textSize="@dimen/_10ssp"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:layout_marginStart="@dimen/_15sdp"
-                android:layout_marginEnd="@dimen/_15sdp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view2" />
+
             <EditText
-                android:textDirection="locale"
-                android:textAlignment="viewStart"
                 android:id="@+id/edtCardNumber"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
-                app:layout_constraintTop_toBottomOf="@+id/txtCardNumber"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
-                android:background="@drawable/gray_rect_box_1"
-                android:textColorHint="@color/gray"
-                android:padding="@dimen/_10sdp"
-                android:includeFontPadding="false"
-                android:textColor="@color/black"
-                android:fontFamily="@font/expressway_rg"
                 android:layout_marginBottom="@dimen/_40sdp"
-                android:textSize="@dimen/_13ssp"
-                android:textAllCaps="false"
+                android:background="@drawable/gray_rect_box_1"
+                android:fontFamily="@font/expressway_rg"
+                android:hint="@string/enter_card_number"
+                android:imeOptions="actionNext"
+                android:includeFontPadding="false"
                 android:inputType="number"
                 android:maxLength="16"
-                android:imeOptions="actionNext"
-                android:hint="@string/enter_card_number"/>
+                android:padding="@dimen/_10sdp"
+                android:textAlignment="viewStart"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray"
+                android:textDirection="locale"
+                android:textSize="@dimen/_13ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtCardNumber" />
 
             <TextView
                 android:id="@+id/txtExpiry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:fontFamily="@font/expressway_rg"
                 android:text="@string/expiry"
                 android:textColor="@color/txt_gray"
                 android:textSize="@dimen/_10ssp"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:layout_marginStart="@dimen/_15sdp"
-                android:layout_marginEnd="@dimen/_15sdp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edtCardNumber" />
+
             <EditText
-                    android:textDirection="locale"
-                    android:textAlignment="viewStart"
                 android:id="@+id/edtExpiry"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_40sdp"
-                app:layout_constraintTop_toBottomOf="@+id/txtExpiry"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_40sdp"
+                android:background="@drawable/gray_rect_box_1"
+                android:digits="01234567890/"
+                android:fontFamily="@font/expressway_rg"
+                android:hint="MM/YYYY"
+                android:imeOptions="actionNext"
+                android:includeFontPadding="false"
+                android:inputType="number"
+                android:maxLength="7"
+                android:padding="@dimen/_10sdp"
+                android:textAlignment="viewStart"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray"
+                android:textDirection="locale"
+                android:textSize="@dimen/_13ssp"
                 app:layout_constraintEnd_toStartOf="@+id/edtCVV"
                 app:layout_constraintHorizontal_weight="1"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginStart="@dimen/_15sdp"
-                android:background="@drawable/gray_rect_box_1"
-                android:textColorHint="@color/gray"
-                android:padding="@dimen/_10sdp"
-                android:includeFontPadding="false"
-                android:textColor="@color/black"
-                android:fontFamily="@font/expressway_rg"
-                android:layout_marginBottom="@dimen/_40sdp"
-                android:textSize="@dimen/_13ssp"
-                android:inputType="number"
-                android:textAllCaps="false"
-                android:maxLength="7"
-                android:digits="01234567890/"
-                android:imeOptions="actionNext"
-                android:hint="MM/YYYY"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtExpiry" />
+
             <TextView
                 android:id="@+id/txtCVV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:fontFamily="@font/expressway_rg"
                 android:text="@string/cvv"
                 android:textColor="@color/txt_gray"
                 android:textSize="@dimen/_10ssp"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_15sdp"
                 app:layout_constraintStart_toEndOf="@+id/edtExpiry"
                 app:layout_constraintTop_toBottomOf="@+id/edtCardNumber" />
+
             <EditText
-                    android:textDirection="locale"
-                    android:textAlignment="viewStart"
                 android:id="@+id/edtCVV"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_40sdp"
-                app:layout_constraintTop_toBottomOf="@+id/txtExpiry"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
-                android:background="@drawable/gray_rect_box_1"
-                android:textColorHint="@color/gray"
-                android:padding="@dimen/_10sdp"
-                android:includeFontPadding="false"
-                android:textColor="@color/black"
-                android:layout_marginStart="@dimen/_20sdp"
-                app:layout_constraintHorizontal_weight="1"
-                android:fontFamily="@font/expressway_rg"
                 android:layout_marginBottom="@dimen/_40sdp"
-                android:textSize="@dimen/_13ssp"
-                android:maxLength="4"
-                android:inputType="numberPassword"
-                android:textAllCaps="false"
+                android:background="@drawable/gray_rect_box_1"
+                android:fontFamily="@font/expressway_rg"
+                android:hint="@string/secure_code"
                 android:imeOptions="actionNext"
+                android:includeFontPadding="false"
+                android:inputType="numberPassword"
+                android:maxLength="4"
+                android:padding="@dimen/_10sdp"
+                android:textAlignment="viewStart"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray"
+                android:textDirection="locale"
+                android:textSize="@dimen/_13ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintStart_toEndOf="@+id/edtExpiry"
-                android:hint="@string/secure_code"/>
+                app:layout_constraintTop_toBottomOf="@+id/txtExpiry" />
+
             <View
                 android:id="@+id/view3"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_1sdp"
-                android:background="@color/gray"
-                android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
-                app:layout_constraintTop_toBottomOf="@+id/edtCVV"/>
+                android:background="@color/gray"
+                app:layout_constraintTop_toBottomOf="@+id/edtCVV" />
+
             <TextView
                 android:id="@+id/txtSave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/expressway_rg"
+                android:includeFontPadding="false"
                 android:text="@string/save_this_card"
                 android:textAllCaps="true"
-                android:includeFontPadding="false"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginStart="@dimen/_15sdp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view3"/>
+                app:layout_constraintTop_toBottomOf="@+id/view3" />
+
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switchSave"
                 android:layout_width="@dimen/_45sdp"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:button="@drawable/selected_switch_on_off"
                 android:thumb="@null"
-                android:layout_marginEnd="@dimen/_15sdp"
-                app:layout_constraintTop_toBottomOf="@+id/view3"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view3" />
 
             <TextView
                 android:id="@+id/saveDesc"
@@ -441,6 +453,7 @@
                 android:textDirection="locale"
                 android:textSize="@dimen/_9ssp"
                 android:textStyle="normal"
+                android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@+id/switchSave"
                 tools:layout_editor_absoluteX="-5dp" />
 
@@ -449,19 +462,19 @@
                 android:layout_width="@dimen/_200sdp"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginStart="@dimen/_15sdp"
-                android:layout_marginEnd="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_20sdp"
-                app:layout_constraintTop_toBottomOf="@+id/saveDesc"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:background="@drawable/gold_filled_wide_radius_rect"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:fontFamily="@font/expressway_rg"
                 android:gravity="center"
                 android:includeFontPadding="false"
                 android:text="@string/continue_en"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_15ssp" />
+                android:textSize="@dimen/_15ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/saveDesc" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

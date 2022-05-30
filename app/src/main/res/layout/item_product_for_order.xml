@@ -314,7 +314,7 @@
             android:layout_height="wrap_content"
             android:gravity="start|center_vertical"
             android:textAlignment="viewStart"
-            android:text="@string/shipping_company"
+            android:text="@string/emirates_post"
             android:textColor="@color/black"
             android:textSize="@dimen/_9ssp"
             android:textStyle="normal"

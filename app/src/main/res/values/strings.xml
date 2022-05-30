@@ -396,6 +396,7 @@
     <string name="please_click_on_new_items">Recently there are no items present in your listing, kindly add the items first</string>
     <string name="delete_message">Are you sure you want to delete image?</string>
     <string name="place_item">Place Item</string>
+    <string name="place_item_one">Place Item</string>
     <string name="save_changes">Save Changes</string>
     <string name="view_item">View Item</string>
     <string name="nike">Nike</string>
@@ -426,4 +427,26 @@
     <string name="alert">Alert</string>
     <string name="choose_your">Choose your</string>
     <string name="max_ten_images">Maximum ten images can be selected at once</string>
+    <string name="images_uploaded">Images uploaded</string>
+    <string name="length">Length (in cm)</string>
+    <string name="width">Width (in cm)</string>
+    <string name="weight">Weight (in gm)</string>
+    <string name="height">Height (in cm)</string>
+    <string name="other_params">Other Parameters</string>
+    <string name="_25_cm">25 cm</string>
+    <string name="_25_gm">25 gm</string>
+    <string name="length_validation_message">Please enter a valid length</string>
+    <string name="width_validation_message">Please enter a valid width</string>
+    <string name="height_validation_message">Please enter a valid height</string>
+    <string name="weight_validation_message">Please enter a valid weight</string>
+    <string name="price_validation_message">Please enter a valid price</string>
+    <string name="quantity_validation_message">Please enter a valid quantity</string>
+
+    <string name="length_1">Length</string>
+    <string name="width_1">Width</string>
+    <string name="weight_1">Weight</string>
+    <string name="height_1">Height</string>
+
+    <string name="your_tracking_number_is_empty_or_invalid">Your tracking id is invalid or empty</string>
+    <string name="emirates_post">Emirates Post</string>
 </resources>

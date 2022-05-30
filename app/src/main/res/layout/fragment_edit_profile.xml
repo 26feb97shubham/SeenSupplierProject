@@ -333,6 +333,7 @@
                         app:layout_constraintEnd_toStartOf="@+id/dropDownImg"
                         android:layout_marginEnd="10dp"
                         android:textAlignment="viewEnd"
+                        android:textDirection="locale"
                         android:gravity="end|center_vertical"
                         app:layout_constraintStart_toStartOf="parent" />
                     <ImageView
